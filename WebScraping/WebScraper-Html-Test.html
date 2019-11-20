@@ -1,0 +1,33 @@
+<html>
+  <head>
+    <!-- include jquery -->
+    <script src="https://127.0.0.1/jquery/jquery.min.js"></script>
+
+    <!-- include nowjs -->
+    <script src="http://127.0.0.1:1337/nowjs/now.js"></script>
+
+    <script>
+      /**
+       * create a function in the now namespace
+       * that the server can call
+       */
+      now.receiveMessage = function(message) {
+        $('#messages').append('<p>' + message + '</p>');
+      }
+
+      /**
+       * add a click event to call a function in
+       * the server's now namespace
+       */
+      $('#send').click( function() {
+        now.sendMessage($('#message').val());
+      });
+    </script>
+  </head>
+
+  <body>
+    <div id="messages"></div>
+    <input type="text" id="message"/>
+    <input type="button" id="send" value="Send"/>
+  </body>
+</html>
