@@ -2,11 +2,13 @@
   "name": "mrcrypto1",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:5000",
   "dependencies": {
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "^2.1.8"
+    "react-scripts": "^2.1.8",
+    "recharts": "^1.8.5"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -28,5 +30,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "devDependencies": {}
 }
