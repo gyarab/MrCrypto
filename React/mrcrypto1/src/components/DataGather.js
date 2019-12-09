@@ -14,7 +14,7 @@ export default class ChartGather extends PureComponent {
   }
 
   getAll = async () => {
-    const response = await fetch("/getall");
+    const response = await fetch("/histBit");
     const data = await response.json();
 
     this.setState({ all: this.prepareData(data["bpi"]) });
