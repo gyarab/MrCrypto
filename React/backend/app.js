@@ -3,14 +3,18 @@ const app = express();
 const fetch = require("node-fetch");
 const fs = require("fs");
 var moment = require("moment");
-const port = 5000;
+const port = 3001;
 
 var historicalData = null;
 
 app.get("/getall", async (req, res, next) => {
   var data = await get();
-  console.log(data);
-  res.json(data);
+
+  for (var k in data.bpi) {
+    historicalData.bpi[k] = data.bpi[k];
+  }
+
+  res.json(historicalData);
 });
 
 //get as much from download (historical) to today as posible

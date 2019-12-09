@@ -1,22 +1,12 @@
 import React, { Component } from "react";
-import ChartMaker from "../components/ChartMaker";
+import ChartBoard from "../components/ChartBoard";
 
 export default class Home extends Component {
   constructor(props) {
     super(props);
-    this.state = { users: [] };
+    this.state = {};
   }
-  componentDidMount = () => {
-    fetch("/get")
-      .then(res => {
-        return res.json();
-      })
-      .then(users => {
-        this.setState({ users });
-      });
-  };
-
   render() {
-    return <ChartMaker />;
+    return <ChartBoard />;
   }
 }

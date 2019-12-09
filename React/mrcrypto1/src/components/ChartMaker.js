@@ -6,58 +6,24 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
-  Legend
+  Legend,
+  Brush
 } from "recharts";
 
 export default class ChartMaker extends PureComponent {
   constructor(props) {
     super(props);
-    this.state = { historicalData: [], recentData: [] };
+    this.state = {};
   }
 
   static jsfiddleUrl = "https://jsfiddle.net/alidingling/zjb47e83/";
-
-  componentDidMount = () => {
-    this.getHistorical();
-    this.getRecentData();
-  };
-
-  getHistorical = async () => {
-    const response = await fetch("/getall");
-    const data = await response.json();
-
-    this.prepareData(data["bpi"], true);
-  };
-
-  getRecentData = async () => {
-    const response = await fetch(
-      "https://api.coindesk.com/v1/bpi/historical/close.json?start=2019-11-27&end=2019-11-29" //will be consected to historical data
-    );
-
-    const data = await response.json();
-    console.log(data);
-    this.prepareData(data["bpi"], false);
-  };
-
-  prepareData = (data, historical) => {
-    var result = [];
-
-    for (var i in data) {
-      result.push({ date: i, price: data[i] });
-    }
-    if (historical) {
-      this.setState({ historicalData: result });
-    } else {
-      this.setState({ recentData: result });
-    }
-  };
 
   render() {
     return (
       <LineChart
         width={1000}
         height={500}
-        data={this.state.historicalData.concat(this.state.recentData)}
+        data={this.props.data}
         margin={{
           top: 5,
           right: 30,
@@ -67,10 +33,15 @@ export default class ChartMaker extends PureComponent {
       >
         <CartesianGrid strokeDasharray="3 3" />
 
-        <XAxis dataKey="date" tick={<CustomizedAxisTick />} />
-        <YAxis yAxisId="left" tickFormatter={value => "$" + `${value}`} />
+        <XAxis dataKey="date" tick={{ fontSize: 10 }} />
+        <YAxis
+          yAxisId="left"
+          tick={{ fontSize: 10 }}
+          tickFormatter={value => this.props.currency + `${value}`}
+        />
 
-        <Tooltip formatter={value => "$" + `${value}`} />
+        <Tooltip formatter={value => this.props.currency + `${value}`} />
+
         <Legend />
         <Line
           dot={false}
@@ -81,29 +52,17 @@ export default class ChartMaker extends PureComponent {
           stroke="#8884d8"
           activeDot={{ r: 4 }}
         />
+        <Brush dataKey="price" height={20} stroke="#8884d8">
+          <XAxis dataKey="date" tick={{ fontSize: 10 }} />
+          <Line
+            dot={false}
+            label={false}
+            type="monotone"
+            dataKey="price"
+            stroke="#8884d8"
+          />
+        </Brush>
       </LineChart>
-    );
-  }
-}
-
-class CustomizedAxisTick extends PureComponent {
-  render() {
-    // eslint-disable-next-line
-    const { x, y, stroke, payload } = this.props;
-
-    return (
-      <g transform={`translate(${x},${y})`}>
-        <text
-          x={0}
-          y={0}
-          dy={16}
-          textAnchor="end"
-          fill="#666"
-          transform="rotate(-35)"
-        >
-          {payload.value}
-        </text>
-      </g>
     );
   }
 }
