@@ -2,7 +2,7 @@ var express = require("express");
 var router = express.Router();
 
 const rp = require("request-promise");
-var URL = "https://twitter.com/BTCTN";
+var URL = "https://twitter.com/search?q=Bitcoin&src=typeahead_click";
 const $ = require("cheerio");
 
 router.get("/twitter", async function(req, res, next) {
@@ -15,17 +15,29 @@ router.get("/twitter", async function(req, res, next) {
       var tweet = $(this)
         .find("p.tweet-text")
         .text();
+      var profileimg = $(this)
+        .find("img")
+        .attr("src");
+      var iurl = $(this)
+        .find("img")
+        .eq(1)
+        .attr("src");
+      var aurl =
+        "https://twitter.com" +
+        $(this)
+          .find("a")
+          .attr("href");
       var lol = $(this).html();
-      console.log("user : " + name); //name of the user
-      console.log("tweet : " + tweet); //tweet content
       //  res.write("user : " + name);
       //  res.write("tweet : " + tweet);
+      console.log(profileimg);
+      console.log(iurl);
       var t = {
-        title: "title",
-        tweet: tweet,
         autor: name,
-        imgUrl: "picture",
-        url: "url"
+        tweet: tweet,
+        piurl: profileimg,
+        url: aurl,
+        iurl: iurl
       };
       tweets.push(t);
     });
