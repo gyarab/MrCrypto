@@ -9,6 +9,8 @@ router.get("/twitter", async function(req, res, next) {
   var tweets = [];
   await rp(URL).then(html => {
     ht = $("li.stream-item", html).each(function(index) {
+      var images = [];
+      var x = 0;
       var name = $(this)
         .find(".fullname")
         .text();
@@ -20,24 +22,26 @@ router.get("/twitter", async function(req, res, next) {
         .attr("src");
       var iurl = $(this)
         .find("img")
-        .eq(1)
-        .attr("src");
+        .each(function(index) {
+          var i = $(this).attr("src");
+
+          if (i.includes("/emoji/") || i.includes("/profile_images/")) {
+          } else {
+            images[x] = i;
+            x++;
+          }
+        });
       var aurl =
         "https://twitter.com" +
         $(this)
           .find("a")
           .attr("href");
-      var lol = $(this).html();
-      //  res.write("user : " + name);
-      //  res.write("tweet : " + tweet);
-      console.log(profileimg);
-      console.log(iurl);
       var t = {
         autor: name,
         tweet: tweet,
         piurl: profileimg,
         url: aurl,
-        iurl: iurl
+        iurl: images
       };
       tweets.push(t);
     });
