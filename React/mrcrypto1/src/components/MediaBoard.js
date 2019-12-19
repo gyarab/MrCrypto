@@ -1,5 +1,5 @@
 import React, { PureComponent } from "react";
-import { ListGroup } from "react-bootstrap";
+import { ListGroup, Image } from "react-bootstrap";
 
 export default class MediaBoard extends PureComponent {
   constructor(props) {
@@ -12,11 +12,28 @@ export default class MediaBoard extends PureComponent {
   render() {
     return (
       <ListGroup>
-        <ListGroup.Item>{this.state.text}</ListGroup.Item>
-        <ListGroup.Item>Dapibus ac facilisis in</ListGroup.Item>
-        <ListGroup.Item>Morbi leo risus</ListGroup.Item>
-        <ListGroup.Item>Porta ac consectetur ac</ListGroup.Item>
-        <ListGroup.Item>Vestibulum at eros</ListGroup.Item>
+        <ListGroup.Item active>{this.state.text}</ListGroup.Item>
+
+        {this.props.data.map((item, i) => {
+          return (
+            <ListGroup.Item
+              action
+              onClick={() => window.open(item.url, "_blank")}
+            >
+              <Image
+                width={50}
+                height={50}
+                src={
+                  item.imgUrl
+                    ? item.imgUrl
+                    : require("../assets/images/bitcoinlogo.png")
+                }
+                roundedCircle
+              />
+              {item.title}
+            </ListGroup.Item>
+          );
+        })}
       </ListGroup>
     );
   }

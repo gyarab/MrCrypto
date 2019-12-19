@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import Home from "../screens/Home.js";
+import { Navbar, Nav } from "react-bootstrap";
+
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 export default class NavigationRouter extends Component {
@@ -7,26 +9,25 @@ export default class NavigationRouter extends Component {
     return (
       <Router>
         <div>
-          <nav>
-            <ul>
-              <li>
-                <Link to="/">Home</Link>
-              </li>
-              <li>
-                <Link to="/about">About</Link>
-              </li>
-              <li>
-                <Link to="/users">Users</Link>
-              </li>
-            </ul>
-          </nav>
+          <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+            <Navbar.Brand href="/">MrCrypto</Navbar.Brand>
+            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+            <Navbar.Collapse id="responsive-navbar-nav">
+              <Nav className="mr-auto">
+                <Nav.Link href="/link">Link</Nav.Link>
+              </Nav>
+              <Nav>
+                <Nav.Link href="/about">About</Nav.Link>
+              </Nav>
+            </Navbar.Collapse>
+          </Navbar>
 
           <Switch>
             <Route path="/about">
               <About />
             </Route>
-            <Route path="/users">
-              <Users />
+            <Route path="/link">
+              <Page />
             </Route>
             <Route path="/">
               <Home />
@@ -42,6 +43,6 @@ function About() {
   return <h2>About</h2>;
 }
 
-function Users() {
-  return <h2>Users</h2>;
+function Page() {
+  return <h2>Link</h2>;
 }

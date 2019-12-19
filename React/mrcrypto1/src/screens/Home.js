@@ -6,8 +6,18 @@ import MediaBoard from "../components/MediaBoard";
 export default class Home extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = { news: [], twitter: [], reddit: [] };
   }
+
+  componentDidMount() {
+    this.getNews();
+  }
+
+  getNews = async () => {
+    const response = await fetch("/news");
+    const data = await response.json();
+    this.setState({ news: data });
+  };
   render() {
     return (
       <Container>
@@ -19,14 +29,15 @@ export default class Home extends Component {
 
         <Row>
           <Col>
-            <MediaBoard />
+            <MediaBoard text="News" data={this.state.news} />
           </Col>
 
           <Col>
-            <MediaBoard text="blabla" />
+            <MediaBoard text="Twitter" data={this.state.twitter} />
           </Col>
+
           <Col>
-            <MediaBoard text="chnochno" />
+            <MediaBoard text="Reddit" data={this.state.reddit} />
           </Col>
         </Row>
       </Container>
