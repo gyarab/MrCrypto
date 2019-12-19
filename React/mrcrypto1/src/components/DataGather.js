@@ -23,8 +23,13 @@ export default class ChartGather extends PureComponent {
   prepareData = data => {
     var result = [];
 
+    var c = 0;
+
     for (var i in data) {
-      result.push({ date: i, price: data[i] });
+      if (c % 7 == 0) {
+        result.push({ date: i, price: data[i] });
+      }
+      c++;
     }
     return result;
   };
