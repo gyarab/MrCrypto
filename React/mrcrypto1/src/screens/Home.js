@@ -1,5 +1,7 @@
 import React, { Component, Button } from "react";
 import ChartBoard from "../components/ChartBoard";
+import { Container, Row, Col } from "react-bootstrap";
+import MediaBoard from "../components/MediaBoard";
 
 export default class Home extends Component {
   constructor(props) {
@@ -8,12 +10,26 @@ export default class Home extends Component {
   }
   render() {
     return (
-      <div>
-        <button type="button" class="btn btn-primary">
-          Primary
-        </button>
-        <ChartBoard />
-      </div>
+      <Container>
+        <Row>
+          <Col>
+            <ChartBoard />
+          </Col>
+        </Row>
+
+        <Row>
+          <Col>
+            <MediaBoard />
+          </Col>
+
+          <Col>
+            <MediaBoard text="blabla" />
+          </Col>
+          <Col>
+            <MediaBoard text="chnochno" />
+          </Col>
+        </Row>
+      </Container>
     );
   }
 }
