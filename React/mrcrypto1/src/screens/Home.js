@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Button } from "react";
 import ChartBoard from "../components/ChartBoard";
 
 export default class Home extends Component {
@@ -7,6 +7,13 @@ export default class Home extends Component {
     this.state = {};
   }
   render() {
-    return <ChartBoard />;
+    return (
+      <div>
+        <button type="button" class="btn btn-primary">
+          Primary
+        </button>
+        <ChartBoard />
+      </div>
+    );
   }
 }

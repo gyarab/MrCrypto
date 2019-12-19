@@ -10,6 +10,7 @@ const dayBit = require("./routes/dayBit");
 
 const news = require("./routes/newsBitcoinCom");
 const twitter = require("./routes/twitterBitcoin");
+
 app.use(index);
 app.use(histBit);
 app.use(monthBit);

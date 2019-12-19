@@ -1,8 +1,7 @@
 import React from "react";
-import NavigationRouter from "./navigation/NavigationRouter"
+import "bootstrap/dist/css/bootstrap.min.css";
+import NavigationRouter from "./navigation/NavigationRouter";
 
 export default function App() {
-  return (
-    <NavigationRouter/>
-  );
+  return <NavigationRouter />;
 }
