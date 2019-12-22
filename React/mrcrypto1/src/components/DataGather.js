@@ -1,9 +1,9 @@
-import React, { PureComponent } from "react";
+import React, { Component } from "react";
 import { Button } from "react-bootstrap";
 
 import ChartMaker from "./ChartMaker";
 
-export default class ChartGather extends PureComponent {
+export default class ChartGather extends Component {
   constructor(props) {
     super(props);
     this.state = { all: [] };

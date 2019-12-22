@@ -1,4 +1,4 @@
-import React, { PureComponent } from "react";
+import React, { Component } from "react";
 import {
   LineChart,
   Line,
@@ -10,12 +10,7 @@ import {
   Brush
 } from "recharts";
 
-export default class ChartMaker extends PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-
+export default class ChartMaker extends Component {
   static jsfiddleUrl = "https://jsfiddle.net/alidingling/zjb47e83/";
 
   render() {

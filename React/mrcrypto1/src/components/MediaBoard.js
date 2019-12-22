@@ -1,7 +1,7 @@
-import React, { PureComponent } from "react";
+import React, { Component } from "react";
 import { ListGroup, Image } from "react-bootstrap";
 
-export default class MediaBoard extends PureComponent {
+export default class MediaBoard extends Component {
   constructor(props) {
     super(props);
     this.state = {

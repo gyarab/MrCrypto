@@ -1,5 +1,5 @@
-import React, { Component, Button } from "react";
-import ChartBoard from "../components/ChartBoard";
+import React, { Component } from "react";
+import ChartMaker from "../components/ChartMaker";
 import { Container, Row, Col } from "react-bootstrap";
 import MediaBoard from "../components/MediaBoard";
 
@@ -18,12 +18,13 @@ export default class Home extends Component {
     const data = await response.json();
     this.setState({ news: data });
   };
+
   render() {
     return (
       <Container>
         <Row>
           <Col>
-            <ChartBoard />
+            <ChartMaker />
           </Col>
         </Row>
 

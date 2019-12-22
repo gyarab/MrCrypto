@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Home from "../screens/Home.js";
 import { Navbar, Nav } from "react-bootstrap";
 
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 export default class NavigationRouter extends Component {
   render() {
