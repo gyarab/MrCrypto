@@ -1,20 +1,23 @@
 const initialState = {
-  loading: true,
-  error: false,
+  fetching: false,
+  fetched: false,
+  error: null,
+  currency: "$",
   historical: []
 };
 
 export default function prices(state = initialState, action) {
   switch (action.type) {
     case "FETCHING_STARTED":
-      return { ...state, loading: true };
+      return { ...state, fetching: true };
     case "FETCHING_ERROR":
-      return { ...state, loading: false, error: true };
+      return { ...state, fetching: false, error: action.payload };
     case "FETCHING_DONE":
       return {
         ...state,
-        loading: false,
-        error: false,
+        fetching: false,
+        fetched: true,
+        error: null,
         historical: action.payload
       };
     default:

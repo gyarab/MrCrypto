@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import {
   LineChart,
   Line,
@@ -10,7 +11,7 @@ import {
   Brush
 } from "recharts";
 
-export default class ChartMaker extends Component {
+class ChartMaker extends Component {
   static jsfiddleUrl = "https://jsfiddle.net/alidingling/zjb47e83/";
 
   render() {
@@ -61,3 +62,12 @@ export default class ChartMaker extends Component {
     );
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    data: state.prices.historical,
+    currency: state.prices.currency
+  };
+}
+
+export default connect(mapStateToProps)(ChartMaker);

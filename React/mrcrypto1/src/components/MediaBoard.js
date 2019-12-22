@@ -17,6 +17,7 @@ export default class MediaBoard extends Component {
         {this.props.data.map((item, i) => {
           return (
             <ListGroup.Item
+              key={i}
               action
               onClick={() => window.open(item.url, "_blank")}
             >

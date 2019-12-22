@@ -4,12 +4,19 @@ export const getHistorical = () => {
 
     fetch("/histBit")
       .then(res => {
-        res.json().then(json => {
-          dispatch({ type: "FETCHING_DONE", payload: prepareData(json) });
-        });
+        res
+          .json()
+          .then(json => {
+            dispatch({ type: "FETCHING_DONE", payload: prepareData(json) });
+          })
+          //error after recieving
+          .catch(err => {
+            dispatch({ type: "FETCHING_ERROR", payload: err });
+          });
       })
+      //not recieved
       .catch(err => {
-        dispatch({ type: "FETCHING_ERROR" });
+        dispatch({ type: "FETCHING_ERROR", payload: err });
       });
   };
 };
@@ -19,9 +26,9 @@ function prepareData(data) {
   var result = [];
 
   var c = 0;
-  for (var i in data["bpi"]) {
+  for (var i in data.bpi) {
     if (c % 7 === 0) {
-      result.push({ date: i, price: data[i] });
+      result.push({ date: i, price: data.bpi[i] });
     }
     c++;
   }
