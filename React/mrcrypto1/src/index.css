@@ -11,3 +11,36 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+/**Application**/
+.brandText {
+  font-family: roboto, sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  color: #343a40;
+}
+.articleTitle {
+  font-family: roboto, sans-serif;
+  font-style: normal;
+  font-size: 80%;
+  font-weight: 700;
+  color: #343a40;
+  margin-right: 5px;
+}
+.sourceText {
+  font-family: roboto, sans-serif;
+  font-style: normal;
+  font-size: 60%;
+  font-weight: 400;
+  color: #aaa;
+}
+
+.spaceLeft {
+  margin-left: 2%;
+}
+.centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}

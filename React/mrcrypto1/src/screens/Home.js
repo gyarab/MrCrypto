@@ -30,15 +30,30 @@ export default class Home extends Component {
 
         <Row>
           <Col>
-            <MediaBoard text="News" data={this.state.news} />
+            <MediaBoard
+              text="News"
+              iconName="globe-europe"
+              color="#495057"
+              data={this.state.news}
+            />
           </Col>
 
           <Col>
-            <MediaBoard text="Twitter" data={this.state.twitter} />
+            <MediaBoard
+              text="Twitter"
+              iconName={["fab", "twitter"]}
+              color="#1C9BEA"
+              data={this.state.twitter}
+            />
           </Col>
 
           <Col>
-            <MediaBoard text="Reddit" data={this.state.reddit} />
+            <MediaBoard
+              text="Reddit"
+              iconName={["fab", "reddit"]}
+              color="#F7541D"
+              data={this.state.reddit}
+            />
           </Col>
         </Row>
       </Container>
