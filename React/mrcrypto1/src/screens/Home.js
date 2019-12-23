@@ -31,28 +31,31 @@ export default class Home extends Component {
         <Row>
           <Col>
             <MediaBoard
-              text="News"
+              category="News"
               iconName="globe-europe"
-              color="#495057"
+              color="#00B1B5"
               data={this.state.news}
+              iconCircled={false}
             />
           </Col>
 
           <Col>
             <MediaBoard
-              text="Twitter"
+              category="Twitter"
               iconName={["fab", "twitter"]}
               color="#1C9BEA"
               data={this.state.twitter}
+              iconCircled={true}
             />
           </Col>
 
           <Col>
             <MediaBoard
-              text="Reddit"
+              category="Reddit"
               iconName={["fab", "reddit"]}
               color="#F7541D"
               data={this.state.reddit}
+              iconCircled={true}
             />
           </Col>
         </Row>

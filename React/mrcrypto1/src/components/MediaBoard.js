@@ -1,77 +1,45 @@
 import React, { Component } from "react";
-import { ListGroup, Image } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Container, Row, Col } from "react-bootstrap";
+import { ListGroup, Accordion, Button } from "react-bootstrap";
+import { connect } from "react-redux";
 
-export default class MediaBoard extends Component {
-  //clear the source url
-  extractHostname = url => {
-    var hostname;
+import MediaContent from "./MediaContent";
+import MediaToggler from "./MediaToggler";
+import MediaTop from "./MediaTop";
 
-    if (url.indexOf("//") > -1) {
-      hostname = url.split("/")[2];
-    } else {
-      hostname = url.split("/")[0];
-    }
-    hostname = hostname.split(":")[0];
-    hostname = hostname.split("?")[0];
-
-    return hostname.includes("www.") ? hostname : "www" + hostname;
-  };
-
+class MediaBoard extends Component {
   render() {
     return (
       <ListGroup>
-        <ListGroup.Item>
-          <div className="centered">
-            <FontAwesomeIcon
-              icon={this.props.iconName}
-              color={this.props.color}
-              size="2x"
+        <MediaTop
+          iconName={this.props.iconName}
+          color={this.props.color}
+          category={this.props.category}
+        />
+        <Accordion defaultActiveKey="0">
+          <Accordion.Collapse eventKey="0">
+            <MediaContent
+              data={this.props.data}
+              iconCircled={this.props.iconCircled}
             />
-            <font className="brandText spaceLeft">{this.props.text}</font>
-          </div>
-        </ListGroup.Item>
+          </Accordion.Collapse>
 
-        {this.props.data.map((item, i) => {
-          return (
-            <ListGroup.Item
-              key={i}
-              action
-              style={{ padding: "1rem 0" }} /**override bootstrap**/
-              onClick={() => window.open(item.url, "_blank")}
-            >
-              <Container>
-                <Row>
-                  <Col sm={3} md={3} lg={3} className="centered">
-                    <Image
-                      width={50}
-                      height={50}
-                      src={
-                        item.imgUrl
-                          ? item.imgUrl
-                          : require("../assets/images/bitcoinlogo.png")
-                      }
-                      roundedCircle
-                    />
-                  </Col>
-
-                  <Col sm={9} md={9} lg={9}>
-                    <Row>
-                      <font className="articleTitle">{item.title}</font>
-                    </Row>
-                    <Row>
-                      <font className="sourceText">
-                        {this.extractHostname(item.url)}
-                      </font>
-                    </Row>
-                  </Col>
-                </Row>
-              </Container>
-            </ListGroup.Item>
-          );
-        })}
+          <Accordion.Toggle
+            onClick={() => console.log("kliknuto")}
+            variant="link"
+            eventKey="0"
+          >
+            <MediaToggler />
+          </Accordion.Toggle>
+        </Accordion>
       </ListGroup>
     );
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    openedNews: state.media.openedNews
+  };
+}
+
+export default connect(mapStateToProps)(MediaBoard);

@@ -13,28 +13,42 @@ code {
 }
 
 /**Application**/
-.brandText {
+span {
   font-family: roboto, sans-serif;
   font-style: normal;
-  font-weight: 700;
+  font-weight: 400;
   color: #343a40;
 }
+
+/**MediaTop**/
+.brandText {
+  font-weight: 700;
+}
+
+/**MediaContet**/
 .articleTitle {
-  font-family: roboto, sans-serif;
-  font-style: normal;
   font-size: 80%;
   font-weight: 700;
-  color: #343a40;
-  margin-right: 5px;
+  margin-right: 7px;
 }
 .sourceText {
-  font-family: roboto, sans-serif;
-  font-style: normal;
-  font-size: 60%;
-  font-weight: 400;
+  font-size: 70%;
+  font-weight: 550;
   color: #aaa;
 }
 
+/**MediaToggler**/
+.lastItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.toggleText {
+  color: #aaa;
+  font-weight: 550;
+}
+
+/**Generally Used**/
 .spaceLeft {
   margin-left: 2%;
 }
