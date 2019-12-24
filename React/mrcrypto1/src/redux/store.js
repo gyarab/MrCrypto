@@ -4,6 +4,7 @@ import thunk from "redux-thunk";
 
 import { getHistorical } from "./actions/bitcoinFetch";
 import { getNews } from "./actions/newsFetch";
+import { getTwitter } from "./actions/twitterFetch";
 
 const store = createStore(
   rootReducer,
@@ -16,5 +17,6 @@ const store = createStore(
 //initialize
 store.dispatch(getHistorical());
 store.dispatch(getNews());
+store.dispatch(getTwitter());
 
 export default store;

@@ -31,8 +31,8 @@ export default class MediaContent extends Component {
               onClick={() => window.open(item.url, "_blank")}
             >
               <Container>
-                <Row sm={12} lg={12}>
-                  <Col sm={3} lg={3} className="centered">
+                <Row>
+                  <Col xs={4} sm={4} lg={3} className="centered">
                     <Image
                       src={
                         item.imgUrl
@@ -44,13 +44,13 @@ export default class MediaContent extends Component {
                     />
                   </Col>
 
-                  <Col sm={9} lg={9}>
+                  <Col>
                     <Row>
                       <span className="articleTitle">{item.title}</span>
                     </Row>
                     <Row>
                       <span className="sourceText">
-                        {this.extractHostname(item.url)}
+                        {item.autor || this.extractHostname(item.url)}
                       </span>
                     </Row>
                   </Col>

@@ -1,11 +1,10 @@
 import React, { Component } from "react";
 import { Accordion, Button } from "react-bootstrap";
-import { connect } from "react-redux";
 
 import MediaContent from "./MediaContent";
 import MediaTop from "./MediaTop";
 
-class MediaBoard extends Component {
+export default class MediaBoard extends Component {
   render() {
     return (
       <div>
@@ -16,7 +15,7 @@ class MediaBoard extends Component {
           category={this.props.category}
         />
 
-        {/*uncollapsable part*/}
+        {/*uncollapsable part (first 5)*/}
         <MediaContent
           data={this.props.data.slice(0, 5)}
           iconCircled={this.props.iconCircled}
@@ -34,27 +33,18 @@ class MediaBoard extends Component {
           {/*toggle button*/}
           <Accordion.Toggle
             as={Button}
-            style={{
-              marginTop: "-10px",
-              marginLeft: "10px",
-              btnFocus: {
-                outline: "none"
-              }
-            }}
+            onClick={this.props.toggle}
+            className="toggleButton"
             variant="light"
             size="sm"
             eventKey="0"
           >
-            <span className="sourceText">See more..</span>
+            <span className="toggleText">
+              {this.props.opened ? "See less" : "See more"}
+            </span>
           </Accordion.Toggle>
         </Accordion>
       </div>
     );
   }
 }
-
-function mapStateToProps(state) {
-  return {};
-}
-
-export default connect(mapStateToProps)(MediaBoard);

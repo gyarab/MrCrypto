@@ -36,12 +36,17 @@ router.get("/twitter", async function(req, res, next) {
         $(this)
           .find("a")
           .attr("href");
+
+      //tweet contains image so wee need to find breaking point of the edge
+      var index = tweet.indexOf("pic.twitter.com");
+
       var t = {
         autor: name,
-        tweet: tweet,
-        piurl: profileimg,
-        url: aurl,
-        iurl: images
+        title: tweet.slice(0, index),
+        imgUrl: profileimg,
+        url: "https://" + tweet.slice(index)
+        //url: aurl
+        //iurl: images
       };
       tweets.push(t);
     });

@@ -4,14 +4,14 @@ const initialState = {
   reddit: false
 };
 
-export default function prices(state = initialState, action) {
+export default function toggling(state = initialState, action) {
   switch (action.type) {
     case "TOGGLE_NEWS":
-      return { ...state, openedNews: !state.news };
+      return { ...state, news: !state.news };
     case "TOGGLE_TWITTER":
-      return { ...state, openedTwitter: !state.twitter };
+      return { ...state, twitter: !state.twitter };
     case "TOGGLE_REDDIT":
-      return { ...state, openedReddit: !state.teddit };
+      return { ...state, reddit: !state.reddit };
     default:
       return state;
   }

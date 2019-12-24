@@ -30,37 +30,34 @@ span {
 /**MediaContent**/
 .articleTitle {
   font-size: 80%;
-  font-weight: 700;
-  margin-right: 7px;
+  font-weight: 600;
+  margin-right: 6px;
+  display: block;
+  line-height: 1em;
+  height: 3.08em;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
-.sourceText {
+.sourceText,
+.toggleText {
   font-size: 70%;
   font-weight: 550;
   color: #aaa;
 }
 
 /**MediaToggler**/
-.lastItem {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.toggleText {
-  color: #aaa;
-  font-weight: 550;
+.toggleButton {
+  margin-top: -10px;
+  margin-left: 10px;
 }
 
 /**Generally Used**/
 .spaceLeft {
-  margin-left: 2%;
+  padding-left: 2%;
 }
 .centered {
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
-}
-/**bootstrap overrides**/
-.btn:focus {
-  outline: none;
 }

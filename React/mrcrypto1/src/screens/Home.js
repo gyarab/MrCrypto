@@ -2,7 +2,11 @@ import React, { Component } from "react";
 import ChartMaker from "../components/ChartMaker";
 import { Container, Row, Col } from "react-bootstrap";
 import MediaBoard from "../components/MediaBoard";
-
+import {
+  toggleNews,
+  toggleTwitter,
+  toggleReddit
+} from "../redux/actions/toggle";
 import { connect } from "react-redux";
 
 class Home extends Component {
@@ -16,33 +20,39 @@ class Home extends Component {
         </Row>
 
         <Row>
-          <Col sm={12} lg={4}>
+          <Col xs={12} sm={6} lg={4}>
             <MediaBoard
               category="News"
               iconName="globe-europe"
               color="#00B1B5"
               data={this.props.news}
               iconCircled={false}
+              opened={this.props.newsOpened}
+              toggle={this.props.toggleNews}
             />
           </Col>
 
-          <Col sm={12} lg={4}>
+          <Col xs={12} sm={6} lg={4}>
             <MediaBoard
               category="Twitter"
               iconName={["fab", "twitter"]}
               color="#1C9BEA"
-              data={[]}
+              data={this.props.twitter}
               iconCircled={true}
+              opened={this.props.twitterOpened}
+              toggle={this.props.toggleTwitter}
             />
           </Col>
 
-          <Col sm={12} lg={4}>
+          <Col xs={12} sm={6} lg={4}>
             <MediaBoard
               category="Reddit"
               iconName={["fab", "reddit"]}
               color="#F7541D"
               data={[]}
               iconCircled={true}
+              opened={this.props.redditOpened}
+              toggle={this.props.toggleReddit}
             />
           </Col>
         </Row>
@@ -51,7 +61,23 @@ class Home extends Component {
   }
 }
 function mapStateToProps(state) {
-  const { news } = state;
-  return { news: news.data };
+  const { news, twitter, toggling } = state;
+  return {
+    news: news.data,
+    twitter: twitter.data,
+    newsOpened: toggling.news,
+    twitterOpened: toggling.twitter,
+    redditOpened: toggling.reddit
+  };
 }
-export default connect(mapStateToProps)(Home);
+function mapDispatchToProps(dispatch) {
+  return {
+    toggleNews: () => dispatch(toggleNews),
+    toggleTwitter: () => dispatch(toggleTwitter),
+    toggleReddit: () => dispatch(toggleReddit)
+  };
+}
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Home);
