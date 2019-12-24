@@ -1,22 +1,25 @@
 export const getHistorical = () => {
   return function(dispatch) {
-    dispatch({ type: "FETCHING_STARTED" });
+    dispatch({ type: "FETCHING_HISTORICAL_STARTED" });
 
     fetch("/histBit")
       .then(res => {
         res
           .json()
           .then(json => {
-            dispatch({ type: "FETCHING_DONE", payload: prepareData(json) });
+            dispatch({
+              type: "FETCHING_HISTORICAL_DONE",
+              payload: prepareData(json)
+            });
           })
           //error after recieving
           .catch(err => {
-            dispatch({ type: "FETCHING_ERROR", payload: err });
+            dispatch({ type: "FETCHING_HISTORICAL_ERROR", payload: err });
           });
       })
       //not recieved
       .catch(err => {
-        dispatch({ type: "FETCHING_ERROR", payload: err });
+        dispatch({ type: "FETCHING_HISTORICAL_ERROR", payload: err });
       });
   };
 };

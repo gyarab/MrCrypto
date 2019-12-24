@@ -20,12 +20,14 @@ span {
   color: #343a40;
 }
 
+/**MediaBoard**/
+
 /**MediaTop**/
 .brandText {
   font-weight: 700;
 }
 
-/**MediaContet**/
+/**MediaContent**/
 .articleTitle {
   font-size: 80%;
   font-weight: 700;
@@ -57,4 +59,8 @@ span {
   justify-content: center;
   align-items: center;
   text-align: center;
+}
+/**bootstrap overrides**/
+.btn:focus {
+  outline: none;
 }

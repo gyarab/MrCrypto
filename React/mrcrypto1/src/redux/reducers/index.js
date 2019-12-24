@@ -1,11 +1,13 @@
 import { combineReducers } from "redux";
 
 import prices from "./prices";
-import media from "./media";
+import news from "./news";
+import toggling from "./toggling";
 
 const rootReducer = combineReducers({
   prices,
-  media
+  news,
+  toggling
 });
 
 export default rootReducer;

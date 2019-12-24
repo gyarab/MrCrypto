@@ -3,22 +3,9 @@ import ChartMaker from "../components/ChartMaker";
 import { Container, Row, Col } from "react-bootstrap";
 import MediaBoard from "../components/MediaBoard";
 
-export default class Home extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { news: [], twitter: [], reddit: [] };
-  }
+import { connect } from "react-redux";
 
-  componentDidMount() {
-    this.getNews();
-  }
-
-  getNews = async () => {
-    const response = await fetch("/news");
-    const data = await response.json();
-    this.setState({ news: data });
-  };
-
+class Home extends Component {
   render() {
     return (
       <Container>
@@ -29,32 +16,32 @@ export default class Home extends Component {
         </Row>
 
         <Row>
-          <Col>
+          <Col sm={12} lg={4}>
             <MediaBoard
               category="News"
               iconName="globe-europe"
               color="#00B1B5"
-              data={this.state.news}
+              data={this.props.news}
               iconCircled={false}
             />
           </Col>
 
-          <Col>
+          <Col sm={12} lg={4}>
             <MediaBoard
               category="Twitter"
               iconName={["fab", "twitter"]}
               color="#1C9BEA"
-              data={this.state.twitter}
+              data={[]}
               iconCircled={true}
             />
           </Col>
 
-          <Col>
+          <Col sm={12} lg={4}>
             <MediaBoard
               category="Reddit"
               iconName={["fab", "reddit"]}
               color="#F7541D"
-              data={this.state.reddit}
+              data={[]}
               iconCircled={true}
             />
           </Col>
@@ -63,3 +50,8 @@ export default class Home extends Component {
     );
   }
 }
+function mapStateToProps(state) {
+  const { news } = state;
+  return { news: news.data };
+}
+export default connect(mapStateToProps)(Home);
