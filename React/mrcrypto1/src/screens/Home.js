@@ -49,8 +49,8 @@ class Home extends Component {
               category="Reddit"
               iconName={["fab", "reddit"]}
               color="#F7541D"
-              data={[]}
-              iconCircled={true}
+              data={this.props.reddit}
+              iconCircled={false}
               opened={this.props.redditOpened}
               toggle={this.props.toggleReddit}
             />
@@ -61,10 +61,11 @@ class Home extends Component {
   }
 }
 function mapStateToProps(state) {
-  const { news, twitter, toggling } = state;
+  const { news, twitter, reddit, toggling } = state;
   return {
     news: news.data,
     twitter: twitter.data,
+    reddit: reddit.data,
     newsOpened: toggling.news,
     twitterOpened: toggling.twitter,
     redditOpened: toggling.reddit

@@ -36,7 +36,7 @@ router.get("/reddit", (req, res, next) => {
 
         //Url
         var sUrl =
-          "www.reddit.com" +
+          "https://www.reddit.com" +
           $(el)
             .find(".SQnoC3ObvgnGjWt90zD9Z")
             .attr("href");
