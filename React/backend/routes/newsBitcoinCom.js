@@ -215,6 +215,7 @@ router.get("/news", async function(req, res, next) {
       .attr("href");
     var article11 = { title: v[30], imgUrl: v[31], url: v[32] };
     var article12 = { title: v[33], imgUrl: v[34], url: v[35] };
+
     articles.push(article11);
     articles.push(article12);
   });

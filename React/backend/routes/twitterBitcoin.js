@@ -45,8 +45,6 @@ router.get("/twitter", async function(req, res, next) {
         title: tweet.slice(0, index),
         imgUrl: profileimg,
         url: "https://" + tweet.slice(index)
-        //url: aurl
-        //iurl: images
       };
       tweets.push(t);
     });

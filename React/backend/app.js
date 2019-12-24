@@ -10,13 +10,19 @@ const dayBit = require("./routes/dayBit");
 
 const news = require("./routes/newsBitcoinCom");
 const twitter = require("./routes/twitterBitcoin");
+const reddit = require("./routes/redditBitcoin");
 
 app.use(index);
+
+//bitcoin prices
 app.use(histBit);
 app.use(monthBit);
 app.use(dayBit);
+
+//media
 app.use(news);
 app.use(twitter);
+app.use(reddit);
 
 app.listen(port, () =>
   console.log(`MrCrypto-Express listening on port ${port}!`)
