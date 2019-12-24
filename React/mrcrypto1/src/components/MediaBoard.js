@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import { Accordion, Button } from "react-bootstrap";
+import { Accordion, Button, Spinner } from "react-bootstrap";
 
 import MediaContent from "./MediaContent";
 import MediaTop from "./MediaTop";
+import Indicator from "./Indicator";
 
 export default class MediaBoard extends Component {
   render() {
@@ -14,6 +15,9 @@ export default class MediaBoard extends Component {
           color={this.props.color}
           category={this.props.category}
         />
+
+        {/*header*/}
+        {this.props.fetched ? null : <Indicator />}
 
         {/*uncollapsable part (first 5)*/}
         <MediaContent

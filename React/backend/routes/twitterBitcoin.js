@@ -37,7 +37,7 @@ router.get("/twitter", async function(req, res, next) {
           .find("a")
           .attr("href");
 
-      //tweet contains image so wee need to find breaking point of the edge
+      //tweet contains image (in the end) so we need to find the breaking point
       var index = tweet.indexOf("pic.twitter.com");
 
       var t = {

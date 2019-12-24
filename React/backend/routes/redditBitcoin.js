@@ -34,6 +34,11 @@ router.get("/reddit", (req, res, next) => {
         var sImgUrl = imgDiv.slice(l, r);
         sImgUrl = sImgUrl.includes("border-color") ? undefined : sImgUrl; //it could be just empty background
 
+        //Autor
+        var sAutor = $(el)
+          .find("._3ryJoIoycVkA88fy40qNJc")
+          .text();
+
         //Url
         var sUrl =
           "https://www.reddit.com" +
@@ -42,6 +47,7 @@ router.get("/reddit", (req, res, next) => {
             .attr("href");
 
         scraped.push({
+          autor: sAutor,
           title: sTitle,
           imgUrl: sImgUrl,
           url: sUrl

@@ -29,6 +29,7 @@ class Home extends Component {
               iconCircled={false}
               opened={this.props.newsOpened}
               toggle={this.props.toggleNews}
+              fetched={this.props.nFetched}
             />
           </Col>
 
@@ -41,6 +42,7 @@ class Home extends Component {
               iconCircled={true}
               opened={this.props.twitterOpened}
               toggle={this.props.toggleTwitter}
+              fetched={this.props.tFetched}
             />
           </Col>
 
@@ -53,6 +55,7 @@ class Home extends Component {
               iconCircled={false}
               opened={this.props.redditOpened}
               toggle={this.props.toggleReddit}
+              fetched={this.props.rFetched}
             />
           </Col>
         </Row>
@@ -63,9 +66,15 @@ class Home extends Component {
 function mapStateToProps(state) {
   const { news, twitter, reddit, toggling } = state;
   return {
+    //data
     news: news.data,
     twitter: twitter.data,
     reddit: reddit.data,
+    //to indicate fetching
+    nFetched: news.fetched,
+    tFetched: twitter.fetched,
+    rFetched: reddit.fetched,
+    //to change button text (show more/less)
     newsOpened: toggling.news,
     twitterOpened: toggling.twitter,
     redditOpened: toggling.reddit
