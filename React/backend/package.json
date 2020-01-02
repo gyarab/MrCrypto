@@ -4,10 +4,12 @@
   "private": true,
   "main": "app.js",
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "watch": "supervisor app.js"
   },
   "dependencies": {
     "cheerio": "^1.0.0-rc.3",
+    "coinbase-pro": "^0.9.0",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "express": "^4.16.4",

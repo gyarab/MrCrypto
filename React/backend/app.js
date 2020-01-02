@@ -4,10 +4,16 @@ const port = 3001;
 
 const index = require("./routes/index");
 
+//keeps data updated
+const updater = require("./src/eventLooop");
+updater.startUpdating();
+
+//import bitcoin prices
 const histBit = require("./routes/histBit");
 const monthBit = require("./routes/monthBit");
 const dayBit = require("./routes/dayBit");
 
+//import media
 const news = require("./routes/newsBitcoinCom");
 const twitter = require("./routes/twitterBitcoin");
 const reddit = require("./routes/redditBitcoin");
