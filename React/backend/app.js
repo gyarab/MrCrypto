@@ -4,9 +4,10 @@ const port = 3001;
 
 const index = require("./routes/index");
 
-//keeps data updated
-const updater = require("./src/eventLooop");
-updater.startUpdating();
+//get and update bitcoin price data
+const procurer = require("./src/priceProcurer");
+procurer.start();
+procurer.update();
 
 //import bitcoin prices
 const histBit = require("./routes/histBit");
@@ -17,7 +18,6 @@ const dayBit = require("./routes/dayBit");
 const news = require("./routes/newsBitcoinCom");
 const twitter = require("./routes/twitterBitcoin");
 const reddit = require("./routes/redditBitcoin");
-
 app.use(index);
 
 //bitcoin prices
@@ -30,6 +30,4 @@ app.use(news);
 app.use(twitter);
 app.use(reddit);
 
-app.listen(port, () =>
-  console.log(`MrCrypto-Express listening on port ${port}!`)
-);
+app.listen(port, () => console.log(`Server is running on port ${port}!`));
