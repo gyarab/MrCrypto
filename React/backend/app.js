@@ -5,10 +5,9 @@ const port = 3001;
 const index = require("./routes/index");
 
 //get and update bitcoin price data
-const procurer = require("./src/priceProcurer");
-procurer.start();
-procurer.update();
+const procurer = require("./src/procurer");
 
+procurer.start();
 //import bitcoin prices
 const histBit = require("./routes/histBit");
 const monthBit = require("./routes/monthBit");

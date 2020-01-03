@@ -4,32 +4,27 @@ const moment = require("moment");
 
 module.exports = {
   async get(start, granularity) {
-    let result = [];
-    let params = {};
+    const slotSize = 300 * granularity; //in seconds ()
+    let params = { start: null, end: null, granularity };
     let pointer = start;
+    let result = [];
+    let slot;
 
     //looping due to limit (300 candles per request)
-    while (moment() > moment(pointer).add(300, "days")) {
-      params = {
-        start: pointer.toISOString(),
-        end: moment(pointer)
-          .add(300, "days")
-          .toISOString(),
-        granularity: granularity
-      };
+    while (moment() > moment(pointer).add(slotSize, "seconds")) {
+      params.start = pointer.toISOString();
+      params.end = pointer.add(slotSize, "seconds").toISOString();
 
-      pointer.add(300, "days");
-      const hr = await publicClient.getProductHistoricRates("BTC-USD", params);
-      result = [...result, ...hr];
+      slot = await publicClient.getProductHistoricRates("BTC-USD", params);
+      result.push(...slot);
     }
+
     //under 300 candles
-    params = {
-      start: pointer.toISOString(),
-      end: moment().toISOString(),
-      granularity: granularity
-    };
-    const hr = await publicClient.getProductHistoricRates("BTC-USD", params);
-    result = [...result, ...hr];
+    params.start = pointer.toISOString();
+    params.end = moment().toISOString();
+
+    slot = await publicClient.getProductHistoricRates("BTC-USD", params);
+    result.push(...slot);
 
     return result;
   }

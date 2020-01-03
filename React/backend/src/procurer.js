@@ -5,8 +5,9 @@ var assert = require("assert");
 
 const url = "mongodb://localhost:27017";
 const dbName = "mrcrypto";
+const dbCollection = "prices";
 
-async function includeAll() {
+async function start() {
   try {
     //get
     let all = await merger.get(moment(1442966400000), 86400); //ALL, (daily)
@@ -18,35 +19,23 @@ async function includeAll() {
     let obj = [{ all }, { month }, { day }, { hour }];
 
     MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
-      assert.equal(null, err);
-      console.log("Connected to MongoDB server");
-
+      assert.equal(null, err); //connected...
       const db = client.db(dbName);
+      const collection = db.collection(dbCollection);
 
-      saveData(obj, db, () => {
+      collection.insertMany(obj, (err, result) => {
+        assert.equal(err, null); //inserted
+        console.info("SAVING DATA DONE");
         client.close();
       });
     });
 
-    console.log("PROCURING ALL DONE");
+    console.info("PROCURING DATA DONE");
   } catch (err) {
-    console.log("PROCURING ALL ERROR : " + err);
+    console.error("PROCURING DATA ERROR : " + err);
   }
 }
 
-function saveData(obj, db, callback) {
-  const collection = db.collection("prices");
-
-  collection.insertMany(obj, (err, result) => {
-    assert.equal(err, null);
-    console.log("SAVING DONE");
-    callback(result);
-  });
-}
-
 module.exports = {
-  start() {
-    includeAll();
-  },
-  update() {}
+  start
 };
