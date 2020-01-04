@@ -6,12 +6,10 @@ const index = require("./routes/index");
 
 //get and update bitcoin price data
 const procurer = require("./src/procurer");
-
 procurer.start();
+
 //import bitcoin prices
-const histBit = require("./routes/histBit");
-const monthBit = require("./routes/monthBit");
-const dayBit = require("./routes/dayBit");
+const candles = require("./routes/bitcoinCandles");
 
 //import media
 const news = require("./routes/newsBitcoinCom");
@@ -19,10 +17,8 @@ const twitter = require("./routes/twitterBitcoin");
 const reddit = require("./routes/redditBitcoin");
 app.use(index);
 
-//bitcoin prices
-app.use(histBit);
-app.use(monthBit);
-app.use(dayBit);
+//bitcoin candles
+app.use(candles);
 
 //media
 app.use(news);

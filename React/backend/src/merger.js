@@ -5,10 +5,11 @@ const moment = require("moment");
 module.exports = {
   async get(start, granularity) {
     const slotSize = 300 * granularity; //in seconds ()
-    let params = { start: null, end: null, granularity };
-    let pointer = start;
-    let result = [];
-    let slot;
+
+    let params = { start: null, end: null, granularity },
+      pointer = start,
+      result = [],
+      slot;
 
     //looping due to limit (300 candles per request)
     while (moment() > moment(pointer).add(slotSize, "seconds")) {
