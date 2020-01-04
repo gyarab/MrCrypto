@@ -1,5 +1,5 @@
 const moment = require("moment");
-const merger = require("./merger");
+const getter = require("./getter");
 const MongoClient = require("mongodb").MongoClient;
 const assert = require("assert");
 
@@ -10,10 +10,10 @@ const url = "mongodb://localhost:27017",
 async function start() {
   try {
     //get..
-    let all = await merger.get(moment(1442966400000), 86400), //ALL, daily
-      month = await merger.get(moment().subtract(30, "days"), 21600), //MONTH, every 6 hours
-      day = await merger.get(moment().subtract(1, "days"), 900), //DAY, every 15 minutes
-      hour = await merger.get(moment().subtract(1, "hours"), 60); //HOUR, every minute
+    let all = await getter.get(moment(1442966400000), 86400), //ALL, daily
+      month = await getter.get(moment().subtract(30, "days"), 21600), //MONTH, every 6 hours
+      day = await getter.get(moment().subtract(1, "days"), 900), //DAY, every 15 minutes
+      hour = await getter.get(moment().subtract(1, "hours"), 60); //HOUR, every minute
 
     //save..
     let obj = [
@@ -38,7 +38,7 @@ async function start() {
       } catch {}
 
       c.insertMany(obj, (err, result) => {
-        assert.equal(err, null); //inserted
+        assert.equal(err, null);
         console.info("_CANDLES SAVED");
         client.close();
       });

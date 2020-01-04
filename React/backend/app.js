@@ -5,16 +5,16 @@ const port = 3001;
 const index = require("./routes/index");
 
 //get and update bitcoin price data
-const procurer = require("./src/procurer");
-procurer.start();
+const c_procurer = require("./src/candles/procurer");
+c_procurer.start();
 
 //import bitcoin prices
-const candles = require("./routes/bitcoinCandles");
+const candles = require("./routes/candles");
 
 //import media
-const news = require("./routes/newsBitcoinCom");
-const twitter = require("./routes/twitterBitcoin");
-const reddit = require("./routes/redditBitcoin");
+const news = require("./routes/news");
+const twitter = require("./routes/twitter");
+const reddit = require("./routes/reddit");
 app.use(index);
 
 //bitcoin candles
