@@ -32,6 +32,7 @@ class ChartMaker extends Component {
         <XAxis dataKey="date" tick={{ fontSize: 10 }} />
         <YAxis
           yAxisId="left"
+          domain={[0, 20000]}
           tick={{ fontSize: 10 }}
           tickFormatter={value => this.props.currency + `${value}`}
         />
@@ -44,17 +45,17 @@ class ChartMaker extends Component {
           label={false}
           yAxisId="left"
           type="monotone"
-          dataKey="price"
+          dataKey="close"
           stroke="#8884d8"
           activeDot={{ r: 4 }}
         />
-        <Brush dataKey="price" height={20} stroke="#8884d8">
+        <Brush dataKey="close" height={20} stroke="#8884d8">
           <XAxis dataKey="date" tick={{ fontSize: 10 }} />
           <Line
             dot={false}
             label={false}
             type="monotone"
-            dataKey="price"
+            dataKey="close"
             stroke="#8884d8"
           />
         </Brush>
@@ -65,7 +66,7 @@ class ChartMaker extends Component {
 
 function mapStateToProps(state) {
   return {
-    data: state.prices.historical,
+    data: state.prices.all,
     currency: state.prices.currency
   };
 }

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Accordion, Button, Spinner } from "react-bootstrap";
+import { Accordion, Button } from "react-bootstrap";
 
 import MediaContent from "./MediaContent";
 import MediaTop from "./MediaTop";

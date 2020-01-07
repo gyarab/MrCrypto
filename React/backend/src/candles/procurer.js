@@ -1,5 +1,6 @@
 const moment = require("moment");
 const getter = require("./getter");
+const updater = require("./updater");
 const MongoClient = require("mongodb").MongoClient;
 const assert = require("assert");
 
@@ -17,10 +18,10 @@ async function start() {
 
     //save..
     let obj = [
-      { _id: "all", all },
-      { _id: "month", month },
-      { _id: "day", day },
-      { _id: "hour", hour }
+      { _id: "all", data: all },
+      { _id: "month", data: month },
+      { _id: "day", data: day },
+      { _id: "hour", data: hour }
     ];
 
     MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
@@ -39,16 +40,18 @@ async function start() {
 
       c.insertMany(obj, (err, result) => {
         assert.equal(err, null);
-        console.info("_CANDLES SAVED");
+        console.info("_NEW CANDLES SAVED");
+        //after saving run updating services
+        updater.start("hour", 60);
+        updater.start("day", 15 * 60);
+        updater.start("month", 6 * 3600);
+        updater.start("all", 24 * 3600);
         client.close();
       });
     });
-    console.info("_PROCURING DATA DONE");
   } catch (err) {
     console.error("_PROCURING DATA ERROR : " + err);
   }
 }
 
-module.exports = {
-  start
-};
+module.exports = { start };
