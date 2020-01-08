@@ -168,11 +168,9 @@ async function start() {
         .find("a")
         .find("h3")
         .text();
-      v[25] = $("._3P0fPUYULfBPF2lcLaKVBV", html)
-        .eq(0)
-        .find("a")
+      v[25] = $("div:nth-child(1)", html)
         .find("img")
-        .attr("data-src");
+        .attr("src");
       v[26] =
         "https://bitcoinmagazine.com" +
         $("._3P0fPUYULfBPF2lcLaKVBV", html)
@@ -184,11 +182,9 @@ async function start() {
         .find("a")
         .find("h3")
         .text();
-      v[28] = $("._3P0fPUYULfBPF2lcLaKVBV", html)
-        .eq(1)
-        .find("a")
+      v[28] = $("div:nth-child(2)", html)
         .find("img")
-        .attr("data-src");
+        .attr("src");
       v[29] =
         "https://bitcoinmagazine.com" +
         $("._3P0fPUYULfBPF2lcLaKVBV", html)
@@ -210,7 +206,7 @@ async function start() {
         .find("article")
         .find("a")
         .find("img")
-        .attr("data-src");
+        .attr("data-cfsrc");
       v[32] = $("li:nth-child(1)", html)
         .find("article")
         .find("a")
@@ -223,14 +219,13 @@ async function start() {
         .find("article")
         .find("a")
         .find("img")
-        .attr("data-src");
+        .attr("data-cfsrc");
       v[35] = $("li:nth-child(2)", html)
         .find("article")
         .find("a")
         .attr("href");
       var article11 = { title: v[30], imgUrl: v[31], url: v[32] };
       var article12 = { title: v[33], imgUrl: v[34], url: v[35] };
-
       articles.push(article11);
       articles.push(article12);
     });
