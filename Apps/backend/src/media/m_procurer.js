@@ -20,10 +20,10 @@ const url = "mongodb://localhost:27017",
 async function start() {
   try {
     //get NEWS
-//
+
     let v = [];
     let articles = [];
-//NOVINKY 1
+    //NOVINKY 1
     await rp(url1).then(html => {
       v[0] = $(".story.story--huge", html)
         .find("a")
@@ -235,11 +235,11 @@ async function start() {
       articles.push(article12);
     });
     /*TWITTER*/
-//
+    //
     var tweets = [];
     await rp(urlt).then(html => {
       //scraping tweets
-      ht = $("li.stream-item", html).each(function(index) {
+      ht = $("li.stream-item", html).each(index => {
         var images = [];
         var x = 0;
         var name = $(this)
@@ -279,53 +279,51 @@ async function start() {
         tweets.push(t);
       });
     });
-/*REDDIT*/
-  var scraped = [];
-await rp(URL).then(html => {
-
- let output = [];
-//scraping reddit posts
-ht = $("._2XDITKxlj4y3M99thqyCsO", html).each((i, el) => {
-      if (i == 15) {
-        return false;
-      }
-      //Title
-      var sTitle = $(el)
-        .find(".SQnoC3ObvgnGjWt90zD9Z")
-        .text();
-
-      //Image
-      var imgDiv = $(el)
-        .find("._2c1ElNxHftd8W_nZtcG9zf")
-        .attr("style");
-
-      var l = imgDiv.indexOf("(") + 1;
-      var r = imgDiv.indexOf(")");
-
-      var sImgUrl = imgDiv.slice(l, r);
-      sImgUrl = sImgUrl.includes("border-color") ? undefined : sImgUrl; //it could be just empty background
-
-      //Autor
-      var sAutor = $(el)
-        .find("._3ryJoIoycVkA88fy40qNJc")
-        .text();
-
-      //Url
-      var sUrl =
-        "https://www.reddit.com" +
-        $(el)
+    /*REDDIT*/
+    var scraped = [];
+    await rp(URL).then(html => {
+      let output = [];
+      //scraping reddit posts
+      ht = $("._2XDITKxlj4y3M99thqyCsO", html).each((i, el) => {
+        if (i == 15) {
+          return false;
+        }
+        //Title
+        var sTitle = $(el)
           .find(".SQnoC3ObvgnGjWt90zD9Z")
-          .attr("href");
+          .text();
 
-      scraped.push({
-        autor: sAutor,
-        title: sTitle,
-        imgUrl: sImgUrl,
-        url: sUrl
+        //Image
+        var imgDiv = $(el)
+          .find("._2c1ElNxHftd8W_nZtcG9zf")
+          .attr("style");
+
+        var l = imgDiv.indexOf("(") + 1;
+        var r = imgDiv.indexOf(")");
+
+        var sImgUrl = imgDiv.slice(l, r);
+        sImgUrl = sImgUrl.includes("border-color") ? undefined : sImgUrl; //it could be just empty background
+
+        //Autor
+        var sAutor = $(el)
+          .find("._3ryJoIoycVkA88fy40qNJc")
+          .text();
+
+        //Url
+        var sUrl =
+          "https://www.reddit.com" +
+          $(el)
+            .find(".SQnoC3ObvgnGjWt90zD9Z")
+            .attr("href");
+
+        scraped.push({
+          autor: sAutor,
+          title: sTitle,
+          imgUrl: sImgUrl,
+          url: sUrl
+        });
       });
     });
-
-});
     MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
       assert.equal(null, err);
 
@@ -335,25 +333,30 @@ ht = $("._2XDITKxlj4y3M99thqyCsO", html).each((i, el) => {
       //dropping older collection prevents errors
       try {
         c.drop((err, ok) => {
-          if (err) console.log("_SKIPPING DROPPING");
-          if (ok) console.log("_OLDER COLLECTION DROPPED");
+          if (err) console.log("_SKIPPING MEDIA DROPPING");
+          if (ok) console.log("_OLDER MEDIA DROPPED");
         });
       } catch {}
 
-      c.insertMany([{_id:"news", data: articles},{_id:"twitter", data: tweets},{_id:"reddit", data: scraped}], (err, result) => {
-        assert.equal(err, null);
-        console.info("_NEW MEDIA SAVED");
-        //after saving run updating services
-        updater.start("news", 3600);
-        updater.start("twitter", 3600);
-        updater.start("reddit", 3600);
-        client.close();
-
-      });
+      c.insertMany(
+        [
+          { _id: "news", data: articles },
+          { _id: "twitter", data: tweets },
+          { _id: "reddit", data: scraped }
+        ],
+        (err, result) => {
+          assert.equal(err, null);
+          console.info("_NEW MEDIA SAVED");
+          //after saving run updating services
+          updater.start("news", 3600);
+          updater.start("twitter", 3600);
+          updater.start("reddit", 3600);
+          client.close();
+        }
+      );
     });
-    console.info("_PROCURING DATA DONE");
   } catch (err) {
-    console.error("_PROCURING DATA ERROR : " + err);
+    console.error("_PROCURING MEDIA ERROR : " + err);
   }
 }
 
