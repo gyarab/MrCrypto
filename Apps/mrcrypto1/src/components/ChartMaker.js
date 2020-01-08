@@ -32,7 +32,7 @@ class ChartMaker extends Component {
       <LineChart
         width={1000}
         height={500}
-        data={this.props.data}
+        data={this.props.data||[]}
         margin={{
           top: 5,
           right: 30,
