@@ -2,14 +2,14 @@ export const getTwitter = () => {
   return function(dispatch) {
     dispatch({ type: "FETCHING_TWITTER_STARTED" });
 
-    fetch("/twitter")
+    fetch("/media?key=twitter")
       .then(res => {
         res
           .json()
           .then(json => {
             dispatch({
               type: "FETCHING_TWITTER_DONE",
-              payload: json
+              payload: json.data
             });
           })
           //error after recieving

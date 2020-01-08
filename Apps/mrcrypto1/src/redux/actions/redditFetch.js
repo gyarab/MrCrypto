@@ -2,14 +2,14 @@ export const getReddit = () => {
   return function(dispatch) {
     dispatch({ type: "FETCHING_REDDIT_STARTED" });
 
-    fetch("/reddit")
+    fetch("/media?key=reddit")
       .then(res => {
         res
           .json()
           .then(json => {
             dispatch({
               type: "FETCHING_REDDIT_DONE",
-              payload: json
+              payload: json.data
             });
           })
           //error after recieving

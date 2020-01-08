@@ -2,14 +2,14 @@ export const getNews = () => {
   return function(dispatch) {
     dispatch({ type: "FETCHING_NEWS_STARTED" });
 
-    fetch("/news")
+    fetch("/media?key=news")
       .then(res => {
         res
           .json()
           .then(json => {
             dispatch({
               type: "FETCHING_NEWS_DONE",
-              payload: json
+              payload: json.data
             });
           })
           //error after recieving
