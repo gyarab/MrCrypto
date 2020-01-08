@@ -1,4 +1,6 @@
 const rp = require("request-promise");
+const urlt = "https://twitter.com/search?q=Bitcoin&src=typeahead_click";
+const URL = "https://www.reddit.com/search/?q=bitcoin&sort=top&t=month";
 const url1 = "https://news.bitcoin.com/";
 const url2 = "https://www.wired.com/search/?q=bitcoin&page=1&sort=score";
 const url3 = "https://cryptonews.com/news/bitcoin-news/";
@@ -227,8 +229,98 @@ async function start() {
       articles.push(article11);
       articles.push(article12);
     });
+    /*TWITTER*/
 
+    var tweets = [];
+    await rp(urlt).then(html => {
+      ht = $("li.stream-item", html).each(function(index) {
+        var images = [];
+        var x = 0;
+        var name = $(this)
+          .find(".fullname")
+          .text();
+        var tweet = $(this)
+          .find("p.tweet-text")
+          .text();
+        var profileimg = $(this)
+          .find("img")
+          .attr("src");
+        var iurl = $(this)
+          .find("img")
+          .each(function(index) {
+            var i = $(this).attr("src");
 
+            if (i.includes("/emoji/") || i.includes("/profile_images/")) {
+            } else {
+              images[x] = i;
+              x++;
+            }
+          });
+        var aurl =
+          "https://twitter.com" +
+          $(this)
+            .find("a")
+            .attr("href");
+
+        //tweet contains image (in the end) so we need to find the breaking point
+        var index = tweet.indexOf("pic.twitter.com");
+
+        var t = {
+          autor: name,
+          title: tweet.slice(0, index),
+          imgUrl: profileimg,
+          url: "https://" + tweet.slice(index)
+        };
+        tweets.push(t);
+      });
+    });
+/*REDDIT*/
+  var scraped = [];
+await rp(URL).then(html => {
+
+ let output = [];
+
+ht = $("._2XDITKxlj4y3M99thqyCsO", html).each((i, el) => {
+      if (i == 15) {
+        return false;
+      }
+      //Title
+      var sTitle = $(el)
+        .find(".SQnoC3ObvgnGjWt90zD9Z")
+        .text();
+
+      //Image
+      var imgDiv = $(el)
+        .find("._2c1ElNxHftd8W_nZtcG9zf")
+        .attr("style");
+
+      var l = imgDiv.indexOf("(") + 1;
+      var r = imgDiv.indexOf(")");
+
+      var sImgUrl = imgDiv.slice(l, r);
+      sImgUrl = sImgUrl.includes("border-color") ? undefined : sImgUrl; //it could be just empty background
+
+      //Autor
+      var sAutor = $(el)
+        .find("._3ryJoIoycVkA88fy40qNJc")
+        .text();
+
+      //Url
+      var sUrl =
+        "https://www.reddit.com" +
+        $(el)
+          .find(".SQnoC3ObvgnGjWt90zD9Z")
+          .attr("href");
+
+      scraped.push({
+        autor: sAutor,
+        title: sTitle,
+        imgUrl: sImgUrl,
+        url: sUrl
+      });
+    });
+
+});
     MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
       assert.equal(null, err);
 
@@ -243,11 +335,13 @@ async function start() {
         });
       } catch {}
 
-      c.insertMany([{_id:"news", data: articles}], (err, result) => {
+      c.insertMany([{_id:"news", data: articles},{_id:"twitter", data: tweets},{_id:"reddit", data: scraped}], (err, result) => {
         assert.equal(err, null);
         console.info("_NEW MEDIA SAVED");
         //after saving run updating services
         updater.start("news", 3600);
+        updater.start("twitter", 3600);
+        updater.start("reddit", 3600);
         client.close();
 
       });

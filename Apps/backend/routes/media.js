@@ -25,7 +25,7 @@ function response(_id, res) {
   );
 }
 
-router.get("/news", (req, res, next) => {
+router.get("/media", (req, res, next) => {
   response(req.query.key, res);
 });
 
