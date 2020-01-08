@@ -247,7 +247,7 @@ async function start() {
         assert.equal(err, null);
         console.info("_NEW MEDIA SAVED");
         //after saving run updating services
-        updater.start("news", 60);
+        updater.start("news", 3600);
         client.close();
 
       });

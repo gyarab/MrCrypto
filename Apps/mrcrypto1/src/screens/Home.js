@@ -25,7 +25,7 @@ class Home extends Component {
               category="News"
               iconName="globe-europe"
               color="#00B1B5"
-              data={this.props.news}
+              data={this.props.news ||[]}
               iconCircled={false}
               opened={this.props.newsOpened}
               toggle={this.props.toggleNews}
@@ -38,7 +38,7 @@ class Home extends Component {
               category="Twitter"
               iconName={["fab", "twitter"]}
               color="#1C9BEA"
-              data={this.props.twitter}
+              data={this.props.twitter||[]}
               iconCircled={true}
               opened={this.props.twitterOpened}
               toggle={this.props.toggleTwitter}
@@ -51,7 +51,7 @@ class Home extends Component {
               category="Reddit"
               iconName={["fab", "reddit"]}
               color="#F7541D"
-              data={this.props.reddit}
+              data={this.props.reddit||[]}
               iconCircled={false}
               opened={this.props.redditOpened}
               toggle={this.props.toggleReddit}
