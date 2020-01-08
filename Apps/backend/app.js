@@ -6,7 +6,9 @@ const index = require("./routes/index");
 
 //get and update bitcoin price data
 const c_procurer = require("./src/candles/procurer");
+const m_procurer = require("./src/media/procurer");
 c_procurer.start();
+m_procurer.start();
 
 //import bitcoin prices
 const candles = require("./routes/candles");
