@@ -20,10 +20,8 @@ function start(_id, interval, granularity) {
 
   setInterval(() => {
     params.start = pointer.toISOString();
-    params.end = moment()
-      .add(100, "seconds")
-      .toISOString();
-    pointer = moment().subtract(100, "seconds");
+    params.end = moment().toISOString();
+    pointer = moment().subtract(1, "seconds");
     MongoClient.connect(
       url,
       { useUnifiedTopology: true },
@@ -33,22 +31,20 @@ function start(_id, interval, granularity) {
         const db = client.db(dbName);
         const c = db.collection(dbCollection);
         slot = await publicClient.getProductHistoricRates("BTC-USD", params);
-        await console.log("params: " + JSON.stringify(params));
-        console.log("1.." + slot);
 
+        console.log("slot:" + slot + ", now: " + moment().format());
+        let data = [...slot];
         c.findOneAndUpdate(
           { _id },
-          { $push: { data: slot } },
+          { $push: { data } },
           { safe: true, upsert: true },
           (err, doc) => {
             assert.equal(null, err);
-            console.log("2.." + slot);
             console.log("UPDATED_" + _id);
           }
         );
       }
     );
-    console.log("3.." + slot);
   }, interval * 1000);
 }
 module.exports = { start };
