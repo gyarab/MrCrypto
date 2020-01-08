@@ -19,11 +19,11 @@ const url = "mongodb://localhost:27017",
 
 async function start() {
   try {
-    //get..
-
+    //get NEWS
+//
     let v = [];
     let articles = [];
-
+//NOVINKY 1
     await rp(url1).then(html => {
       v[0] = $(".story.story--huge", html)
         .find("a")
@@ -52,6 +52,7 @@ async function start() {
       articles.push(article1);
       articles.push(article2);
     });
+    //NOVINKY 2
     await rp(url2).then(html => {
       v[6] = $(".archive-item-component", html)
         .find("a")
@@ -86,6 +87,7 @@ async function start() {
       articles.push(article3);
       articles.push(article4);
     });
+    //NOVINKY 3
     await rp(url3).then(html => {
       v[12] = $(".cn-tile.article", html)
         .find("h4")
@@ -122,6 +124,7 @@ async function start() {
       articles.push(article5);
       articles.push(article6);
     });
+    //NOVINKY 4
     await rp(url4).then(html => {
       v[18] = $(".col-md-6.middleEast-feature-section-lt.default-style", html)
         .find("a")
@@ -158,6 +161,7 @@ async function start() {
       articles.push(article7);
       articles.push(article8);
     });
+    //NOVINKY 5
     await rp(url5).then(html => {
       v[24] = $("._3P0fPUYULfBPF2lcLaKVBV", html)
         .eq(0)
@@ -196,6 +200,7 @@ async function start() {
       articles.push(article9);
       articles.push(article10);
     });
+    //NOVINKY 6
     await rp(url6).then(html => {
       v[30] = $("li:nth-child(1)", html)
         .find("article")
@@ -230,9 +235,10 @@ async function start() {
       articles.push(article12);
     });
     /*TWITTER*/
-
+//
     var tweets = [];
     await rp(urlt).then(html => {
+      //scraping tweets
       ht = $("li.stream-item", html).each(function(index) {
         var images = [];
         var x = 0;
@@ -261,7 +267,6 @@ async function start() {
           $(this)
             .find("a")
             .attr("href");
-
         //tweet contains image (in the end) so we need to find the breaking point
         var index = tweet.indexOf("pic.twitter.com");
 
@@ -279,7 +284,7 @@ async function start() {
 await rp(URL).then(html => {
 
  let output = [];
-
+//scraping reddit posts
 ht = $("._2XDITKxlj4y3M99thqyCsO", html).each((i, el) => {
       if (i == 15) {
         return false;
