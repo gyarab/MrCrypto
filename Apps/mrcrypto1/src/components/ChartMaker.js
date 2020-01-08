@@ -15,6 +15,17 @@ class ChartMaker extends Component {
   static jsfiddleUrl = "https://jsfiddle.net/alidingling/zjb47e83/";
 
   render() {
+    let max = this.props.data.reduce(
+      (max, p) => (p.close > max ? p.close : max),
+      0
+    );
+    let min = this.props.data.reduce(
+      (min, p) => (p.close < min ? p.close : min),
+      10000000
+    );
+    let roundedMax = Math.ceil(max / 1000) * 1000;
+    let roundedMin = Math.floor(min / 1000) * 1000;
+
     return (
       <LineChart
         width={1000}
@@ -32,7 +43,7 @@ class ChartMaker extends Component {
         <XAxis dataKey="date" tick={{ fontSize: 10 }} />
         <YAxis
           yAxisId="left"
-          domain={[0, 20000]}
+          domain={[roundedMin, roundedMax]}
           tick={{ fontSize: 10 }}
           tickFormatter={value => this.props.currency + `${value}`}
         />
@@ -49,16 +60,6 @@ class ChartMaker extends Component {
           stroke="#8884d8"
           activeDot={{ r: 4 }}
         />
-        <Brush dataKey="close" height={20} stroke="#8884d8">
-          <XAxis dataKey="date" tick={{ fontSize: 10 }} />
-          <Line
-            dot={false}
-            label={false}
-            type="monotone"
-            dataKey="close"
-            stroke="#8884d8"
-          />
-        </Brush>
       </LineChart>
     );
   }

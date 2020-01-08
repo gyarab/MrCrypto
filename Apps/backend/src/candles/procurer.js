@@ -33,8 +33,8 @@ async function start() {
       //dropping older collection prevents errors
       try {
         c.drop((err, ok) => {
-          if (err) console.log("_SKIPPING DROPPING");
-          if (ok) console.log("_OLDER COLLECTION DROPPED");
+          if (err) console.log("_SKIPPING CANDLES DROPPING");
+          if (ok) console.log("_OLDER CANDLES DROPPED");
         });
       } catch {}
 
@@ -42,15 +42,15 @@ async function start() {
         assert.equal(err, null);
         console.info("_NEW CANDLES SAVED");
         //after saving run updating services
-        updater.start("hour", 60);
-        updater.start("day", 15 * 60);
-        updater.start("month", 6 * 3600);
-        updater.start("all", 24 * 3600);
+        updater.start("hour", 60, 60);
+        updater.start("day", 15 * 60, 900);
+        updater.start("month", 6 * 3600, 21600);
+        updater.start("all", 24 * 3600, 86400);
         client.close();
       });
     });
   } catch (err) {
-    console.error("_PROCURING DATA ERROR : " + err);
+    console.error("_PROCURING CANDLES ERROR : " + err);
   }
 }
 

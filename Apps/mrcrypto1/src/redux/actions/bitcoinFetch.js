@@ -28,7 +28,7 @@ export const getHistorical = () => {
 function prepareData(data) {
   var result = [];
   data.forEach(a => {
-    result.push({ date: a[0], close: a[4] });
+    result.push({ date: a[0], close: a[1] });
   });
   return result;
 }
