@@ -7,6 +7,8 @@ const url5 = "https://bitcoinmagazine.com/search?text=bitcoin&page=1";
 const url6 = "https://www.newsbtc.com/?s=bitcoin&lang=en";
 const $ = require("cheerio");
 const moment = require("moment");
+const updater = require("./updater");
+
 const MongoClient = require("mongodb").MongoClient;
 const assert = require("assert");
 const url = "mongodb://localhost:27017",
@@ -243,8 +245,11 @@ async function start() {
 
       c.insertMany([{_id:"news", data: articles}], (err, result) => {
         assert.equal(err, null);
-        console.info("Media SAVED");
+        console.info("_NEW MEDIA SAVED");
+        //after saving run updating services
+        updater.start("news", 60);
         client.close();
+
       });
     });
     console.info("_PROCURING DATA DONE");
