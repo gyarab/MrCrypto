@@ -25,7 +25,7 @@ function response(_id, res) {
   );
 }
 
-router.get("/candles", (req, res, next) => {
+router.get("/news", (req, res, next) => {
   response(req.query.key, res);
 });
 
