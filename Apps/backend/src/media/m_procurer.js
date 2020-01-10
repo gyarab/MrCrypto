@@ -1,5 +1,5 @@
 const rp = require("request-promise");
-const urlt = "https://twitter.com/search?q=Bitcoin&src=typeahead_click";
+    const urlt = "https://twitter.com/search?q=Bitcoin&src=typeahead_click";
 const URL = "https://www.reddit.com/search/?q=bitcoin&sort=top&t=month";
 const url1 = "https://news.bitcoin.com/";
 const url2 = "https://www.wired.com/search/?q=bitcoin&page=1&sort=score";
@@ -230,16 +230,16 @@ async function start() {
       articles.push(article12);
     });
     /*TWITTER*/
-    //
+    //document.querySelector("#stream-item-tweet-1215398466547068934 > div > div.content")
     var tweets = [];
     await rp(urlt).then(html => {
       //scraping tweets
-      ht = $("li.stream-item", html).each(index => {
+    ht = $("li.stream-item", html).each(function(index) {
         var images = [];
         var x = 0;
         var name = $(this)
           .find(".fullname")
-          .text();
+          .html();
         var tweet = $(this)
           .find("p.tweet-text")
           .text();
