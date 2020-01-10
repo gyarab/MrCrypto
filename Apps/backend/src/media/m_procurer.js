@@ -230,7 +230,7 @@ async function start() {
       articles.push(article12);
     });
     /*TWITTER*/
-    //document.querySelector("#stream-item-tweet-1215398466547068934 > div > div.content")
+    //document.querySelector("#stream-item-tweet-1215429158496620545 > div")
     var tweets = [];
     await rp(urlt).then(html => {
       //scraping tweets
@@ -239,7 +239,7 @@ async function start() {
         var x = 0;
         var name = $(this)
           .find(".fullname")
-          .html();
+          .text();
         var tweet = $(this)
           .find("p.tweet-text")
           .text();
@@ -258,18 +258,18 @@ async function start() {
             }
           });
         var aurl =
-          "https://twitter.com" +
+          "twitter.com" +
           $(this)
-            .find("a")
-            .attr("href");
+            .find("div")
+            .attr("data-permalink-path");
         //tweet contains image (in the end) so we need to find the breaking point
         var index = tweet.indexOf("pic.twitter.com");
 
         var t = {
           autor: name,
-          title: tweet.slice(0, index),
+          title: tweet.slice(0,104),
           imgUrl: profileimg,
-          url: "https://" + tweet.slice(index)
+          url: "https://" + aurl
         };
         tweets.push(t);
       });
