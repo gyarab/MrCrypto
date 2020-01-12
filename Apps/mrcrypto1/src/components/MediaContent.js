@@ -6,16 +6,19 @@ export default class MediaContent extends Component {
   //clear the source url
   extractHostname = url => {
     var hostname;
+    try {
+      if (url.indexOf("//") > -1) {
+        hostname = url.split("/")[2];
+      } else {
+        hostname = url.split("/")[0];
+      }
+      hostname = hostname.split(":")[0];
+      hostname = hostname.split("?")[0];
 
-    if (url.indexOf("//") > -1) {
-      hostname = url.split("/")[2];
-    } else {
-      hostname = url.split("/")[0];
+      return hostname.includes("www.") ? hostname : "www." + hostname;
+    } catch {
+      return url;
     }
-    hostname = hostname.split(":")[0];
-    hostname = hostname.split("?")[0];
-
-    return hostname.includes("www.") ? hostname : "www." + hostname;
   };
 
   render() {

@@ -1,5 +1,5 @@
 const rp = require("request-promise");
-    const urlt = "https://twitter.com/search?q=Bitcoin&src=typeahead_click";
+const urlt = "https://twitter.com/search?q=Bitcoin&src=typeahead_click";
 const URL = "https://www.reddit.com/search/?q=bitcoin&sort=top&t=month";
 const url1 = "https://news.bitcoin.com/";
 const url2 = "https://www.wired.com/search/?q=bitcoin&page=1&sort=score";
@@ -17,10 +17,29 @@ const url = "mongodb://localhost:27017",
   dbName = "mrcrypto",
   dbCollection = "media";
 
+const MAX_LENGTH = 70; //title limit
+
+function cut(title) {
+  let l = title.length,
+    t = title.split(" "),
+    removed = "",
+    shorted = "";
+
+  while (l > MAX_LENGTH) {
+    removed = t.pop();
+    l -= removed.length + 1; //dont forget the lost comma when spliting
+  }
+
+  shorted = t.join(" ");
+
+  //continues the title?
+  title.length === l ? null : (shorted += "...");
+  return shorted;
+}
+
 async function start() {
   try {
     //get NEWS
-
     let v = [];
     let articles = [];
     //NOVINKY 1
@@ -47,8 +66,8 @@ async function start() {
       v[5] = $(".td_block_inner.td-column-1.td-opacity-author", html)
         .find("a")
         .attr("href");
-      var article1 = { title: v[0], imgUrl: v[1], url: v[2] };
-      var article2 = { title: v[3], imgUrl: v[4], url: v[5] };
+      var article1 = { title: cut(v[0]), imgUrl: v[1], url: v[2] };
+      var article2 = { title: cut(v[3]), imgUrl: v[4], url: v[5] };
       articles.push(article1);
       articles.push(article2);
     });
@@ -82,8 +101,8 @@ async function start() {
         $(".archive-item-component__link", html)
           .eq(2)
           .attr("to");
-      var article3 = { title: v[6], imgUrl: v[7], url: v[8] };
-      var article4 = { title: v[9], imgUrl: v[10], url: v[11] };
+      var article3 = { title: cut(v[6]), imgUrl: v[7], url: v[8] };
+      var article4 = { title: cut(v[9]), imgUrl: v[10], url: v[11] };
       articles.push(article3);
       articles.push(article4);
     });
@@ -119,8 +138,8 @@ async function start() {
           .find("a")
           .eq(3)
           .attr("href");
-      var article5 = { title: v[12], imgUrl: v[13], url: v[14] };
-      var article6 = { title: v[15], imgUrl: v[16], url: v[17] };
+      var article5 = { title: cut(v[12]), imgUrl: v[13], url: v[14] };
+      var article6 = { title: cut(v[15]), imgUrl: v[16], url: v[17] };
       articles.push(article5);
       articles.push(article6);
     });
@@ -156,8 +175,8 @@ async function start() {
         $(".top-section-rt-s1 ", html)
           .find("a")
           .attr("href");
-      var article7 = { title: v[18], imgUrl: v[19], url: v[20] };
-      var article8 = { title: v[21], imgUrl: v[22], url: v[23] };
+      var article7 = { title: cut(v[18]), imgUrl: v[19], url: v[20] };
+      var article8 = { title: cut(v[21]), imgUrl: v[22], url: v[23] };
       articles.push(article7);
       articles.push(article8);
     });
@@ -191,8 +210,8 @@ async function start() {
           .eq(1)
           .find("a")
           .attr("href");
-      var article9 = { title: v[24], imgUrl: v[25], url: v[26] };
-      var article10 = { title: v[27], imgUrl: v[28], url: v[29] };
+      var article9 = { title: cut(v[24]), imgUrl: v[25], url: v[26] };
+      var article10 = { title: cut(v[27]), imgUrl: v[28], url: v[29] };
       articles.push(article9);
       articles.push(article10);
     });
@@ -224,8 +243,8 @@ async function start() {
         .find("article")
         .find("a")
         .attr("href");
-      var article11 = { title: v[30], imgUrl: v[31], url: v[32] };
-      var article12 = { title: v[33], imgUrl: v[34], url: v[35] };
+      var article11 = { title: cut(v[30]), imgUrl: v[31], url: v[32] };
+      var article12 = { title: cut(v[33]), imgUrl: v[34], url: v[35] };
       articles.push(article11);
       articles.push(article12);
     });
@@ -234,7 +253,7 @@ async function start() {
     var tweets = [];
     await rp(urlt).then(html => {
       //scraping tweets
-    ht = $("li.stream-item", html).each(function(index) {
+      ht = $("li.stream-item", html).each(function(index) {
         var images = [];
         var x = 0;
         var name = $(this)
@@ -267,7 +286,7 @@ async function start() {
 
         var t = {
           autor: name,
-          title: tweet.slice(0,104),
+          title: cut(tweet),
           imgUrl: profileimg,
           url: "https://" + aurl
         };
@@ -284,28 +303,28 @@ async function start() {
           return false;
         }
         //Title
-        var sTitle = $(el)
+        let sTitle = $(el)
           .find(".SQnoC3ObvgnGjWt90zD9Z")
           .text();
 
         //Image
-        var imgDiv = $(el)
+        let imgDiv = $(el)
           .find("._2c1ElNxHftd8W_nZtcG9zf")
           .attr("style");
 
-        var l = imgDiv.indexOf("(") + 1;
-        var r = imgDiv.indexOf(")");
+        let l = imgDiv.indexOf("(") + 1;
+        let r = imgDiv.indexOf(")");
 
-        var sImgUrl = imgDiv.slice(l, r);
+        let sImgUrl = imgDiv.slice(l, r);
         sImgUrl = sImgUrl.includes("border-color") ? undefined : sImgUrl; //it could be just empty background
 
         //Autor
-        var sAutor = $(el)
+        let sAutor = $(el)
           .find("._3ryJoIoycVkA88fy40qNJc")
           .text();
 
         //Url
-        var sUrl =
+        let sUrl =
           "https://www.reddit.com" +
           $(el)
             .find(".SQnoC3ObvgnGjWt90zD9Z")
@@ -313,7 +332,7 @@ async function start() {
 
         scraped.push({
           autor: sAutor,
-          title: sTitle,
+          title: cut(sTitle),
           imgUrl: sImgUrl,
           url: sUrl
         });

@@ -31,10 +31,10 @@ span {
 .articleTitle {
   font-size: 80%;
   font-weight: 600;
-  margin-right: 6px;
+  margin-right: 8px;
   display: block;
-  line-height: 1em;
-  height: 3.08em;
+  line-height: 1.3em;
+  height: 3.1em;
   overflow: hidden;
   text-overflow: ellipsis;
 }
