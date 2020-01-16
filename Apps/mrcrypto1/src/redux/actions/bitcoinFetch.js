@@ -1,25 +1,26 @@
-export const getHistorical = () => {
+export const getHistorical = interval => {
   return function(dispatch) {
-    dispatch({ type: "FETCHING_ALL_STARTED" });
+    dispatch({ type: "FETCHING_STARTED" });
 
-    fetch("/candles?key=day")
+    fetch("/candles?key=" + interval)
       .then(res => {
         res
           .json()
           .then(json => {
             dispatch({
-              type: "FETCHING_ALL_DONE",
-              payload: prepareData(json.data)
+              type: "FETCHING_DONE",
+              payload: prepareData(json.data),
+              interval
             });
           })
           //error after recieving
           .catch(err => {
-            dispatch({ type: "FETCHING_ALL_ERROR", payload: err });
+            dispatch({ type: "FETCHING_ERROR", payload: err });
           });
       })
       //not recieved
       .catch(err => {
-        dispatch({ type: "FETCHING_ALL_ERROR", payload: err });
+        dispatch({ type: "FETCHING_ERROR", payload: err });
       });
   };
 };

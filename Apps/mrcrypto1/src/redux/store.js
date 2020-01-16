@@ -15,8 +15,13 @@ const store = createStore(
   )
 );
 
-//initialize
-store.dispatch(getHistorical());
+//initialize candles
+store.dispatch(getHistorical("all"));
+store.dispatch(getHistorical("month"));
+store.dispatch(getHistorical("day"));
+store.dispatch(getHistorical("hour"));
+
+//initialize media
 store.dispatch(getNews());
 store.dispatch(getTwitter());
 store.dispatch(getReddit());

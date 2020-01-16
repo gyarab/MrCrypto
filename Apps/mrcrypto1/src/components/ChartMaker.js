@@ -17,11 +17,11 @@ class ChartMaker extends Component {
   static jsfiddleUrl = "https://jsfiddle.net/alidingling/zjb47e83/";
 
   render() {
-    let max = this.props.data.reduce(
+    let max = [this.props.range].reduce(
       (max, p) => (p.close > max ? p.close : max),
       0
     );
-    let min = this.props.data.reduce(
+    let min = [this.props.range].reduce(
       (min, p) => (p.close < min ? p.close : min),
       10000000
     );
@@ -32,7 +32,7 @@ class ChartMaker extends Component {
       <LineChart
         width={1000}
         height={500}
-        data={this.props.data||[]}
+        data={this.props.month || []}
         margin={{
           top: 5,
           right: 30,
@@ -45,7 +45,7 @@ class ChartMaker extends Component {
         <XAxis dataKey="date" tick={{ fontSize: 10 }} />
         <YAxis
           yAxisId="left"
-          domain={[roundedMin, roundedMax]}
+          domain={[min, max]}
           tick={{ fontSize: 10 }}
           tickFormatter={value => this.props.currency + `${value}`}
         />
@@ -68,9 +68,14 @@ class ChartMaker extends Component {
 }
 
 function mapStateToProps(state) {
+  let prices = state.prices;
   return {
-    data: state.prices.all,
-    currency: state.prices.currency
+    all: prices.all,
+    month: prices.month,
+    day: prices.day,
+    hour: prices.hour,
+    currency: prices.currency,
+    range: state.ranges.selected
   };
 }
 

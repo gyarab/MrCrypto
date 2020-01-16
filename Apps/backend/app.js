@@ -25,5 +25,4 @@ app.use(candles);
 //media
 app.use(media);
 
-
 app.listen(port, () => console.log(`Server is running on port ${port}!`));
