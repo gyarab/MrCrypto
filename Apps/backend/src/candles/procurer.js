@@ -50,7 +50,8 @@ async function start() {
       });
     });
   } catch (err) {
-    console.error("_PROCURING CANDLES ERROR : " + err);
+    console.error("_CANDLES HANDLING ERROR: " + err);
+    start();
   }
 }
 
