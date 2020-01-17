@@ -226,6 +226,13 @@ async function start() {
         .find("a")
         .find("img")
         .attr("data-cfsrc");
+        console.info(v[31]);
+        if (v[31].includes(".png") || v[31].includes(".jpg")) {
+
+        }else {
+          v[31]=undefined;
+        }
+        console.info(v[31]);
       v[32] = $("li:nth-child(1)", html)
         .find("article")
         .find("a")
@@ -239,6 +246,10 @@ async function start() {
         .find("a")
         .find("img")
         .attr("data-cfsrc");
+        if (v[34].includes(".png") || v[34].includes(".jpg")) {
+        }else {
+          v[34]=undefined;
+        }
       v[35] = $("li:nth-child(2)", html)
         .find("article")
         .find("a")
