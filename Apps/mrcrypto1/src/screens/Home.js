@@ -14,9 +14,7 @@ class Home extends Component {
     return (
       <Container>
         <Row>
-          <Col>
-            <ChartMaker />
-          </Col>
+          <ChartMaker />
         </Row>
 
         <Row>

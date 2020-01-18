@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import moment from "moment";
+import { Button } from "react-bootstrap";
 
 import {
   LineChart,
@@ -10,7 +11,8 @@ import {
   CartesianGrid,
   Tooltip,
   Legend,
-  Brush
+  Brush,
+  ResponsiveContainer
 } from "recharts";
 
 class ChartMaker extends Component {
@@ -29,40 +31,40 @@ class ChartMaker extends Component {
     let roundedMin = Math.floor(min / 1000) * 1000;
 
     return (
-      <LineChart
-        width={1000}
-        height={500}
-        data={this.props.month || []}
-        margin={{
-          top: 5,
-          right: 30,
-          left: 30,
-          bottom: 80
-        }}
-      >
-        <CartesianGrid strokeDasharray="3 3" />
+      <ResponsiveContainer width="100%" height={500}>
+        <LineChart
+          data={this.props.month || []}
+          margin={{
+            top: 5,
+            right: 30,
+            left: 30,
+            bottom: 80
+          }}
+        >
+          <CartesianGrid strokeDasharray="3 3" />
 
-        <XAxis dataKey="date" tick={{ fontSize: 10 }} />
-        <YAxis
-          yAxisId="left"
-          domain={[min, max]}
-          tick={{ fontSize: 10 }}
-          tickFormatter={value => this.props.currency + `${value}`}
-        />
+          <XAxis dataKey="date" tick={{ fontSize: 10 }} />
+          <YAxis
+            yAxisId="left"
+            domain={[min, max]}
+            tick={{ fontSize: 10 }}
+            tickFormatter={value => this.props.currency + `${value}`}
+          />
 
-        <Tooltip formatter={value => this.props.currency + `${value}`} />
+          <Tooltip formatter={value => this.props.currency + `${value}`} />
 
-        <Legend />
-        <Line
-          dot={false}
-          label={false}
-          yAxisId="left"
-          type="monotone"
-          dataKey="close"
-          stroke="#8884d8"
-          activeDot={{ r: 4 }}
-        />
-      </LineChart>
+          <Legend />
+          <Line
+            dot={false}
+            label={false}
+            yAxisId="left"
+            type="monotone"
+            dataKey="close"
+            stroke="#8884d8"
+            activeDot={{ r: 4 }}
+          />
+        </LineChart>
+      </ResponsiveContainer>
     );
   }
 }
