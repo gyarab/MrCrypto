@@ -6,7 +6,7 @@ const assert = require("assert");
 
 const url = "mongodb://localhost:27017";
 const dbName = "mrcrypto";
-const dbCollection = "media";
+const dbCollection = "strategy";
 
 function response(_id, res) {
   MongoClient.connect(
@@ -25,7 +25,7 @@ function response(_id, res) {
   );
 }
 
-router.get("/news", (req, res, next) => {
+router.get("/strategy", (req, res, next) => {
   response(req.query.key, res);
 });
 

@@ -63,6 +63,15 @@ class ChartMaker extends Component {
             stroke="#8884d8"
             activeDot={{ r: 4 }}
           />
+          <Line
+            dot={false}
+            label={false}
+            yAxisId="left"
+            type="monotone"
+            dataKey="MA"
+            stroke="#8884d8"
+            activeDot={{ r: 4 }}
+          />
         </LineChart>
       </ResponsiveContainer>
     );
