@@ -8,6 +8,7 @@ const url = "mongodb://localhost:27017";
 const dbName = "mrcrypto";
 const dbCollection = "candles";
 
+//hour, day, month, all, sma_hour, sma_day, sma_month, sma_all
 function response(_id, res) {
   MongoClient.connect(
     url,

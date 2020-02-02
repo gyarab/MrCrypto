@@ -8,7 +8,7 @@ const url = "mongodb://localhost:27017",
   dbName = "mrcrypto",
   dbCollection = "candles";
 
-async function start() {
+async function start(callback) {
   try {
     //get..
     let all = await getter.get(moment(1442966400000), 86400), //ALL, daily
@@ -41,6 +41,8 @@ async function start() {
       c.insertMany(obj, (err, result) => {
         assert.equal(err, null);
         console.info("_NEW CANDLES SAVED");
+        callback(); //lets calculate
+
         //after saving run updating services
         updater.start("hour", 60, 60);
         updater.start("day", 15 * 60, 900);

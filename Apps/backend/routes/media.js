@@ -8,6 +8,7 @@ const url = "mongodb://localhost:27017";
 const dbName = "mrcrypto";
 const dbCollection = "media";
 
+//news, reddit, twitter
 function response(_id, res) {
   MongoClient.connect(
     url,

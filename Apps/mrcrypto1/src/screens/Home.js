@@ -16,7 +16,6 @@ class Home extends Component {
       <Container>
         <Row>
           <ChartMaker />
-           <RadarMaker />
         </Row>
 
         <Row>
