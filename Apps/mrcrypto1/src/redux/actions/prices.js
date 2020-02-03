@@ -1,3 +1,6 @@
+export function selectRange(range) {
+  return { type: "SELECT", payload: range };
+}
 export const getHistorical = interval => {
   return function(dispatch) {
     dispatch({ type: "FETCHING_STARTED" });

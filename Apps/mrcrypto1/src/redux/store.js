@@ -2,7 +2,7 @@ import { createStore, applyMiddleware, compose } from "redux";
 import rootReducer from "./reducers";
 import thunk from "redux-thunk";
 
-import { getHistorical } from "./actions/bitcoinFetch";
+import { getHistorical, selectRange } from "./actions/prices";
 import { getNews } from "./actions/newsFetch";
 import { getTwitter } from "./actions/twitterFetch";
 import { getReddit } from "./actions/redditFetch";
@@ -20,6 +20,8 @@ store.dispatch(getHistorical("all"));
 store.dispatch(getHistorical("month"));
 store.dispatch(getHistorical("day"));
 store.dispatch(getHistorical("hour"));
+
+store.dispatch(selectRange("day")); //default
 
 //initialize media
 store.dispatch(getNews());

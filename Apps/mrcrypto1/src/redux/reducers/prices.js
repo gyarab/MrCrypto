@@ -6,7 +6,8 @@ const initialState = {
   all: [],
   month: [],
   day: [],
-  hour: []
+  hour: [],
+  selected: []
 };
 
 export default function prices(state = initialState, action) {
@@ -23,6 +24,22 @@ export default function prices(state = initialState, action) {
         error: null,
         [action.interval]: action.payload
       };
+    case "SELECT":
+      switch (action.payload) {
+        case "hour":
+          return { ...state, selected: state.hour };
+          break;
+        case "day":
+          return { ...state, selected: state.day };
+          break;
+        case "month":
+          return { ...state, selected: state.month };
+          break;
+        case "all":
+          return { ...state, selected: state.all };
+          break;
+      }
+
     default:
       return state;
   }
