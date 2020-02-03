@@ -345,7 +345,7 @@ async function update() {
         });
       });
     });
-    MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
+    MongoClient.connect(url, { useUnifiedTopology: true, poolSize: 10  }, (err, client) => {
       assert.equal(null, err);
 
       const db = client.db(dbName);

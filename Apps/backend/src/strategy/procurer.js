@@ -5,12 +5,12 @@ const url = "mongodb://localhost:27017",
   dbName = "mrcrypto",
   dbCollection = "candles";
 var sma = require("./strategies/sma.js");
-
+var bob = require("./strategies/bob.js");
 function start() {
   try {
     MongoClient.connect(
       url,
-      { useNewUrlParser: true, useUnifiedTopology: true },
+      { useNewUrlParser: true, useUnifiedTopology: true, poolSize: 10 },
       (err, client) => {
         if (err) throw err;
 
@@ -30,24 +30,29 @@ function start() {
             const db = client.db(dbName);
             const c = db.collection(dbCollection);
 
+
             //calculated object to save
             let obj = [
-              { _id: "sma_hour", data: sma.calculate(hour) },
-              { _id: "sma_day", data: sma.calculate(day) },
-              { _id: "sma_month", data: sma.calculate(month) },
-              { _id: "sma_all", data: sma.calculate(all) }
+             { _id: "sma_hour", data: sma.calculate(hour) },
+             { _id: "sma_day", data: sma.calculate(day) },
+             { _id: "sma_month", data: sma.calculate(month) },
+             { _id: "sma_all", data: sma.calculate(all) },
+             { _id: "bob_hour", data: bob.calculate(hour) },
+             { _id: "bob_day", data: bob.calculate(day) },
+             { _id: "bob_month", data: bob.calculate(month) },
+             { _id: "bob_all", data: bob.calculate(all) }
             ];
 
             c.insertMany(obj, (err, result) => {
               assert.equal(err, null);
-              console.info("_SMA SAVED");
+              console.info("STRATEGIES SAVED");
               client.close();
             });
           });
       }
     );
   } catch (err) {
-    console.error("_SMA ERROR: " + err);
+    console.error("_STRATEGIESERROR: " + err);
     start();
   }
 }

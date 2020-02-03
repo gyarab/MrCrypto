@@ -15,7 +15,6 @@ async function start(callback) {
       month = await getter.get(moment().subtract(30, "days"), 21600), //MONTH, every 6 hours
       day = await getter.get(moment().subtract(1, "days"), 900), //DAY, every 15 minutes
       hour = await getter.get(moment().subtract(1, "hours"), 60); //HOUR, every minute
-
     //save..
     let obj = [
       { _id: "all", data: all },
@@ -24,7 +23,7 @@ async function start(callback) {
       { _id: "hour", data: hour }
     ];
 
-    MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
+    MongoClient.connect(url, { useUnifiedTopology: true, poolSize: 10  }, (err, client) => {
       assert.equal(null, err);
 
       const db = client.db(dbName);
