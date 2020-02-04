@@ -1,7 +1,8 @@
 //Bollinger band
 function calculate(data) {
   var count = Object.keys(data).length;
-  var size = 7;
+  var size = 20;
+  var vol = 2;
   var calculated = [];
   var cislo = [];
   var time = [];
@@ -26,8 +27,8 @@ function calculate(data) {
         bot = sma - dev;
       }
       else {
-        top = sma - dev;
-        bot = sma + dev;
+        top = sma - (dev*vol);
+        bot = sma + (dev*vol);
       }
       curr = [top,bot,time[i]];
       calculated.push(curr);
