@@ -32,7 +32,7 @@ export const getHistorical = interval => {
 function prepareData(data) {
   var result = [];
   data.forEach(a => {
-    result.push({ date: a[0], close: a[1] });
+    result.push({ date: a[0], close: a[4] });
   });
   return result;
 }

@@ -22,24 +22,22 @@ export default function prices(state = initialState, action) {
         fetching: false,
         fetched: true,
         error: null,
+        selected: state.day,
         [action.interval]: action.payload
       };
     case "SELECT":
       switch (action.payload) {
         case "hour":
           return { ...state, selected: state.hour };
-          break;
         case "day":
           return { ...state, selected: state.day };
-          break;
         case "month":
           return { ...state, selected: state.month };
-          break;
         case "all":
           return { ...state, selected: state.all };
-          break;
+        default:
+          return { ...state };
       }
-
     default:
       return state;
   }

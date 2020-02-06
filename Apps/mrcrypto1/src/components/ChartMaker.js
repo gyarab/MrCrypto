@@ -1,13 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import moment from "moment";
-import {
-  ToggleButton,
-  ToggleButtonGroup,
-  Row,
-  Col,
-  Container
-} from "react-bootstrap";
+import ToolBar from "./ToolBar";
+
+import { Row, Col, Container } from "react-bootstrap";
 
 import {
   LineChart,
@@ -17,14 +13,11 @@ import {
   CartesianGrid,
   Tooltip,
   Legend,
-  Brush,
   ResponsiveContainer
 } from "recharts";
-import { selectRange } from "../redux/actions/prices";
 
 class ChartMaker extends Component {
   static jsfiddleUrl = "https://jsfiddle.net/alidingling/zjb47e83/";
-
   render() {
     let max = this.props.selected.reduce(
       (max, p) => (p.close > max ? p.close : max),
@@ -34,19 +27,17 @@ class ChartMaker extends Component {
       (min, p) => (p.close < min ? p.close : min),
       10000000
     );
-    let roundedMax = Math.ceil(max / 1000) * 1000;
-    let roundedMin = Math.floor(min / 1000) * 1000;
+    let dif = (max - min) / 5;
+    dif = Math.ceil(dif / 100) * 100;
+
+    let roundedMax = Math.ceil(max / dif) * dif;
+    let roundedMin = Math.floor(min / dif) * dif;
 
     return (
       <Container>
         <Col>
           <Row className="justify-content-md-center">
-            <ToggleButtonGroup type="radio" name="intervals" defaultValue={2}>
-              <ToggleButton value={1}>Hour</ToggleButton>
-              <ToggleButton value={2}>Day</ToggleButton>
-              <ToggleButton value={3}>Month</ToggleButton>
-              <ToggleButton value={4}>All</ToggleButton>
-            </ToggleButtonGroup>
+            <ToolBar />
           </Row>
           <Row>
             <ResponsiveContainer className="container" height={500}>
@@ -62,7 +53,7 @@ class ChartMaker extends Component {
                 <XAxis dataKey="date" tick={{ fontSize: 10 }} />
                 <YAxis
                   yAxisId="left"
-                  domain={[min, max]}
+                  domain={[roundedMin, roundedMax]}
                   tick={{ fontSize: 10 }}
                   tickFormatter={value => this.props.currency + `${value}`}
                 />

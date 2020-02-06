@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import ChartMaker from "../components/ChartMaker";
-import RadarMaker from "../components/RadarMaker";
 import { Container, Row, Col } from "react-bootstrap";
 import MediaBoard from "../components/MediaBoard";
 import {
