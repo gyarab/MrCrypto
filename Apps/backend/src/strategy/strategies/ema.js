@@ -14,7 +14,7 @@ function calculate(data) {
   for (var i = 1; i < count; i++) {
     cislo[i] = data[i][4]+(k)*cislo[i-1];
     time[i] = data[i][0];
-      curr = [cislo[i], time[i]];
+      curr = [time[i],cislo[i]];
       calculated.push(curr);
   }
   return calculated;

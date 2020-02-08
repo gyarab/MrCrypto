@@ -7,7 +7,7 @@ function calculate(data) {
   var cislo = [];
   var time = [];
   var curr = [];
-
+  var curr2 = [];
   var dev = 0;
   var sma = 0;
   var top = 0;
@@ -30,8 +30,9 @@ function calculate(data) {
         top = sma - (dev*vol);
         bot = sma + (dev*vol);
       }
-      curr = [top,bot,time[i]];
-      calculated.push(curr);
+      curr = [time[i],top];
+      curr2 = [time[i],bot];
+      calculated.push([curr,curr2]);
       sma = 0;
 
     }

@@ -7,6 +7,7 @@ const url = "mongodb://localhost:27017",
 var sma = require("./strategies/sma.js");
 var bob = require("./strategies/bob.js");
 var ema = require("./strategies/ema.js");
+var atr = require("./strategies/atr.js");
 function start() {
   try {
     MongoClient.connect(
@@ -45,7 +46,11 @@ function start() {
              { _id: "ema_hour", data: ema.calculate(hour) },
              { _id: "ema_day", data: ema.calculate(day) },
              { _id: "ema_month", data: ema.calculate(month) },
-             { _id: "ema_all", data: ema.calculate(all) }
+             { _id: "ema_all", data: ema.calculate(all) },
+          //   { _id: "atr_hour", data: atr.calculate(hour) },
+          //   { _id: "atr_day", data: atr.calculate(day) },
+          //   { _id: "atr_month", data: atr.calculate(month) },
+          //   { _id: "atr_all", data: atr.calculate(all) }
             ];
 
             c.insertMany(obj, (err, result) => {

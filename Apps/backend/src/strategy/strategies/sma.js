@@ -17,7 +17,7 @@ function calculate(data) {
         sma += cislo[p];
       }
       sma = sma / size;
-      curr = [sma, time[i]];
+      curr = [time[i],sma];
       calculated.push(curr);
       sma = 0;
     }
