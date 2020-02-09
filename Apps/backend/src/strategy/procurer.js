@@ -37,7 +37,7 @@ function start() {
             let all = prices.all;
 
             let sma_s = {
-              _id: "sma_hour",
+              _id: "sma",
               all: sma.calculate(all),
               month: sma.calculate(month),
               day: sma.calculate(day),
@@ -45,7 +45,7 @@ function start() {
             };
 
             let bob_s = {
-              _id: "bob_hour",
+              _id: "bob",
               all: bob.calculate(all),
               month: bob.calculate(month),
               day: bob.calculate(day),
@@ -53,7 +53,7 @@ function start() {
             };
 
             let ema_s = {
-              _id: "ema_hour",
+              _id: "ema",
               all: ema.calculate(all),
               month: ema.calculate(month),
               day: ema.calculate(day),

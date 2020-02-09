@@ -37,57 +37,50 @@ class ChartMaker extends Component {
       { name: "actual", color: "#8884d8", data: this.props.selected },
       { name: "sma", color: "red", data: this.props.indicator }
     ];
+
     return (
-      <Container>
-        <Col>
-          <Row className="justify-content-md-center">
-            <ToolBar />
-          </Row>
-          <Row>
-            <ResponsiveContainer className="container" height={500}>
-              <LineChart
-                margin={{
-                  top: 5,
-                  bottom: 80
-                }}
-              >
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis
-                  dataKey="date"
-                  tick={{ fontSize: 10 }}
-                  allowDuplicatedCategory={false}
-                />
-                <YAxis
-                  yAxisId="left"
-                  domain={[roundedMin, roundedMax]}
-                  tick={{ fontSize: 10 }}
-                  tickFormatter={value => this.props.currency + `${value}`}
-                />
+      <Col>
+        <ToolBar />
+        <ResponsiveContainer width="100%" aspect={2}>
+          <LineChart
+            margin={{
+              top: 5,
+              bottom: 80
+            }}
+          >
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis
+              dataKey="date"
+              tick={{ fontSize: 10 }}
+              allowDuplicatedCategory={false}
+            />
+            <YAxis
+              yAxisId="left"
+              domain={[roundedMin, roundedMax]}
+              tick={{ fontSize: 10 }}
+              tickFormatter={value => this.props.currency + `${value}`}
+            />
 
-                <Tooltip
-                  formatter={value => this.props.currency + `${value}`}
-                />
+            <Tooltip formatter={value => this.props.currency + `${value}`} />
 
-                <Legend />
-                {series.map(s => (
-                  <Line
-                    dot={false}
-                    label={false}
-                    yAxisId="left"
-                    type="monotone"
-                    dataKey="close"
-                    activeDot={{ r: 4 }}
-                    stroke={s.color}
-                    data={s.data}
-                    name={s.name}
-                    key={s.name}
-                  />
-                ))}
-              </LineChart>
-            </ResponsiveContainer>
-          </Row>
-        </Col>
-      </Container>
+            <Legend />
+            {series.map(s => (
+              <Line
+                dot={false}
+                label={false}
+                yAxisId="left"
+                type="monotone"
+                dataKey="close"
+                activeDot={{ r: 4 }}
+                stroke={s.color}
+                data={s.data}
+                name={s.name}
+                key={s.name}
+              />
+            ))}
+          </LineChart>
+        </ResponsiveContainer>
+      </Col>
     );
   }
 }

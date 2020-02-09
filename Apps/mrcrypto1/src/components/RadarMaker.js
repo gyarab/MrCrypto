@@ -10,50 +10,38 @@ import {
 
 const data = [
   {
-    subject: "Math",
+    subject: "SMA",
     A: 120,
     B: 110,
     fullMark: 150
   },
   {
-    subject: "Chinese",
+    subject: "EMA",
     A: 98,
     B: 130,
     fullMark: 150
   },
   {
-    subject: "English",
+    subject: "BOB",
     A: 86,
     B: 130,
     fullMark: 150
   },
   {
-    subject: "Geography",
+    subject: "WMA",
     A: 99,
     B: 100,
-    fullMark: 150
-  },
-  {
-    subject: "Physics",
-    A: 85,
-    B: 90,
-    fullMark: 150
-  },
-  {
-    subject: "History",
-    A: 65,
-    B: 85,
     fullMark: 150
   }
 ];
 
-export default class Example extends PureComponent {
+export default class RadarMaker extends PureComponent {
   static jsfiddleUrl = "https://jsfiddle.net/alidingling/6ebcxbx4/";
 
   render() {
     return (
-      <ResponsiveContainer width="70%" height={500}>
-        <RadarChart cx={250} cy={250} outerRadius={100} data={data}>
+      <ResponsiveContainer width="20%" aspect={10}>
+        <RadarChart data={data}>
           <PolarGrid />
           <PolarAngleAxis dataKey="subject" />
           <PolarRadiusAxis />

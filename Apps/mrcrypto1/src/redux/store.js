@@ -16,17 +16,13 @@ const store = createStore(
   )
 );
 
-//initialize candles
-store.dispatch(getHistorical("all"));
-store.dispatch(getHistorical("month"));
-store.dispatch(getHistorical("day"));
-store.dispatch(getHistorical("hour"));
+//initialize get prices
+store.dispatch(getHistorical());
 
 //sma indicators
-store.dispatch(getIndicator("sma_all"));
-store.dispatch(getIndicator("sma_month"));
-store.dispatch(getIndicator("sma_day"));
-store.dispatch(getIndicator("sma_hour"));
+store.dispatch(getIndicator("sma"));
+store.dispatch(getIndicator("ema"));
+//store.dispatch(getIndicator("bob"));
 
 //initialize media
 store.dispatch(getNews());

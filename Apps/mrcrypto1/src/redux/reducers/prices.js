@@ -3,10 +3,7 @@ const initialState = {
   fetched: false,
   error: null,
   currency: "$",
-  all: [],
-  month: [],
-  day: [],
-  hour: [],
+  intervals: {},
   selected: []
 };
 
@@ -22,19 +19,19 @@ export default function prices(state = initialState, action) {
         fetching: false,
         fetched: true,
         error: null,
-        selected: state.day,
-        [action.interval]: action.payload
+        intervals: action.payload,
+        selected: action.payload.day
       };
     case "SELECT":
       switch (action.payload) {
         case "hour":
-          return { ...state, selected: state.hour };
+          return { ...state, selected: state.intervals.hour };
         case "day":
-          return { ...state, selected: state.day };
+          return { ...state, selected: state.intervals.day };
         case "month":
-          return { ...state, selected: state.month };
+          return { ...state, selected: state.intervals.month };
         case "all":
-          return { ...state, selected: state.all };
+          return { ...state, selected: state.intervals.all };
         default:
           return { ...state };
       }

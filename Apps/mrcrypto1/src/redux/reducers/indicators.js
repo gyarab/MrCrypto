@@ -2,10 +2,8 @@ const initialState = {
   fetching: false,
   fetched: false,
   error: null,
-  sma_all: [],
-  sma_month: [],
-  sma_day: [],
-  sma_hour: [],
+  sma: {},
+  ema: {},
   selected: []
 };
 
@@ -21,7 +19,7 @@ export default function indicators(state = initialState, action) {
         fetching: false,
         fetched: true,
         error: null,
-        selected: state.sma_day, //just for testing.. later will be removed with selecting functionality
+        selected: state.sma.day, //just for testing.. later will be removed with selecting functionality
         [action.name]: action.payload
       };
     default:

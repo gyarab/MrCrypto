@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import ChartMaker from "../components/ChartMaker";
 import { Container, Row, Col } from "react-bootstrap";
 import MediaBoard from "../components/MediaBoard";
+import Charts from "../components/Charts";
 import {
   toggleNews,
   toggleTwitter,
@@ -13,10 +14,7 @@ class Home extends Component {
   render() {
     return (
       <Container>
-        <Row>
-          <ChartMaker />
-        </Row>
-
+        <Row as={Charts} />
         <Row>
           <Col xs={12} sm={6} lg={4}>
             <MediaBoard

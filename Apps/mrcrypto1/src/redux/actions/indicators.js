@@ -15,7 +15,7 @@ export const getIndicator = name => {
           .then(json => {
             dispatch({
               type: "FETCHING_INDICATOR_DONE",
-              payload: prepareData(json.data),
+              payload: prepareData(json),
               name
             });
           })
@@ -32,9 +32,23 @@ export const getIndicator = name => {
 };
 //data will be restructed
 function prepareData(data) {
-  var result = [];
-  data.forEach(a => {
-    result.push({ date: a[0], close: a[1] });
+  var all = [];
+  var month = [];
+  var day = [];
+  var hour = [];
+
+  data.all.forEach(a => {
+    all.push({ date: a[0], close: a[1] });
   });
+  data.month.forEach(a => {
+    month.push({ date: a[0], close: a[1] });
+  });
+  data.day.forEach(a => {
+    day.push({ date: a[0], close: a[1] });
+  });
+  data.hour.forEach(a => {
+    hour.push({ date: a[0], close: a[1] });
+  });
+  let result = { all, month, day, hour };
   return result;
 }
