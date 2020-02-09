@@ -27,6 +27,6 @@ module.exports = {
     slot = await publicClient.getProductHistoricRates("BTC-USD", params);
     result.push(...slot);
 
-    return result;
+    return result.reverse();
   }
 };

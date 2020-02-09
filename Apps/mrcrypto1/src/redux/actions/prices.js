@@ -3,7 +3,7 @@ export function selectRange(range) {
 }
 export const getHistorical = interval => {
   return function(dispatch) {
-    dispatch({ type: "FETCHING_STARTED" });
+    dispatch({ type: "FETCHING_PRICES_STARTED" });
 
     fetch("/candles?key=" + interval)
       .then(res => {
@@ -11,24 +11,24 @@ export const getHistorical = interval => {
           .json()
           .then(json => {
             dispatch({
-              type: "FETCHING_DONE",
+              type: "FETCHING_PRICES_DONE",
               payload: prepareData(json.data),
               interval
             });
           })
           //error after recieving
           .catch(err => {
-            dispatch({ type: "FETCHING_ERROR", payload: err });
+            dispatch({ type: "FETCHING_PRICES_ERROR", payload: err });
           });
       })
       //not recieved
       .catch(err => {
-        dispatch({ type: "FETCHING_ERROR", payload: err });
+        dispatch({ type: "FETCHING_PRICES_ERROR", payload: err });
       });
   };
 };
 
-//data will be restructed and reducated 7-times
+//data will be restructed
 function prepareData(data) {
   var result = [];
   data.forEach(a => {

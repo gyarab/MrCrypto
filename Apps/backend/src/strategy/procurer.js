@@ -4,10 +4,12 @@ const assert = require("assert");
 const url = "mongodb://localhost:27017",
   dbName = "mrcrypto",
   dbCollection = "candles";
+
 var sma = require("./strategies/sma.js");
 var bob = require("./strategies/bob.js");
 var ema = require("./strategies/ema.js");
 var atr = require("./strategies/atr.js");
+
 function start() {
   try {
     MongoClient.connect(
@@ -23,35 +25,43 @@ function start() {
           .toArray(async (err, data) => {
             if (err) throw err;
 
-            //data to calculate
-            let hour = data.find(obj => obj._id == "hour").data;
-            let day = data.find(obj => obj._id == "day").data;
-            let month = data.find(obj => obj._id == "month").data;
-            let all = data.find(obj => obj._id == "all").data;
-
             const db = client.db(dbName);
             const c = db.collection(dbCollection);
 
+            let prices = data.find(obj => obj._id == "prices");
+
+            //data to calculate
+            let hour = prices.hour;
+            let day = prices.day;
+            let month = prices.month;
+            let all = prices.all;
+
+            let sma_s = {
+              _id: "sma_hour",
+              all: sma.calculate(all),
+              month: sma.calculate(month),
+              day: sma.calculate(day),
+              hour: sma.calculate(hour)
+            };
+
+            let bob_s = {
+              _id: "bob_hour",
+              all: bob.calculate(all),
+              month: bob.calculate(month),
+              day: bob.calculate(day),
+              hour: bob.calculate(hour)
+            };
+
+            let ema_s = {
+              _id: "ema_hour",
+              all: ema.calculate(all),
+              month: ema.calculate(month),
+              day: ema.calculate(day),
+              hour: ema.calculate(hour)
+            };
 
             //calculated object to save
-            let obj = [
-             { _id: "sma_hour", data: sma.calculate(hour) },
-             { _id: "sma_day", data: sma.calculate(day) },
-             { _id: "sma_month", data: sma.calculate(month) },
-             { _id: "sma_all", data: sma.calculate(all) },
-             { _id: "bob_hour", data: bob.calculate(hour) },
-             { _id: "bob_day", data: bob.calculate(day) },
-             { _id: "bob_month", data: bob.calculate(month) },
-             { _id: "bob_all", data: bob.calculate(all) },
-             { _id: "ema_hour", data: ema.calculate(hour) },
-             { _id: "ema_day", data: ema.calculate(day) },
-             { _id: "ema_month", data: ema.calculate(month) },
-             { _id: "ema_all", data: ema.calculate(all) },
-          //   { _id: "atr_hour", data: atr.calculate(hour) },
-          //   { _id: "atr_day", data: atr.calculate(day) },
-          //   { _id: "atr_month", data: atr.calculate(month) },
-          //   { _id: "atr_all", data: atr.calculate(all) }
-            ];
+            let obj = [sma_s, bob_s, ema_s];
 
             c.insertMany(obj, (err, result) => {
               assert.equal(err, null);
@@ -62,7 +72,7 @@ function start() {
       }
     );
   } catch (err) {
-    console.error("_STRATEGIESERROR: " + err);
+    console.error("STRATEGIES_ERROR: " + err);
     start();
   }
 }

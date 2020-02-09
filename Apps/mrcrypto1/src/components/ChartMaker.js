@@ -33,6 +33,10 @@ class ChartMaker extends Component {
     let roundedMax = Math.ceil(max / dif) * dif;
     let roundedMin = Math.floor(min / dif) * dif;
 
+    let series = [
+      { name: "actual", color: "#8884d8", data: this.props.selected },
+      { name: "sma", color: "red", data: this.props.indicator }
+    ];
     return (
       <Container>
         <Col>
@@ -42,15 +46,17 @@ class ChartMaker extends Component {
           <Row>
             <ResponsiveContainer className="container" height={500}>
               <LineChart
-                data={this.props.selected || []}
                 margin={{
                   top: 5,
                   bottom: 80
                 }}
               >
                 <CartesianGrid strokeDasharray="3 3" />
-
-                <XAxis dataKey="date" tick={{ fontSize: 10 }} />
+                <XAxis
+                  dataKey="date"
+                  tick={{ fontSize: 10 }}
+                  allowDuplicatedCategory={false}
+                />
                 <YAxis
                   yAxisId="left"
                   domain={[roundedMin, roundedMax]}
@@ -63,15 +69,20 @@ class ChartMaker extends Component {
                 />
 
                 <Legend />
-                <Line
-                  dot={false}
-                  label={false}
-                  yAxisId="left"
-                  type="monotone"
-                  dataKey="close"
-                  stroke="#8884d8"
-                  activeDot={{ r: 4 }}
-                />
+                {series.map(s => (
+                  <Line
+                    dot={false}
+                    label={false}
+                    yAxisId="left"
+                    type="monotone"
+                    dataKey="close"
+                    activeDot={{ r: 4 }}
+                    stroke={s.color}
+                    data={s.data}
+                    name={s.name}
+                    key={s.name}
+                  />
+                ))}
               </LineChart>
             </ResponsiveContainer>
           </Row>
@@ -85,6 +96,7 @@ function mapStateToProps(state) {
   let prices = state.prices;
   return {
     selected: prices.selected,
+    indicator: state.indicators.selected,
     currency: prices.currency
   };
 }

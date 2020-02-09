@@ -12,11 +12,11 @@ const initialState = {
 
 export default function prices(state = initialState, action) {
   switch (action.type) {
-    case "FETCHING_STARTED":
+    case "FETCHING_PRICES_STARTED":
       return { ...state, fetching: true };
-    case "FETCHING_ERROR":
+    case "FETCHING_PRICES_ERROR":
       return { ...state, fetching: false, error: action.payload };
-    case "FETCHING_DONE":
+    case "FETCHING_PRICES_DONE":
       return {
         ...state,
         fetching: false,
