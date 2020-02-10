@@ -47,6 +47,7 @@ function prepareData(data) {
   data.hour.forEach(a => {
     hour.push({ date: a[0], close: a[4] });
   });
+
   let result = { all, month, day, hour };
   return result;
 }

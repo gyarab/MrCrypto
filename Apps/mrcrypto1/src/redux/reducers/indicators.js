@@ -2,9 +2,8 @@ const initialState = {
   fetching: false,
   fetched: false,
   error: null,
-  sma: {},
-  ema: {},
-  selected: []
+  indicators: {},
+  toggled: []
 };
 
 export default function indicators(state = initialState, action) {
@@ -14,14 +13,26 @@ export default function indicators(state = initialState, action) {
     case "FETCHING_INDICATOR_ERROR":
       return { ...state, fetching: false, error: action.payload };
     case "FETCHING_INDICATOR_DONE":
+      let indicators = state.indicators;
+      indicators[action.name] = action.payload;
       return {
         ...state,
         fetching: false,
         fetched: true,
         error: null,
-        selected: state.sma.day, //just for testing.. later will be removed with selecting functionality
-        [action.name]: action.payload
+        indicators
       };
+    case "TOGGLE_INDICATOR":
+      let toggled = state.toggled;
+      let index = toggled.indexOf(action.payload);
+
+      if (index === -1) {
+        toggled.push(action.payload);
+      } else {
+        toggled.splice(index, 1);
+      }
+      return { ...state, toggled };
+
     default:
       return state;
   }

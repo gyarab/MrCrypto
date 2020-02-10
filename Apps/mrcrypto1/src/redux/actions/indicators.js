@@ -1,8 +1,5 @@
-export const select = indicator => {
-  return { type: "SELECT", payload: indicator };
-};
-export const deselect = indicator => {
-  return { type: "DESELECT", payload: indicator };
+export const toggleIndicator = indicator => {
+  return { type: "TOGGLE_INDICATOR", payload: indicator };
 };
 export const getIndicator = name => {
   return function(dispatch) {
@@ -49,6 +46,7 @@ function prepareData(data) {
   data.hour.forEach(a => {
     hour.push({ date: a[0], close: a[1] });
   });
+
   let result = { all, month, day, hour };
   return result;
 }
