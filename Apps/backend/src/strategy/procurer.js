@@ -9,6 +9,8 @@ var sma = require("./strategies/sma.js");
 var bob = require("./strategies/bob.js");
 var ema = require("./strategies/ema.js");
 var atr = require("./strategies/atr.js");
+var elr = require("./strategies/elr.js");
+var macd = require("./strategies/macd.js");
 
 function start() {
   try {
@@ -60,8 +62,25 @@ function start() {
               hour: ema.calculate(hour)
             };
 
+            let elr_s = {
+              _id: "elr",
+              all: elr.calculate(all),
+              month: elr.calculate(month),
+              day: elr.calculate(day),
+              hour: elr.calculate(hour)
+            };
+
+            let macd_s = {
+              _id: "macd",
+              all: macd.calculate(all),
+              month: macd.calculate(month),
+              day: macd.calculate(day),
+              hour: macd.calculate(hour)
+            };
+
+
             //calculated object to save
-            let obj = [sma_s, bob_s, ema_s];
+            let obj = [sma_s, bob_s, ema_s, elr_s, macd_s];
 
             c.insertMany(obj, (err, result) => {
               assert.equal(err, null);
