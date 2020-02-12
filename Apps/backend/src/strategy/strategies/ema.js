@@ -6,16 +6,17 @@ function calculate(data) {
   var cislo = [];
   var time = [];
   var curr = [];
-  var k = 2/(size + 1);
+  var k = 2 / (size + 1);
   cislo[0] = data[0][4];
   time[0] = data[0][0];
-  curr = [cislo[0], time[0]];
+  curr = [time[0], cislo[0]];
+
   calculated.push(curr);
   for (var i = 1; i < count; i++) {
-    cislo[i] = data[i][4]+(k)*cislo[i-1];
+    cislo[i] = data[i][4] + k * cislo[i - 1];
     time[i] = data[i][0];
-      curr = [time[i],cislo[i]];
-      calculated.push(curr);
+    curr = [time[i], cislo[i]];
+    calculated.push(curr);
   }
   return calculated;
 }

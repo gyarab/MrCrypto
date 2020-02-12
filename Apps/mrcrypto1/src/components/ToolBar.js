@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { selectRange } from "../redux/actions/prices";
+import { setActive } from "../redux/actions/indicators";
 
 import {
   Container,
@@ -14,13 +15,23 @@ import {
 
 class ToolBar extends Component {
   render() {
+    const handleToggle = indicators => {
+      console.log(indicators);
+      this.props.setToggled(indicators);
+    };
+
     return (
       <Row className="d-flex justify-content-around">
         <Col md={3} xs={3} lg={3}>
-          <ToggleButtonGroup size="sm" type="checkbox" className="mb-2">
-            <ToggleButton value={1}>SMA</ToggleButton>
-            <ToggleButton value={2}>EMA</ToggleButton>
-            <ToggleButton value={3}>BOB</ToggleButton>
+          <ToggleButtonGroup
+            size="sm"
+            type="checkbox"
+            className="mb-2"
+            onChange={handleToggle}
+          >
+            <ToggleButton value="sma">SMA</ToggleButton>
+            <ToggleButton value="ema">EMA</ToggleButton>
+            <ToggleButton value="bob">BOB</ToggleButton>
           </ToggleButtonGroup>
         </Col>
         <Col md={3} xs={3} lg={3}>
@@ -72,14 +83,16 @@ class ToolBar extends Component {
 function mapStateToProps(state) {
   let prices = state.prices;
   return {
-    selected: prices.selected,
-    currency: prices.currency
+    selected: prices.selected
   };
 }
 function mapDispatchToProps(dispatch) {
   return {
     select: range => {
       dispatch(selectRange(range));
+    },
+    setToggled: indicators => {
+      dispatch(setActive(indicators));
     }
   };
 }

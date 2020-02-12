@@ -22,16 +22,8 @@ export default function indicators(state = initialState, action) {
         error: null,
         indicators
       };
-    case "TOGGLE_INDICATOR":
-      let toggled = state.toggled;
-      let index = toggled.indexOf(action.payload);
-
-      if (index === -1) {
-        toggled.push(action.payload);
-      } else {
-        toggled.splice(index, 1);
-      }
-      return { ...state, toggled };
+    case "SET_INDICATORS":
+      return { ...state, toggled: action.payload };
 
     default:
       return state;

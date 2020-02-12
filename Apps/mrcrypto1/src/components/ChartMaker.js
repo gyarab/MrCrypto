@@ -118,6 +118,7 @@ class ChartMaker extends Component {
               top: 5,
               bottom: 80
             }}
+            animationDuration={3000}
           >
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis
