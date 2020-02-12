@@ -8,10 +8,8 @@ const url = "mongodb://localhost:27017",
 var sma = require("./strategies/sma.js");
 var bob = require("./strategies/bob.js");
 var ema = require("./strategies/ema.js");
-var atr = require("./strategies/atr.js");
-var elr = require("./strategies/elr.js");
-var macd = require("./strategies/macd.js");
-
+var tma = require("./strategies/tma.js");
+var wma = require("./strategies/wma.js");
 function start() {
   try {
     MongoClient.connect(
@@ -62,25 +60,23 @@ function start() {
               hour: ema.calculate(hour)
             };
 
-            let elr_s = {
-              _id: "elr",
-              all: elr.calculate(all),
-              month: elr.calculate(month),
-              day: elr.calculate(day),
-              hour: elr.calculate(hour)
+            let tma_s = {
+              _id: "tma",
+              all: tma.calculate(all),
+              month: tma.calculate(month),
+              day: tma.calculate(day),
+              hour: tma.calculate(hour)
             };
 
-            let macd_s = {
-              _id: "macd",
-              all: macd.calculate(all),
-              month: macd.calculate(month),
-              day: macd.calculate(day),
-              hour: macd.calculate(hour)
+            let wma_s = {
+              _id: "wma",
+              all: wma.calculate(all),
+              month: wma.calculate(month),
+              day: wma.calculate(day),
+              hour: wma.calculate(hour)
             };
-
-
             //calculated object to save
-            let obj = [sma_s, bob_s, ema_s, elr_s, macd_s];
+            let obj = [sma_s, bob_s, ema_s, tma_s, wma_s];
 
             c.insertMany(obj, (err, result) => {
               assert.equal(err, null);
