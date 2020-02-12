@@ -3,7 +3,7 @@ import rootReducer from "./reducers";
 import thunk from "redux-thunk";
 
 import { getHistorical } from "./actions/prices";
-import { getIndicator, toggleIndicator } from "./actions/indicators";
+import { getIndicator } from "./actions/indicators";
 import { getNews } from "./actions/newsFetch";
 import { getTwitter } from "./actions/twitterFetch";
 import { getReddit } from "./actions/redditFetch";
@@ -20,10 +20,9 @@ const store = createStore(
 store.dispatch(getHistorical());
 
 //sma indicators
-store.dispatch(getIndicator("sma"));
 store.dispatch(getIndicator("ema"));
+store.dispatch(getIndicator("sma"));
 //store.dispatch(getIndicator("bob"));
-store.dispatch(toggleIndicator("sma"));
 
 //initialize media
 store.dispatch(getNews());

@@ -1,5 +1,5 @@
-export const toggleIndicator = indicator => {
-  return { type: "TOGGLE_INDICATOR", payload: indicator };
+export const setActive = indicators => {
+  return { type: "SET_INDICATORS", payload: indicators };
 };
 export const getIndicator = name => {
   return function(dispatch) {
