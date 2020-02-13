@@ -30,13 +30,15 @@ function calculate(data) {
         top = sma - (dev*vol);
         bot = sma + (dev*vol);
       }
-      curr = [time[i],top];
-      curr2 = [time[i],bot];
-      calculated.push([curr,curr2]);
+      curr.push([time[i],top]);
+      curr2.push([time[i],bot]);
+
       sma = 0;
 
     }
+
   }
+  calculated.push(curr,curr2);
   return calculated;
 }
 

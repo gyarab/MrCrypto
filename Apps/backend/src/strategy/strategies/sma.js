@@ -1,7 +1,7 @@
 //Simple moving average
 function calculate(data) {
   var count = Object.keys(data).length;
-  var size = 20;
+  var size = 12;
   var calculated = [];
   var cislo = [];
   var time = [];
