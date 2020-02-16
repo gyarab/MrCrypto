@@ -1,5 +1,6 @@
 const moment = require("moment");
 const getter = require("./getter");
+const historicalGetter = require("./historicalGetter");
 const updater = require("./updater");
 const MongoClient = require("mongodb").MongoClient;
 const assert = require("assert");
@@ -11,7 +12,7 @@ const url = "mongodb://localhost:27017",
 async function start(callback) {
   try {
     //get..
-    let all = await getter.get(moment(1442966400000), 86400), //ALL, daily
+    let all = await historicalGetter.get(), //ALL, daily
       month = await getter.get(moment().subtract(30, "days"), 21600), //MONTH, every 6 hours
       day = await getter.get(moment().subtract(1, "days"), 900), //DAY, every 15 minutes
       hour = await getter.get(moment().subtract(1, "hours"), 60); //HOUR, every minute

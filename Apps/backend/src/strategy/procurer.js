@@ -10,6 +10,7 @@ var bob = require("./strategies/bob.js");
 var ema = require("./strategies/ema.js");
 var tma = require("./strategies/tma.js");
 var wma = require("./strategies/wma.js");
+
 function start() {
   try {
     MongoClient.connect(
@@ -80,14 +81,14 @@ function start() {
 
             c.insertMany(obj, (err, result) => {
               assert.equal(err, null);
-              console.info("STRATEGIES SAVED");
+              console.info("_STRATEGIES SAVED");
               client.close();
             });
           });
       }
     );
   } catch (err) {
-    console.error("STRATEGIES_ERROR: " + err);
+    console.error("_STRATEGIES_ERROR: " + err);
     start();
   }
 }

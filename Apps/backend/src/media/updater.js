@@ -327,8 +327,9 @@ async function update() {
 
         //Autor
         let sAutor = $(el)
-          .find("._3ryJoIoycVkA88fy40qNJc")
+          .find("._3ryJoIoycVkA88fy40qNJc") //class: _3ryJoIoycVkA88fy40qNJc _1L0pdcPf58t25Jy6ljHIKR
           .text();
+        console.log("author: " + sAutor);
 
         //Url
         let sUrl =
@@ -345,34 +346,38 @@ async function update() {
         });
       });
     });
-    MongoClient.connect(url, { useUnifiedTopology: true, poolSize: 10  }, (err, client) => {
-      assert.equal(null, err);
+    MongoClient.connect(
+      url,
+      { useUnifiedTopology: true, poolSize: 10 },
+      (err, client) => {
+        assert.equal(null, err);
 
-      const db = client.db(dbName);
-      const c = db.collection(dbCollection);
+        const db = client.db(dbName);
+        const c = db.collection(dbCollection);
 
-      //dropping older collection prevents errors
-      try {
-        c.drop((err, ok) => {
-          if (err) console.log("_SKIPPING MEDIA DROPPING");
-          if (ok) console.log("_OLDER MEDIA DROPPED");
-        });
-      } catch {}
+        //dropping older collection prevents errors
+        try {
+          c.drop((err, ok) => {
+            if (err) console.log("_SKIPPING MEDIA DROPPING");
+            if (ok) console.log("_OLDER MEDIA DROPPED");
+          });
+        } catch {}
 
-      c.insertMany(
-        [
-          { _id: "news", data: articles },
-          { _id: "twitter", data: tweets },
-          { _id: "reddit", data: scraped }
-        ],
-        (err, result) => {
-          assert.equal(err, null);
-          console.info("_NEW MEDIA SAVED");
+        c.insertMany(
+          [
+            { _id: "news", data: articles },
+            { _id: "twitter", data: tweets },
+            { _id: "reddit", data: scraped }
+          ],
+          (err, result) => {
+            assert.equal(err, null);
+            console.info("_NEW MEDIA SAVED");
 
-          client.close();
-        }
-      );
-    });
+            client.close();
+          }
+        );
+      }
+    );
   } catch (err) {
     console.error("_PROCURING MEDIA ERROR : " + err);
   }
