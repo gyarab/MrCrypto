@@ -11,6 +11,7 @@ import {
   faChevronRight
 } from "@fortawesome/free-solid-svg-icons";
 
+
 library.add(fab, faReddit, faTwitter, faGlobeEurope, faChevronRight);
 
 export default function App() {
