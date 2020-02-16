@@ -13,7 +13,6 @@ function calculate(data) {
 for (var i = 1; i <= size; i++) {
   k+=i;
 }
-console.log(k);
   for (var i = 0; i < count; i++) {
     cislo[i] = data[i][4];
     time[i] = data[i][0];

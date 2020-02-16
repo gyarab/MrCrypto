@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Home from "../screens/Home.js";
+import Indicators from "../screens/Indicators.js";
 import { Navbar, Nav } from "react-bootstrap";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
@@ -14,7 +15,7 @@ export default class NavigationRouter extends Component {
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
               <Nav className="mr-auto">
-                <Nav.Link href="/link">Link</Nav.Link>
+                <Nav.Link href="/indicators">indicators</Nav.Link>
               </Nav>
               <Nav>
                 <Nav.Link href="/about">About</Nav.Link>
@@ -26,8 +27,8 @@ export default class NavigationRouter extends Component {
             <Route path="/about">
               <About />
             </Route>
-            <Route path="/link">
-              <Page />
+            <Route path="/indicators">
+              <Indicators />
             </Route>
             <Route path="/">
               <Home />
@@ -44,5 +45,5 @@ function About() {
 }
 
 function Page() {
-  return <h2>Link</h2>;
+  return <h2>indicators</h2>;
 }
