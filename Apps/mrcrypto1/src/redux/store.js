@@ -22,6 +22,8 @@ store.dispatch(getHistorical());
 //sma indicators
 store.dispatch(getIndicator("ema"));
 store.dispatch(getIndicator("sma"));
+store.dispatch(getIndicator("tma"));
+store.dispatch(getIndicator("wma"));
 //store.dispatch(getIndicator("bob"));
 
 //initialize media

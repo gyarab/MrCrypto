@@ -31,6 +31,8 @@ class ToolBar extends Component {
           >
             <ToggleButton value="sma">SMA</ToggleButton>
             <ToggleButton value="ema">EMA</ToggleButton>
+            <ToggleButton value="tma">TMA</ToggleButton>
+            <ToggleButton value="wma">WMA</ToggleButton>
             <ToggleButton value="bob">BOB</ToggleButton>
           </ToggleButtonGroup>
         </Col>
