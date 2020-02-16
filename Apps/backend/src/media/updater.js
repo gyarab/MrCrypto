@@ -38,6 +38,52 @@ function cut(title) {
 
 async function update() {
   try {
+    /*REDDIT*/
+    var scraped = [];
+    await rp(URL).then(html => {
+      let output = [];
+      //scraping reddit posts
+      ht = $("._2XDITKxlj4y3M99thqyCsO", html).each((i, el) => {
+        if (i == 15) {
+          return false;
+        }
+        //Title
+        let sTitle = $(el)
+          .find(".SQnoC3ObvgnGjWt90zD9Z")
+          .text();
+
+        //Image
+        let imgDiv = $(el)
+          .find("._2c1ElNxHftd8W_nZtcG9zf")
+          .attr("style");
+
+        let l = imgDiv.indexOf("(") + 1;
+        let r = imgDiv.indexOf(")");
+
+        let sImgUrl = imgDiv.slice(l, r);
+        sImgUrl = sImgUrl.includes("border-color") ? undefined : sImgUrl; //it could be just empty background
+
+        //Url
+        let sUrl =
+          "https://www.reddit.com" +
+          $(el)
+            .find(".SQnoC3ObvgnGjWt90zD9Z")
+            .attr("href");
+
+        //Autor
+        let la = sUrl.indexOf("/r/") + 1;
+        let ra = sUrl.indexOf("/comments/");
+        let sAutor = sUrl.slice(la, ra);
+
+        scraped.push({
+          autor: sAutor,
+          title: cut(sTitle),
+          imgUrl: sImgUrl,
+          url: sUrl
+        });
+      });
+    });
+
     //get NEWS
     let v = [];
     let articles = [];
@@ -298,52 +344,6 @@ async function update() {
           url: "https://" + aurl
         };
         tweets.push(t);
-      });
-    });
-    /*REDDIT*/
-    var scraped = [];
-    await rp(URL).then(html => {
-      let output = [];
-      //scraping reddit posts
-      ht = $("._2XDITKxlj4y3M99thqyCsO", html).each((i, el) => {
-        if (i == 15) {
-          return false;
-        }
-        //Title
-        let sTitle = $(el)
-          .find(".SQnoC3ObvgnGjWt90zD9Z")
-          .text();
-
-        //Image
-        let imgDiv = $(el)
-          .find("._2c1ElNxHftd8W_nZtcG9zf")
-          .attr("style");
-
-        let l = imgDiv.indexOf("(") + 1;
-        let r = imgDiv.indexOf(")");
-
-        let sImgUrl = imgDiv.slice(l, r);
-        sImgUrl = sImgUrl.includes("border-color") ? undefined : sImgUrl; //it could be just empty background
-
-        //Autor
-        let sAutor = $(el)
-          .find("._3ryJoIoycVkA88fy40qNJc") //class: _3ryJoIoycVkA88fy40qNJc _1L0pdcPf58t25Jy6ljHIKR
-          .text();
-        console.log("author: " + sAutor);
-
-        //Url
-        let sUrl =
-          "https://www.reddit.com" +
-          $(el)
-            .find(".SQnoC3ObvgnGjWt90zD9Z")
-            .attr("href");
-
-        scraped.push({
-          autor: sAutor,
-          title: cut(sTitle),
-          imgUrl: sImgUrl,
-          url: sUrl
-        });
       });
     });
     MongoClient.connect(
