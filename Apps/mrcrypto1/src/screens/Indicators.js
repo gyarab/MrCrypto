@@ -5,7 +5,9 @@ import MediaBoard from "../components/MediaBoard";
 import Charts from "../components/Charts";
 import { connect } from "react-redux";
 import styles from '../index.css';
-
+//fontawesome imports
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faChartLine } from '@fortawesome/free-solid-svg-icons'
 class Indicators extends Component {
   render() {
   const writing = {
@@ -19,7 +21,7 @@ class Indicators extends Component {
     return (
       <Container>
         <Row>
-        <h2 style={headline}>Indikátory Technických analýz:</h2>
+        <h2 style={headline}><FontAwesomeIcon icon={faChartLine} />   Indikátory Technických analýz:</h2>
         </Row>
         <Row>
         <h2 style={headline}>SMA</h2>
