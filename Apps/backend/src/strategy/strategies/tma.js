@@ -23,14 +23,14 @@ function calculate(data) {
   }
   for (var i = size - 1; i < sma.length; i++) {
     time[i] = data[i][0];
-      for (var p = i - (size - 1); p <= i; p++) {
-        sum += sma[p];
-      }
-curr = [time[i],sum];
-time[i] = data[i][0];
-calculated.push(curr);
-sum = 0;
-
+    for (var p = i - (size - 1); p <= i; p++) {
+      sum += sma[p];
+    }
+    sum = sum / size;
+    curr = [time[i], sum];
+    time[i] = data[i][0];
+    calculated.push(curr);
+    sum = 0;
   }
   return calculated;
 }

@@ -18,6 +18,22 @@ import {
 
 class ChartMaker extends Component {
   static jsfiddleUrl = "https://jsfiddle.net/alidingling/zjb47e83/";
+
+  formatTime = label => {
+    label *= 1000;
+    switch (this.props.selected) {
+      case "all":
+        return moment(label).format("ll");
+      case "month":
+        return moment(label).format("MMM DD YYYY, h:mm ");
+      case "day":
+        return moment(label).format("MMM DD YYYY, h:mm ");
+      case "hour":
+        return moment(label).format("h:mm");
+      default:
+        return moment(label).format("ll");
+    }
+  };
   render() {
     let intervals = this.props.intervals;
     let selected = this.props.selected;
@@ -53,45 +69,11 @@ class ChartMaker extends Component {
       "#809900",
       "#E6B3B3",
       "#6680B3",
-      "#66991A",
-      "#FF99E6",
-      "#CCFF1A",
-      "#FF1A66",
-      "#E6331A",
-      "#33FFCC",
-      "#66994D",
-      "#B366CC",
-      "#4D8000",
-      "#B33300",
-      "#CC80CC",
-      "#66664D",
-      "#991AFF",
-      "#E666FF",
-      "#4DB3FF",
-      "#1AB399",
-      "#E666B3",
-      "#33991A",
-      "#CC9999",
-      "#B3B31A",
-      "#00E680",
-      "#4D8066",
-      "#809980",
-      "#E6FF80",
-      "#1AFF33",
-      "#999933",
-      "#FF3380",
-      "#CCCC00",
-      "#66E64D",
-      "#4D80CC",
-      "#9900B3",
-      "#E64D66",
-      "#4DB380",
-      "#FF4D4D",
-      "#99E6E6",
-      "#6666FF"
+      "#66991A"
     ];
 
     let series = [];
+
     series.push({
       name: "close",
       color: "#8884d8",
@@ -118,6 +100,7 @@ class ChartMaker extends Component {
               top: 5,
               bottom: 80
             }}
+            data={this.props.intervals[this.props.selected]}
             animationDuration={3000}
           >
             <CartesianGrid strokeDasharray="3 3" />
@@ -125,6 +108,7 @@ class ChartMaker extends Component {
               dataKey="date"
               tick={{ fontSize: 10 }}
               allowDuplicatedCategory={false}
+              tickFormatter={label => this.formatTime(label)}
             />
             <YAxis
               yAxisId="left"
@@ -133,7 +117,10 @@ class ChartMaker extends Component {
               tickFormatter={value => this.props.currency + `${value}`}
             />
 
-            <Tooltip formatter={value => this.props.currency + `${value}`} />
+            <Tooltip
+              labelFormatter={label => this.formatTime(label)}
+              formatter={value => this.props.currency + `${value}`}
+            />
 
             <Legend />
             {series.map(s => (
@@ -149,6 +136,7 @@ class ChartMaker extends Component {
                 data={s.data}
                 name={s.name}
                 key={s.name}
+                animationDuration={300}
               />
             ))}
           </LineChart>

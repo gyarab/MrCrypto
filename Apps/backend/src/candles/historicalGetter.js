@@ -1,6 +1,3 @@
-var express = require("express");
-var router = express.Router();
-
 const fetch = require("node-fetch");
 const fs = require("fs");
 const moment = require("moment");
