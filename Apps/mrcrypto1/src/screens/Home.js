@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import ChartMaker from "../components/ChartMaker";
 import { Container, Row, Col } from "react-bootstrap";
 import MediaBoard from "../components/MediaBoard";
 import Charts from "../components/Charts";

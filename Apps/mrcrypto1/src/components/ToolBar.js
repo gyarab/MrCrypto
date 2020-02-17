@@ -3,15 +3,7 @@ import { connect } from "react-redux";
 import { selectRange } from "../redux/actions/prices";
 import { setActive } from "../redux/actions/indicators";
 
-import {
-  Container,
-  Row,
-  Col,
-  Colum,
-  ToggleButton,
-  ToggleButtonGroup,
-  Dropdown
-} from "react-bootstrap";
+import { Row, Col, ToggleButton, ToggleButtonGroup } from "react-bootstrap";
 
 class ToolBar extends Component {
   render() {

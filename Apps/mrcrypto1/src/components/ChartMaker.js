@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import moment from "moment";
 import ToolBar from "./ToolBar";
 
-import { Row, Col, Container } from "react-bootstrap";
+import { Col } from "react-bootstrap";
 
 import {
   LineChart,

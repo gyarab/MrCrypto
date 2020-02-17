@@ -43,7 +43,3 @@ export default class NavigationRouter extends Component {
 function About() {
   return <h2>About</h2>;
 }
-
-function Page() {
-  return <h2>indicators</h2>;
-}
