@@ -1,7 +1,7 @@
 //Exponential moving average
 function calculate(data) {
   var count = Object.keys(data).length;
-  var size = 12;
+  var size = Math.round(count/10);
   var calculated = [];
   var cislo = [];
   var time = [];
