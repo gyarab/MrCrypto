@@ -36,6 +36,7 @@ class ChartMaker extends Component {
   };
   render() {
     let intervals = this.props.intervals;
+    let trendsIntervals = this.props.trendsIntervals;
     let selected = this.props.selected;
     let toggled = this.props.toggled;
     let indicators = this.props.indicators;
@@ -73,12 +74,21 @@ class ChartMaker extends Component {
     ];
 
     let series = [];
-
+    series.push({
+      name: "googletrends",
+      color: colors[Math.floor(Math.random() * colors.length)],
+      width: 2,
+      data: trendsIntervals[selected],
+      id: "right",
+      key: "ratio"
+    });
     series.push({
       name: "close",
       color: "#8884d8",
       width: 2,
-      data: intervals[selected]
+      data: intervals[selected],
+      id: "left",
+      key: "close"
     });
     toggled.forEach(name => {
       let patch = indicators[name] || {};
@@ -88,9 +98,12 @@ class ChartMaker extends Component {
         name,
         color: colors[Math.floor(Math.random() * colors.length)],
         width: 1,
-        data: patch
+        data: patch,
+        id: "left",
+        key: "close"
       });
     });
+
     return (
       <Col>
         <ToolBar />
@@ -100,7 +113,9 @@ class ChartMaker extends Component {
               top: 5,
               bottom: 80
             }}
-            data={this.props.intervals[this.props.selected]}
+            data={this.props.intervals[this.props.selected].concat(
+              this.props.trendsIntervals[this.props.selected]
+            )}
             animationDuration={3000}
           >
             <CartesianGrid strokeDasharray="3 3" />
@@ -116,6 +131,7 @@ class ChartMaker extends Component {
               tick={{ fontSize: 10 }}
               tickFormatter={value => this.props.currency + `${value}`}
             />
+            <YAxis yAxisId="right" orientation="right" />
 
             <Tooltip
               labelFormatter={label => this.formatTime(label)}
@@ -125,11 +141,12 @@ class ChartMaker extends Component {
             <Legend />
             {series.map(s => (
               <Line
+                connectNulls
                 dot={false}
                 label={false}
-                yAxisId="left"
+                yAxisId={s.id}
                 type="monotone"
-                dataKey="close"
+                dataKey={s.key}
                 activeDot={{ r: 4 }}
                 strokeWidth={s.width}
                 stroke={s.color}
@@ -149,12 +166,14 @@ class ChartMaker extends Component {
 function mapStateToProps(state) {
   let prices = state.prices;
   let indicators = state.indicators;
+  let trends = state.googletrends;
   return {
     selected: prices.selected,
     intervals: prices.intervals,
     currency: prices.currency,
     toggled: indicators.toggled,
-    indicators: indicators.indicators
+    indicators: indicators.indicators,
+    trendsIntervals: trends.intervals
   };
 }
 
