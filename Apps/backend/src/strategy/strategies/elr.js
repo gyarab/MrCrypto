@@ -1,7 +1,7 @@
 //Elder ray
 function calculate(data) {
   var count = Object.keys(data).length;
-  var size = 13;
+  var size = Math.round(count/10);
   var calculated = [];
   var cislo = [];
   var time = [];

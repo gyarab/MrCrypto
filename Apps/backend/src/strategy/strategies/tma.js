@@ -1,7 +1,7 @@
 //Triangular moving average
 function calculate(data) {
   var count = Object.keys(data).length;
-  var size = 10;
+  var size = Math.round(count/10);
   var calculated = [];
   var cislo = [];
   var time = [];
@@ -22,7 +22,7 @@ function calculate(data) {
     }
   }
   for (var i = size - 1; i < sma.length; i++) {
-    time[i] = data[i][0];
+    time[i] = data[i+(size - 1)][0];
     for (var p = i - (size - 1); p <= i; p++) {
       sum += sma[p];
     }

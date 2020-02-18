@@ -1,8 +1,8 @@
 //Moving Average Convergence Divergence
 function calculate(data) {
   var count = Object.keys(data).length;
-  var size = 12;
-  var size2 = 26;
+  var size = Math.round(count/10);
+  var size2 = Math.round(count/5);
   var calculated = [];
   var cislo = [];
   var cislo2 = [];

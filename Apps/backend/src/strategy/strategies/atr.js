@@ -1,7 +1,7 @@
 //Avarage true range
 function calculate(data) {
   var count = Object.keys(data).length;
-  var size = 20;
+  var size = Math.round(count/10);
   var calculated = [];
   var cislo = [];
   var time = [];
