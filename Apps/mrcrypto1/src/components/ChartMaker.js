@@ -34,26 +34,12 @@ class ChartMaker extends Component {
         return moment(label).format("ll");
     }
   };
-  render() {
+  getSeries = () => {
     let intervals = this.props.intervals;
     let trendsIntervals = this.props.trendsIntervals;
     let selected = this.props.selected;
     let toggled = this.props.toggled;
     let indicators = this.props.indicators;
-
-    let max = intervals[selected].reduce(
-      (max, p) => (p.close > max ? p.close : max),
-      0
-    );
-    let min = intervals[selected].reduce(
-      (min, p) => (p.close < min ? p.close : min),
-      10000000
-    );
-    let dif = (max - min) / 5;
-    dif = Math.ceil(dif / 100) * 100;
-
-    let roundedMax = Math.ceil(max / dif) * dif;
-    let roundedMin = Math.floor(min / dif) * dif;
 
     var colors = [
       "#FF6633",
@@ -74,22 +60,31 @@ class ChartMaker extends Component {
     ];
 
     let series = [];
-    series.push({
-      name: "googletrends",
-      color: colors[Math.floor(Math.random() * colors.length)],
-      width: 2,
-      data: trendsIntervals[selected],
-      id: "right",
-      key: "ratio"
+    //merging and sorting not aligned dataKey
+    let values = intervals[selected].concat(trendsIntervals[selected]);
+    values.sort((a, b) => {
+      return a.date > b.date;
     });
+
+    //real price
     series.push({
       name: "close",
       color: "#8884d8",
       width: 2,
-      data: intervals[selected],
+      data: values,
       id: "left",
       key: "close"
     });
+    //google trends
+    series.push({
+      name: "googletrends",
+      color: colors[Math.floor(Math.random() * colors.length)],
+      width: 2,
+      data: values,
+      id: "right",
+      key: "ratio"
+    });
+    //loop for indicators
     toggled.forEach(name => {
       let patch = indicators[name] || {};
       patch = patch[selected] || [];
@@ -103,6 +98,54 @@ class ChartMaker extends Component {
         key: "close"
       });
     });
+    return series;
+  };
+  getAdjustValues = () => {
+    let intervals = this.props.intervals;
+    let selected = this.props.selected;
+
+    let max = intervals[selected].reduce(
+      (max, p) => (p.close > max ? p.close : max),
+      0
+    );
+    let min = intervals[selected].reduce(
+      (min, p) => (p.close < min ? p.close : min),
+      10000000
+    );
+    let dif = (max - min) / 5;
+    dif = Math.ceil(dif / 100) * 100;
+
+    let roundedMax = Math.ceil(max / dif) * dif;
+    let roundedMin = Math.floor(min / dif) * dif;
+    return [roundedMax, roundedMin];
+  };
+  render() {
+    let intervals = this.props.intervals;
+    let trendsIntervals = this.props.trendsIntervals;
+    let selected = this.props.selected;
+    let toggled = this.props.toggled;
+    let indicators = this.props.indicators;
+
+    let preData = [];
+    //console.log(trendsIntervals[selected]);
+    trendsIntervals[selected].forEach(item => {
+      preData.push({ date: item.date });
+    });
+    intervals[selected].forEach(item => {
+      preData.push({ date: item.date });
+    });
+    //preData = [...new Set(preData)];
+
+    let data = [];
+    preData.forEach(item => {
+      data.push({ date: item });
+    });
+
+    let values = this.getAdjustValues();
+    let roundedMax = values[0];
+    let roundedMin = values[1];
+
+    let series = this.getSeries();
 
     return (
       <Col>
@@ -113,9 +156,6 @@ class ChartMaker extends Component {
               top: 5,
               bottom: 80
             }}
-            data={this.props.intervals[this.props.selected].concat(
-              this.props.trendsIntervals[this.props.selected]
-            )}
             animationDuration={3000}
           >
             <CartesianGrid strokeDasharray="3 3" />
@@ -131,7 +171,12 @@ class ChartMaker extends Component {
               tick={{ fontSize: 10 }}
               tickFormatter={value => this.props.currency + `${value}`}
             />
-            <YAxis yAxisId="right" orientation="right" />
+            <YAxis
+              yAxisId="right"
+              tick={{ fontSize: 10 }}
+              tickFormatter={value => value}
+              orientation="right"
+            />
 
             <Tooltip
               labelFormatter={label => this.formatTime(label)}

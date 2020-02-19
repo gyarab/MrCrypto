@@ -1,12 +1,12 @@
 //Simple moving average
 function calculate(data) {
   var count = Object.keys(data).length;
-  var size = Math.round(count/10);
+  var size = Math.round(count / 10);
   var calculated = [];
   var cislo = [];
   var time = [];
   var curr = [];
-
+  var per = 0;
   var sma = 0;
 
   for (var i = 0; i < count; i++) {
@@ -17,7 +17,8 @@ function calculate(data) {
         sma += cislo[p];
       }
       sma = sma / size;
-      curr = [time[i],sma];
+
+      curr = [time[i], sma];
       calculated.push(curr);
       sma = 0;
     }
