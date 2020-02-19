@@ -8,7 +8,7 @@ function calculate(data) {
   var curr = [];
   var sma = [];
   var sum = 0;
-
+  var per = 0;
   for (var i = 0; i < count; i++) {
     cislo[i] = data[i][4];
 
@@ -27,7 +27,8 @@ function calculate(data) {
       sum += sma[p];
     }
     sum = sum / size;
-    curr = [time[i], sum];
+    per =  Math.abs(sum/(cislo[i]/100)-100);
+    curr = [time[i], sum,per];
     time[i] = data[i][0];
     calculated.push(curr);
     sum = 0;
