@@ -8,6 +8,7 @@ function calculate(data) {
   var curr = [];
   var k = 2/(size + 1);
   var sma = 0;
+  var per =0;
   for (var i = 0; i < count; i++) {
     cislo[i] = data[i][4];
     time[i] = data[i][0];
@@ -16,6 +17,7 @@ function calculate(data) {
         sma += cislo[p];
       }
       sma = sma / size;
+      per =  Math.abs(sma/(cislo[i]/100)-100);
       curr = [time[i],sma];
       calculated.push(curr);
       cislo[i]=sma;
@@ -24,7 +26,8 @@ function calculate(data) {
     if (i > size - 1) {
     cislo[i] = ((data[i][4]-cislo[i-1])*k)+cislo[i-1];
     time[i] = data[i][0];
-      curr = [time[i],cislo[i]];
+    per = cislo[i]/(data[i][4]/100)-100;
+      curr = [time[i],cislo[i],per];
       calculated.push(curr);
   }}
   return calculated;

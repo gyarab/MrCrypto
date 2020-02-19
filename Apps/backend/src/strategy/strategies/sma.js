@@ -6,7 +6,7 @@ function calculate(data) {
   var cislo = [];
   var time = [];
   var curr = [];
-
+  var per = 0;
   var sma = 0;
 
   for (var i = 0; i < count; i++) {
@@ -17,11 +17,13 @@ function calculate(data) {
         sma += cislo[p];
       }
       sma = sma / size;
-      curr = [time[i],sma];
+  per =  Math.abs(sma/(cislo[i]/100)-100);
+      curr = [time[i],sma,per];
       calculated.push(curr);
       sma = 0;
     }
   }
+
   return calculated;
 }
 

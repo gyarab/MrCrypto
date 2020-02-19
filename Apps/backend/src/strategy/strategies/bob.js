@@ -12,6 +12,8 @@ function calculate(data) {
   var sma = 0;
   var top = 0;
   var bot = 0;
+  var per = 0;
+  var per2 = 0;
   for (var i = 0; i < count; i++) {
     cislo[i] = data[i][4];
     time[i] = data[i][0];
@@ -30,8 +32,10 @@ function calculate(data) {
         top = sma - (dev*vol);
         bot = sma + (dev*vol);
       }
-      curr.push([time[i],top]);
-      curr2.push([time[i],bot]);
+      per =  Math.abs(top/(cislo[i]/100)-100);
+      per2 =  Math.abs(bot/(cislo[i]/100)-100);
+      curr.push([time[i],top, per]);
+      curr2.push([time[i],bot, per2]);
 
       sma = 0;
 

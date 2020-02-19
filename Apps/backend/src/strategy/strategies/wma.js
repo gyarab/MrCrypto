@@ -8,7 +8,7 @@ function calculate(data) {
   var curr = [];
   var k = 0;
   var q = 1;
-
+  var per =0;
   var sum = 0;
 for (var i = 1; i <= size; i++) {
   k+=i;
@@ -22,7 +22,8 @@ for (var i = 1; i <= size; i++) {
         q++;
       }
       sum = sum / k;
-      curr = [time[i],sum];
+      per = Math.abs(sum/(cislo[i]/100)-100);
+      curr = [time[i],sum,per];
       calculated.push(curr);
       sum = 0;
       q = 1;
