@@ -30,24 +30,18 @@ export const getHistorical = () => {
 
 //data will be restructed
 function prepareData(data) {
-  var all = [];
-  var month = [];
-  var day = [];
-  var hour = [];
-
-  data.all.forEach(a => {
-    all.push({ date: a[0], close: a[4] });
-  });
-  data.month.forEach(a => {
-    month.push({ date: a[0], close: a[4] });
-  });
-  data.day.forEach(a => {
-    day.push({ date: a[0], close: a[4] });
-  });
-  data.hour.forEach(a => {
-    hour.push({ date: a[0], close: a[4] });
-  });
+  var all = reformate(data.all);
+  var month = reformate(data.month);
+  var day = reformate(data.day);
+  var hour = reformate(data.hour);
 
   let result = { all, month, day, hour };
   return result;
+}
+function reformate(data) {
+  let newData = [];
+  data.forEach(a => {
+    newData.push({ date: a[0], close: a[4] });
+  });
+  return newData;
 }

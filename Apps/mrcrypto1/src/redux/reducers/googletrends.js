@@ -2,7 +2,7 @@ const initialState = {
   fetching: false,
   fetched: false,
   error: null,
-  intervals: { all: [], month: [], day: [], hour: [] }
+  intervals: { all: [0], month: [0], day: [0], hour: [0] }
 };
 
 export default function googletrends(state = initialState, action) {

@@ -17,13 +17,10 @@ function calculate(data) {
         sma += cislo[p];
       }
       sma = sma / size;
-<<<<<<< HEAD
 
-      curr = [time[i], sma];
-=======
-  per =  Math.abs(sma/(cislo[i]/100)-100);
-      curr = [time[i],sma,per];
->>>>>>> 9ada6d58b77a132a7b4647372e58c089cb7295ec
+      per = Math.abs(sma / (cislo[i] / 100) - 100);
+      curr = [time[i], sma, per];
+
       calculated.push(curr);
       sma = 0;
     }

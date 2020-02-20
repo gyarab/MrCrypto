@@ -3,7 +3,7 @@ const initialState = {
   fetched: false,
   error: null,
   currency: "$",
-  intervals: { all: [], month: [], day: [], hour: [] },
+  intervals: { all: [0], month: [0], day: [0], hour: [0] },
   selected: "day"
 };
 

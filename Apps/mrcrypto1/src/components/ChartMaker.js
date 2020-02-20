@@ -25,19 +25,19 @@ class ChartMaker extends Component {
       case "all":
         return moment(label).format("ll");
       case "month":
-        return moment(label).format("MMM DD YYYY, h:mm ");
+        return moment(label).format("lll");
       case "day":
-        return moment(label).format("MMM DD YYYY, h:mm ");
+        return moment(label).format("lll");
       case "hour":
-        return moment(label).format("h:mm");
+        return moment(label).format("LT");
       default:
-        return moment(label).format("ll");
+        return moment(label).format("lll");
     }
   };
   getSeries = () => {
-    let intervals = this.props.intervals;
-    let trendsIntervals = this.props.trendsIntervals;
     let selected = this.props.selected;
+    let interval = this.props.intervals[selected];
+    let trendsInterval = this.props.trendsIntervals[selected];
     let toggled = this.props.toggled;
     let indicators = this.props.indicators;
 
@@ -58,14 +58,27 @@ class ChartMaker extends Component {
       "#6680B3",
       "#66991A"
     ];
+    let dif = 0;
+    if (selected === "all") {
+      let day = 3600 * 24 * 1000; //day in unix
+      dif = (interval[0].date % day) - (trendsInterval[0].date % day);
+    }
 
-    let series = [];
+    let cleared = trendsInterval.filter(item => {
+      if (interval.some(el => el.date == item.date + dif)) {
+        let newItem = item;
+        newItem.date += dif;
+        return newItem;
+      }
+    });
+
     //merging and sorting not aligned dataKey
-    let values = intervals[selected].concat(trendsIntervals[selected]);
+    let values = interval.concat(cleared);
     values.sort((a, b) => {
       return a.date > b.date;
     });
 
+    let series = [];
     //real price
     series.push({
       name: "close",
@@ -101,14 +114,11 @@ class ChartMaker extends Component {
     return series;
   };
   getAdjustValues = () => {
-    let intervals = this.props.intervals;
     let selected = this.props.selected;
+    let interval = this.props.intervals[selected];
 
-    let max = intervals[selected].reduce(
-      (max, p) => (p.close > max ? p.close : max),
-      0
-    );
-    let min = intervals[selected].reduce(
+    let max = interval.reduce((max, p) => (p.close > max ? p.close : max), 0);
+    let min = interval.reduce(
       (min, p) => (p.close < min ? p.close : min),
       10000000
     );
@@ -120,26 +130,11 @@ class ChartMaker extends Component {
     return [roundedMax, roundedMin];
   };
   render() {
-    let intervals = this.props.intervals;
-    let trendsIntervals = this.props.trendsIntervals;
     let selected = this.props.selected;
+    let interval = this.props.intervals[selected];
+    let trendsInterval = this.props.trendsIntervals[selected];
     let toggled = this.props.toggled;
     let indicators = this.props.indicators;
-
-    let preData = [];
-    //console.log(trendsIntervals[selected]);
-    trendsIntervals[selected].forEach(item => {
-      preData.push({ date: item.date });
-    });
-    intervals[selected].forEach(item => {
-      preData.push({ date: item.date });
-    });
-    //preData = [...new Set(preData)];
-
-    let data = [];
-    preData.forEach(item => {
-      data.push({ date: item });
-    });
 
     let values = this.getAdjustValues();
     let roundedMax = values[0];
@@ -186,7 +181,7 @@ class ChartMaker extends Component {
             <Legend />
             {series.map(s => (
               <Line
-                connectNulls
+                connectNulls={true}
                 dot={false}
                 label={false}
                 yAxisId={s.id}

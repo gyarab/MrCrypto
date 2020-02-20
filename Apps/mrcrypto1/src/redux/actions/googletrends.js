@@ -25,24 +25,20 @@ export const getGoogleTrends = () => {
 };
 //data will be restructed
 function prepareData(data) {
-  var all = [];
-  var month = [];
-  var day = [];
-  var hour = [];
-
-  data.all.forEach(a => {
-    all.push({ date: parseInt(a.time), ratio: a.value[0] });
-  });
-  data.month.forEach(a => {
-    month.push({ date: parseInt(a.time), ratio: a.value[0] });
-  });
-  data.day.forEach(a => {
-    day.push({ date: parseInt(a.time), ratio: a.value[0] });
-  });
-  data.hour.forEach(a => {
-    hour.push({ date: parseInt(a.time), ratio: a.value[0] });
-  });
+  var all = reformate(data.all, true);
+  var month = reformate(data.month);
+  var day = reformate(data.day);
+  var hour = reformate(data.hour);
 
   let result = { all, month, day, hour };
   return result;
+}
+
+function reformate(data, align = false) {
+  let newData = [];
+  data.forEach(a => {
+    let date = parseInt(a.time);
+    newData.push({ date, ratio: a.value[0] });
+  });
+  return newData;
 }
