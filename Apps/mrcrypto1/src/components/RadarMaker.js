@@ -11,19 +11,19 @@ import {
 
 const data = [
   {
-    subject: 'SMA', A: 120, B: 110, fullMark: 150,
+    subject: 'SMA', A: 100-38.589, B: 100, fullMark: 100,
   },
   {
-    subject: 'WMA', A: 98, B: 130, fullMark: 150,
+    subject: 'BOB', A: 100-32.984, B: 100, fullMark: 100,
   },
   {
-    subject: 'EMA', A: 86, B: 130, fullMark: 150,
+    subject: 'EMA', A: 100-29.155, B: 100, fullMark: 100,
   },
   {
-    subject: 'TMA', A: 99, B: 100, fullMark: 150,
+    subject: 'TMA', A:100-40.257, B: 100, fullMark: 100,
   },
   {
-    subject: 'BOB', A: 85, B: 90, fullMark: 150,
+    subject: 'WMA', A:100-29.797, B: 100, fullMark: 100,
   },
 
 ];

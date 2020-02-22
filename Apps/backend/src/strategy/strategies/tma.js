@@ -1,5 +1,5 @@
 //Triangular moving average
-function calculate(data) {
+function calculate(data,ev) {
   var count = Object.keys(data).length;
   var size = Math.round(count/10);
   var calculated = [];
@@ -9,6 +9,7 @@ function calculate(data) {
   var sma = [];
   var sum = 0;
   var per = 0;
+  var avg = 0;
   for (var i = 0; i < count; i++) {
     cislo[i] = data[i][4];
 
@@ -28,11 +29,15 @@ function calculate(data) {
     }
     sum = sum / size;
     per =  Math.abs(sum/(cislo[i]/100)-100);
+    avg += per;
     curr = [time[i], sum,per];
     time[i] = data[i][0];
     calculated.push(curr);
     sum = 0;
   }
+  if(ev == true){
+avg = avg/count;
+console.log(avg);}
   return calculated;
 }
 

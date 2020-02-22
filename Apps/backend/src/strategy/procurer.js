@@ -39,42 +39,42 @@ function start() {
 
             let sma_s = {
               _id: "sma",
-              all: sma.calculate(all),
-              month: sma.calculate(month),
-              day: sma.calculate(day),
-              hour: sma.calculate(hour)
+              all: sma.calculate(all,true),
+              month: sma.calculate(month,false),
+              day: sma.calculate(day,false),
+              hour: sma.calculate(hour,false)
             };
 
             let bob_s = {
               _id: "bob",
-              all: bob.calculate(all),
-              month: bob.calculate(month),
-              day: bob.calculate(day),
-              hour: bob.calculate(hour)
+              all: bob.calculate(all,true),
+              month: bob.calculate(month,false),
+              day: bob.calculate(day,false),
+              hour: bob.calculate(hour,false)
             };
 
             let ema_s = {
               _id: "ema",
-              all: ema.calculate(all),
-              month: ema.calculate(month),
-              day: ema.calculate(day),
-              hour: ema.calculate(hour)
+              all: ema.calculate(all,true),
+              month: ema.calculate(month,false),
+              day: ema.calculate(day,false),
+              hour: ema.calculate(hour,false)
             };
 
             let tma_s = {
               _id: "tma",
-              all: tma.calculate(all),
-              month: tma.calculate(month),
-              day: tma.calculate(day),
-              hour: tma.calculate(hour)
+              all: tma.calculate(all,true),
+              month: tma.calculate(month,false),
+              day: tma.calculate(day,false),
+              hour: tma.calculate(hour,false)
             };
 
             let wma_s = {
               _id: "wma",
-              all: wma.calculate(all),
-              month: wma.calculate(month),
-              day: wma.calculate(day),
-              hour: wma.calculate(hour)
+              all: wma.calculate(all,true),
+              month: wma.calculate(month,false),
+              day: wma.calculate(day,false),
+              hour: wma.calculate(hour,false)
             };
             //calculated object to save
             let obj = [sma_s, bob_s, ema_s, tma_s, wma_s];

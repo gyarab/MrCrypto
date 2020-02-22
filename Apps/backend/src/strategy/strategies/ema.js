@@ -1,5 +1,5 @@
 //Exponential moving average
-function calculate(data) {
+function calculate(data, ev) {
   var count = Object.keys(data).length;
   var size = Math.round(count/10);
   var calculated = [];
@@ -9,6 +9,7 @@ function calculate(data) {
   var k = 2/(size + 1);
   var sma = 0;
   var per =0;
+  var avg = 0;
   for (var i = 0; i < count; i++) {
     cislo[i] = data[i][4];
     time[i] = data[i][0];
@@ -26,10 +27,14 @@ function calculate(data) {
     if (i > size - 1) {
     cislo[i] = ((data[i][4]-cislo[i-1])*k)+cislo[i-1];
     time[i] = data[i][0];
-    per = cislo[i]/(data[i][4]/100)-100;
+      per = Math.abs(cislo[i]/(data[i][4]/100)-100);
+    avg += per;
       curr = [time[i],cislo[i],per];
       calculated.push(curr);
   }}
+  if(ev == true){
+avg = avg/count;
+console.log(avg);}
   return calculated;
 }
 

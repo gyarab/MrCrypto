@@ -1,5 +1,5 @@
 //Bollinger band
-function calculate(data) {
+function calculate(data, ev) {
   var count = Object.keys(data).length;
   var size = Math.round(count/10);
   var vol = 2;
@@ -14,6 +14,7 @@ function calculate(data) {
   var bot = 0;
   var per = 0;
   var per2 = 0;
+  var avg = 0;
   for (var i = 0; i < count; i++) {
     cislo[i] = data[i][4];
     time[i] = data[i][0];
@@ -36,13 +37,20 @@ function calculate(data) {
       per2 =  Math.abs(bot/(cislo[i]/100)-100);
       curr.push([time[i],top, per]);
       curr2.push([time[i],bot, per2]);
-
+if (per<per2) {
+  avg += per;
+}else {
+  avg += per2;
+}
       sma = 0;
 
     }
 
   }
   calculated.push(curr,curr2);
+  if(ev == true){
+avg = avg/count;
+console.log(avg);}
   return calculated;
 }
 
