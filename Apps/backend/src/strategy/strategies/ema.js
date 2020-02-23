@@ -30,11 +30,13 @@ function calculate(data, ev) {
       per = Math.abs(cislo[i]/(data[i][4]/100)-100);
     avg += per;
       curr = [time[i],cislo[i],per];
+      if (i == count-1) {
+        if(ev == true){
+      avg = avg/count;}
+      curr = [time[i], cislo[i], per, avg];
+      }
       calculated.push(curr);
   }}
-  if(ev == true){
-avg = avg/count;
-console.log(avg);}
   return calculated;
 }
 

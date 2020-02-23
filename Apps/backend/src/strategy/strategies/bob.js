@@ -35,22 +35,19 @@ function calculate(data, ev) {
       }
       per =  Math.abs(top/(cislo[i]/100)-100);
       per2 =  Math.abs(bot/(cislo[i]/100)-100);
-      curr.push([time[i],top, per]);
-      curr2.push([time[i],bot, per2]);
+      curr.push([time[i],top]);
+      curr2.push([time[i],bot]);
 if (per<per2) {
   avg += per;
 }else {
   avg += per2;
 }
       sma = 0;
-
     }
-
   }
-  calculated.push(curr,curr2);
   if(ev == true){
-avg = avg/count;
-console.log(avg);}
+avg = avg/count;}
+calculated.push(curr,curr2,avg);
   return calculated;
 }
 

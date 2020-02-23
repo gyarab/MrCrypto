@@ -21,13 +21,16 @@ function calculate(data,ev) {
       per = Math.abs(sma / (cislo[i] / 100) - 100);
       curr = [time[i], sma, per];
 avg += per;
+if (i == count-1) {
+  if(ev == true){
+avg = avg/count;}
+curr = [time[i], sma, per, avg];
+}
       calculated.push(curr);
       sma = 0;
     }
   }
-  if(ev == true){
-avg = avg/count;
-console.log(avg);}
+
   return calculated;
 }
 

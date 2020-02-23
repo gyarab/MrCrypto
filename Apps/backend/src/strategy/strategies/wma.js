@@ -26,14 +26,17 @@ for (var i = 1; i <= size; i++) {
       per = Math.abs(sum/(cislo[i]/100)-100);
       avg += per;
       curr = [time[i],sum,per];
+      if (i == count-1) {
+        if(ev == true){
+      avg = avg/count;}
+      curr = [time[i], sum, per, avg];
+      }
       calculated.push(curr);
+
       sum = 0;
       q = 1;
     }
   }
-  if(ev == true){
-avg = avg/count;
-console.log(avg);}
   return calculated;
 }
 
