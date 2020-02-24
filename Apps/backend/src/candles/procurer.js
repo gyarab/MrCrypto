@@ -9,7 +9,7 @@ const url = "mongodb://localhost:27017",
   dbName = "mrcrypto",
   dbCollection = "candles";
 
-async function start(callback) {
+async function start(callback, callback2) {
   try {
     //get..
     let all = await historicalGetter.get(), //ALL, daily
@@ -40,6 +40,7 @@ async function start(callback) {
           assert.equal(err, null);
           console.info("_NEW CANDLES SAVED");
           callback(); //lets calculate
+          callback2();
 
           /**after saving run updating services
         updater.start("hour", 60, 60);
