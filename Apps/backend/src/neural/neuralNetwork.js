@@ -29,25 +29,32 @@ function calculate(data) {
     tf.layers.dense({
       inputShape: [size],
       activation: "sigmoid",
-      units: 6
+      units: 5
     })
   );
   model.add(
     tf.layers.dense({
       inputShape: [6],
-      activation: "sigmoid",
+      activation: "relu",
       units: 2
     })
   );
   model.add(
     tf.layers.dense({
-      activation: "sigmoid",
+      activation: "softmax",
       units: 2
     })
   );
   model.compile({
     loss: "meanSquaredError",
     optimizer: tf.train.adam(0.06)
+  });
+
+  //train our model
+  const startTime = Date.now();
+  model.fit(trainingData, outputData, { epochs: 400 }).then(history => {
+    console.log(history);
+    //model.predict(testingData).print()
   });
 }
 
