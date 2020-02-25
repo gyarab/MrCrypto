@@ -13,8 +13,10 @@ export const getIndicator = name => {
             dispatch({
               type: "FETCHING_INDICATOR_DONE",
               payload: prepareData(json),
+              percentage: getPercentage(json),
               name
             });
+            getPercentage(json);
           })
           //error after recieving
           .catch(err => {
@@ -27,6 +29,12 @@ export const getIndicator = name => {
       });
   };
 };
+
+function getPercentage(data) {
+  let percentage = data.all.pop()[3];
+  return percentage;
+}
+
 //data will be restructed
 function prepareData(data) {
   var all = reformate(data.all);

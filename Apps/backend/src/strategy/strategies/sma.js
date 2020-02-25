@@ -1,5 +1,5 @@
 //Simple moving average
-function calculate(data,ev) {
+function calculate(data, ev) {
   var count = Object.keys(data).length;
   var size = Math.round(count / 10);
   var calculated = [];
@@ -20,12 +20,13 @@ function calculate(data,ev) {
 
       per = Math.abs(sma / (cislo[i] / 100) - 100);
       curr = [time[i], sma, per];
-avg += per;
-if (i == count-1) {
-  if(ev == true){
-avg = avg/count;}
-curr = [time[i], sma, per, avg];
-}
+      avg += per;
+      if (i == count - 1) {
+        if (ev == true) {
+          avg = avg / count;
+        }
+        curr = [time[i], sma, per, avg];
+      }
       calculated.push(curr);
       sma = 0;
     }
