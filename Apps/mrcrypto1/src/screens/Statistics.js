@@ -1,11 +1,8 @@
 import React, { Component } from "react";
-import { Container, Row } from "react-bootstrap";
+import { Container, Row,Col , Table } from "react-bootstrap";
 import { connect } from "react-redux";
 import Radars from "../components/Radars";
-//import chartRadar
-import {
-  Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis,
-} from 'recharts';
+import StatisticTable from "../components/StatisticTable";
 
 class Statistics extends Component {
   static jsfiddleUrl = 'https://jsfiddle.net/alidingling/6ebcxbx4/';
@@ -22,26 +19,22 @@ class Statistics extends Component {
     };
     return (
       <Container>
-      <Row><h2 style={headline}>Indicators success rate</h2></Row>
-      <Row as={Radars} />
+      <Row><Col><h2 style={headline}>Indicators success rate</h2>
+      <p style={indi}>
+      Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nunc
+      tincidunt ante vitae massa. Maecenas libero. Aliquam ornare wisi eu
+      metus. Morbi leo mi, nonummy eget tristique non, rhoncus non leo.
+      Mauris suscipit, ligula sit amet pharetra semper, nibh ante cursus
+      purus, vel sagittis velit mauris vel metus. Nullam sapien sem,
+      ornare ac, nonummy non, lobortis a enim. Phasellus faucibus molestie
+      nisl. Itaque earum rerum hic tenetur a sapiente delectus, ut aut
+      reiciendis voluptatibus maiores alias consequatur aut perferendis
+      doloribus asperiores repellat. Mauris dictum facilisis augue.
+      </p></Col>
+    <Col>  <Radars /></Col>
+      </Row>
       <Row>
-      <table style={indi}>
-        <tr>
-          <th>SMA</th>
-          <th>BOB</th>
-          <th>EMA</th>
-          <th>TMA</th>
-          <th>WMA</th>
-        </tr>
-        <tr>
-          <td>38.589</td>
-          <td>32.984</td>
-          <td>29.155</td>
-          <td>40.257</td>
-          <td>29.797</td>
-        </tr>
-
-      </table>
+      <StatisticTable />
       </Row>
       </Container>
     );

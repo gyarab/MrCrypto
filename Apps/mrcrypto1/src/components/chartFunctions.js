@@ -42,6 +42,7 @@ export function getSeries(props) {
   let toggled = props.toggled;
   let indicators = props.indicators;
 
+
   var colors = [
     "#FF6633",
     "#FFB399",
