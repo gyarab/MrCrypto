@@ -26,7 +26,7 @@ function start() {
 
             let prices = data.find(obj => obj._id == "prices");
             console.log("lets run neural network");
-            nn.calculate(prices.hour);
+            nn.calculate(prices.month);
 
             //data to calculate
             //let hour = await nn.calculate(prices.hour);
