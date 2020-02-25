@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import { connect } from "react-redux";
 import RadarMaker from "../components/RadarMaker";
-import StatisticTableMaker from "../components/StatisticTableMaker";
+import StatisticsTableMaker from "../components/StatisticsTableMaker";
 
-class Statistics extends Component {
+export default class Statistics extends Component {
   static jsfiddleUrl = "https://jsfiddle.net/alidingling/6ebcxbx4/";
 
   render() {
@@ -40,11 +39,9 @@ class Statistics extends Component {
           </Col>
         </Row>
         <Row>
-          <StatisticTableMaker />
+          <StatisticsTableMaker />
         </Row>
       </Container>
     );
   }
 }
-
-export default connect()(Statistics);

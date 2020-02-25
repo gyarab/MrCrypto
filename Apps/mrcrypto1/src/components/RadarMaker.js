@@ -1,4 +1,4 @@
-import React, { PureComponent } from "react";
+import React, { Component } from "react";
 import { Col } from "react-bootstrap";
 import { connect } from "react-redux";
 import {
@@ -9,41 +9,17 @@ import {
   PolarRadiusAxis
 } from "recharts";
 
-export default class RadarMaker extends PureComponent {
+class RadarMaker extends Component {
   static jsfiddleUrl = "https://jsfiddle.net/alidingling/6ebcxbx4/";
 
   render() {
+    let statistics = this.props.statistics;
     const data = [
-      {
-        subject: "SMA",
-        A: 100 - 38.589,
-        B: 100,
-        fullMark: 100
-      },
-      {
-        subject: "BOB",
-        A: 100 - 32.984,
-        B: 100,
-        fullMark: 100
-      },
-      {
-        subject: "EMA",
-        A: 100 - 29.155,
-        B: 100,
-        fullMark: 100
-      },
-      {
-        subject: "TMA",
-        A: 100 - 40.257,
-        B: 100,
-        fullMark: 100
-      },
-      {
-        subject: "WMA",
-        A: 100 - 29.797,
-        B: 100,
-        fullMark: 100
-      }
+      { type: "SMA", value: 100 - statistics.sma },
+      { type: "BOB", value: 100 - statistics.bob },
+      { type: "EMA", value: 100 - statistics.ema },
+      { type: "TMA", value: 100 - statistics.tma },
+      { type: "WMA", value: 100 - statistics.wma }
     ];
     return (
       <Col>
@@ -56,11 +32,11 @@ export default class RadarMaker extends PureComponent {
           data={data}
         >
           <PolarGrid />
-          <PolarAngleAxis dataKey="subject" />
+          <PolarAngleAxis dataKey="type" />
           <PolarRadiusAxis />
           <Radar
-            name="Mike"
-            dataKey="A"
+            name="radar"
+            dataKey="value"
             stroke="#8884d8"
             fill="#8884d8"
             fillOpacity={0.6}
@@ -70,3 +46,11 @@ export default class RadarMaker extends PureComponent {
     );
   }
 }
+function mapStateToProps(state) {
+  let indicators = state.indicators;
+  return {
+    statistics: indicators.statistics
+  };
+}
+
+export default connect(mapStateToProps)(RadarMaker);
