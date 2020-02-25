@@ -19,7 +19,7 @@ function calculate(data, ev) {
       }
       sma = sma / size;
       per =  Math.abs(sma/(cislo[i]/100)-100);
-      curr = [time[i],sma];
+      curr = [time[i],sma,per];
       calculated.push(curr);
       cislo[i]=sma;
       sma = 0;
