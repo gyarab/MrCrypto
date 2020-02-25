@@ -42,7 +42,6 @@ export function getSeries(props) {
   let toggled = props.toggled;
   let indicators = props.indicators;
 
-
   var colors = [
     "#FF6633",
     "#FFB399",
@@ -67,7 +66,7 @@ export function getSeries(props) {
   }
 
   let cleared = trendsInterval.filter(item => {
-    if (interval.some(el => el.date == item.date + dif)) {
+    if (interval.some(el => el.date === item.date + dif)) {
       let newItem = item;
       newItem.date += dif;
       return newItem;
