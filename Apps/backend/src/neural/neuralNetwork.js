@@ -1,33 +1,42 @@
 const tf = require("@tensorflow/tfjs-node");
 
 function calculate(data) {
-  const size = 5; //slot size = predicting view
+  let updata = [];
+  for (let i = 1; i < data.length; i++) {
+    let up = data[i][4] > data[i - 1][4] ? 1 : 0;
+    updata.push(up);
+  }
+
+  const size = 20; //slot size = predicting view
   let features = []; //sequence of previous day
   let labels = []; //sell = 0, buy = 1;
 
   //setup our data
-  for (let i = size; i < data.length - 1; i++) {
-    let sliced = data.slice(i - size, i);
+  for (let i = size + 1; i < updata.length - 1; i = i + 7) {
+    let slot = updata.slice(i - size, i);
 
-    let slot = sliced.map(item => item[4]);
     let buy = data[i + 1][4] > data[i][4] ? 1 : 0; //will rise => buy..
     let sell = buy == 0 ? 1 : 0;
 
     //normalize
-    let min = Math.min(...slot);
-    console.log(min);
-    slot.forEach(item => {
-      return item - min;
+    let sum = 0;
+    sum = slot.forEach(i => {
+      sum += i;
     });
+    let average = sum / size;
 
     features.push(slot);
     labels.push([buy, sell]);
   }
-  // console.log(features);
-  // console.log(labels);
-  //--------------------------------> normalize
+
   //convert our data
   console.log(features);
+
+  //split to testing testing data
+  let testingFeatures = features.splice(0, 10);
+  let testingLabels = labels.splice(0, 10);
+  testingFeatures = tf.tensor2d(testingFeatures);
+  //testingLabels = tf.tensor2d(testingLabels);
 
   features = tf.tensor2d(features);
   labels = tf.tensor2d(labels);
@@ -68,11 +77,12 @@ function calculate(data) {
   });
 
   //train our model
-  //const startTime = Date.now();
-  // model.fit(features, labels, { epochs: 400 }).then(history => {
-  //   console.log(history);
-  //   //model.predict(testingData).print()
-  // });
+  const startTime = Date.now();
+  model.fit(features, labels, { epochs: 200 }).then(history => {
+    console.log("___TEST___");
+    model.predict(testingFeatures).print();
+    console.log(testingLabels);
+  });
 }
 
 module.exports = { calculate };
