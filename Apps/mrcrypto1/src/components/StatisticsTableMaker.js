@@ -3,13 +3,13 @@ import { connect } from "react-redux";
 import { Table } from "react-bootstrap";
 
 class StatisticsTableMaker extends Component {
+  round = value => Math.round(value * 100) / 100;
   render() {
     const writing = {
       fontSize: "18px"
     };
 
     var statistics = this.props.statistics;
-    console.log(this.props.statistics);
     return (
       <Table striped bordered hover variant="dark" style={writing}>
         <thead>
@@ -21,23 +21,23 @@ class StatisticsTableMaker extends Component {
         <tbody>
           <tr>
             <td>SMA</td>
-            <td>{statistics.sma}%</td>
+            <td>{this.round(statistics.sma)}%</td>
           </tr>
           <tr>
             <td>BOB</td>
-            <td>{statistics.sma}%</td>
+            <td>{this.round(statistics.bob)}%</td>
           </tr>
           <tr>
             <td>EMA</td>
-            <td>{statistics.ema}%</td>
+            <td>{this.round(statistics.ema)}%</td>
           </tr>
           <tr>
             <td>TMA</td>
-            <td>{statistics.tma}%</td>
+            <td>{this.round(statistics.tma)}%</td>
           </tr>
           <tr>
             <td>WMA</td>
-            <td>{statistics.wma}%</td>
+            <td>{this.round(statistics.wma)}%</td>
           </tr>
         </tbody>
       </Table>

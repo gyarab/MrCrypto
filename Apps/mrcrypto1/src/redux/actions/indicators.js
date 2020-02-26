@@ -13,10 +13,9 @@ export const getIndicator = name => {
             dispatch({
               type: "FETCHING_INDICATOR_DONE",
               payload: prepareData(json),
-              percentage: getPercentage(json),
+              percentage: getPercentage(json.all),
               name
             });
-            getPercentage(json);
           })
           //error after recieving
           .catch(err => {
@@ -31,8 +30,10 @@ export const getIndicator = name => {
 };
 
 function getPercentage(data) {
-  let percentage = data.all.pop()[3];
-  return percentage;
+  //it's a double line indicator
+  if (data.length === 3) return data[2];
+  //single-line in
+  else return data.pop()[3];
 }
 
 //data will be restructed
@@ -46,6 +47,14 @@ function prepareData(data) {
   return result;
 }
 function reformate(data) {
+  let isDouble = data.length === 3 ? true : false;
+
+  let line0 = reformateLine(isDouble ? data[0] : data);
+  let line1 = isDouble ? reformateLine(data[1]) : null;
+  return isDouble ? [line0, line1] : line0;
+}
+
+function reformateLine(data) {
   let newData = [];
   data.forEach(a => {
     newData.push({ date: a[0], close: a[1] });

@@ -42,23 +42,6 @@ export function getSeries(props) {
   let toggled = props.toggled;
   let indicators = props.indicators;
 
-  var colors = [
-    "#FF6633",
-    "#FFB399",
-    "#FF33FF",
-    "#FFFF99",
-    "#00B3E6",
-    "#E6B333",
-    "#3366E6",
-    "#999966",
-    "#99FF99",
-    "#B34D4D",
-    "#80B300",
-    "#809900",
-    "#E6B3B3",
-    "#6680B3",
-    "#66991A"
-  ];
   let dif = 0;
   if (selected === "all") {
     let day = 3600 * 24 * 1000; //day in unix
@@ -79,12 +62,31 @@ export function getSeries(props) {
     return a.date > b.date;
   });
 
+  var colors = {
+    sma: "#FF6633",
+    wta: "#FFB399",
+    ema: "#FF33FF",
+    tma: "#FFFF99",
+    bob: "#00B3E6"
+  };
+
+  let config = (name, patch, postfix = "") => {
+    return {
+      name: name + postfix,
+      color: "#FF6633",
+      width: 2,
+      data: patch,
+      id: "left",
+      key: "close"
+    };
+  };
+
   let series = [];
   //real price
   series.push({
     name: "close",
     color: "#8884d8",
-    width: 2,
+    width: 3,
     data: values,
     id: "left",
     key: "close"
@@ -103,14 +105,16 @@ export function getSeries(props) {
     let patch = indicators[name] || {};
     patch = patch[selected] || [];
 
-    series.push({
-      name,
-      color: colors[Math.floor(Math.random() * colors.length)],
-      width: 1,
-      data: patch,
-      id: "left",
-      key: "close"
-    });
+    //double-lined indicators (as BOB)
+    if (patch.length === 2) {
+      console.log(patch);
+      series.push(config(name, patch[0], "up"));
+      series.push(config(name, patch[1], "down"));
+    }
+    //single-lined indicators
+    else {
+      series.push(config(name, patch));
+    }
   });
   return series;
 }
