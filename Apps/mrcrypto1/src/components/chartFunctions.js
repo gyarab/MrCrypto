@@ -3,7 +3,6 @@ var colors = require("./indicatorsColors.json");
 
 export function formatPrice(value, currency) {
   let dec;
-
   if (value < 1) {
     dec = 1000;
   } else if (value < 200) {
@@ -50,50 +49,10 @@ export function getAdjustValues(props) {
 //creates current multiline set
 export function getSeries(props) {
   let selected = props.selected;
-  let interval = props.intervals[selected];
-  let trendsInterval = props.trendsIntervals[selected];
   let toggled = props.toggled;
   let indicators = props.indicators;
 
-  //tuning the data to match in graph
-  let dif = 0;
-  if (selected === "all") {
-    let day = 3600 * 24 * 1000; //day in unix
-    dif = (interval[0].date % day) - (trendsInterval[0].date % day);
-  }
-  let trends = trendsInterval;
-  let cleared = trends.filter(item => {
-    if (interval.some(el => el.date === item.date + dif)) {
-      let newItem = item;
-      newItem.date += dif;
-      return newItem;
-    }
-  });
-
-  //remove gaps(nulls) at start and at the end of the chart
-  let firstRatio = trendsInterval.slice(0, 1).pop();
-  let lastRatio = trendsInterval.slice(-1).pop();
-
-  let first = interval.shift();
-  let last = interval.pop();
-
-  interval.push();
-  interval.unshift();
-
-  if (first && last && firstRatio && lastRatio) {
-    first.ratio = firstRatio.ratio;
-    last.ratio = lastRatio.ratio;
-
-    interval.push(last);
-    interval.unshift(first);
-  }
-
-  //merging and sorting not aligned dataKey
-  let values = interval.concat(cleared);
-  values.sort((a, b) => {
-    return a.date > b.date;
-  });
-
+  let values = merge(props);
   //template for lines
   let config = (name, patch, width, postfix = "") => {
     return {
@@ -135,4 +94,53 @@ export function getSeries(props) {
     }
   });
   return series;
+}
+
+function merge(props) {
+  let selected = props.selected;
+  let interval = props.intervals[selected];
+  let trendsInterval = props.trendsIntervals[selected];
+
+  //tuning the data to match in graph
+  let dif = 0;
+  if (selected === "all") {
+    let day = 3600 * 24 * 1000; //day in unix
+    dif = (interval[2].date % day) - (trendsInterval[2].date % day);
+  }
+
+  let cleared = trendsInterval.filter(item => {
+    if (interval.some(el => el.date === item.date + dif)) {
+      let newItem = item;
+      newItem.date += dif;
+      return newItem;
+    }
+  });
+
+  //remove gaps(nulls) at start and at the end of the chart
+  let i = interval;
+  let t = trendsInterval;
+  //main data
+  let first = i.slice(0, 1).pop();
+  let last = i.slice(-1).pop();
+  //these data will be changed
+  let newFirst = t.shift();
+  let newLast = t.pop();
+
+  if (first && last && newFirst && newLast) {
+    newFirst.date = first.date;
+    newLast.date = last.date;
+
+    t.unshift(newFirst);
+    t.push(newLast);
+    //show results
+    interval = i;
+    trendsInterval = t;
+  }
+
+  //merging and sorting not aligned dataKey
+  let values = interval.concat(cleared);
+  values.sort((a, b) => {
+    return a.date > b.date;
+  });
+  return values;
 }
