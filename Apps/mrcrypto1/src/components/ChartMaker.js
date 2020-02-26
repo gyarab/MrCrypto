@@ -13,7 +13,12 @@ import {
   ResponsiveContainer
 } from "recharts";
 
-import { formatTime, getAdjustValues, getSeries } from "./chartFunctions";
+import {
+  formatPrice,
+  formatTime,
+  getAdjustValues,
+  getSeries
+} from "./chartFunctions";
 
 class ChartMaker extends Component {
   static jsfiddleUrl = "https://jsfiddle.net/alidingling/zjb47e83/";
@@ -43,7 +48,7 @@ class ChartMaker extends Component {
               yAxisId="left"
               domain={values}
               tick={{ fontSize: 10 }}
-              tickFormatter={value => this.props.currency + `${value}`}
+              tickFormatter={value => formatPrice(value, this.props.currency)}
             />
             <YAxis
               yAxisId="right"
@@ -53,7 +58,7 @@ class ChartMaker extends Component {
             />
             <Tooltip
               labelFormatter={label => formatTime(label, this.props)}
-              formatter={value => this.props.currency + `${value}`}
+              formatter={value => formatPrice(value, this.props.currency)}
             />
             <Legend />
             {series.map(s => (

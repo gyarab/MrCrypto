@@ -1,5 +1,18 @@
 import moment from "moment";
+var colors = require("./indicatorsColors.json");
 
+export function formatPrice(value, currency) {
+  let dec;
+
+  if (value < 1) {
+    dec = 1000;
+  } else if (value < 200) {
+    dec = 100;
+  } else {
+    dec = 10;
+  }
+  return currency + Math.round(value * dec) / dec;
+}
 //custom formatter
 export function formatTime(label, props) {
   label *= 1000;
@@ -42,13 +55,14 @@ export function getSeries(props) {
   let toggled = props.toggled;
   let indicators = props.indicators;
 
+  //tuning the data to match in graph
   let dif = 0;
   if (selected === "all") {
     let day = 3600 * 24 * 1000; //day in unix
     dif = (interval[0].date % day) - (trendsInterval[0].date % day);
   }
-
-  let cleared = trendsInterval.filter(item => {
+  let trends = trendsInterval;
+  let cleared = trends.filter(item => {
     if (interval.some(el => el.date === item.date + dif)) {
       let newItem = item;
       newItem.date += dif;
@@ -56,25 +70,36 @@ export function getSeries(props) {
     }
   });
 
+  //remove gaps(nulls) at start and at the end of the chart
+  let firstRatio = trendsInterval.slice(0, 1).pop();
+  let lastRatio = trendsInterval.slice(-1).pop();
+
+  let first = interval.shift();
+  let last = interval.pop();
+
+  interval.push();
+  interval.unshift();
+
+  if (first && last && firstRatio && lastRatio) {
+    first.ratio = firstRatio.ratio;
+    last.ratio = lastRatio.ratio;
+
+    interval.push(last);
+    interval.unshift(first);
+  }
+
   //merging and sorting not aligned dataKey
   let values = interval.concat(cleared);
   values.sort((a, b) => {
     return a.date > b.date;
   });
 
-  var colors = {
-    sma: "#FF6633",
-    wta: "#FFB399",
-    ema: "#FF33FF",
-    tma: "#FFFF99",
-    bob: "#00B3E6"
-  };
-
-  let config = (name, patch, postfix = "") => {
+  //template for lines
+  let config = (name, patch, width, postfix = "") => {
     return {
       name: name + postfix,
-      color: "#FF6633",
-      width: 2,
+      color: colors[name],
+      width,
       data: patch,
       id: "left",
       key: "close"
@@ -82,38 +107,31 @@ export function getSeries(props) {
   };
 
   let series = [];
-  //real price
-  series.push({
-    name: "close",
-    color: "#8884d8",
-    width: 3,
-    data: values,
-    id: "left",
-    key: "close"
-  });
-  //google trends
-  series.push({
-    name: "googletrends",
-    color: colors[Math.floor(Math.random() * colors.length)],
-    width: 2,
-    data: values,
-    id: "right",
-    key: "ratio"
-  });
+
+  let priceLine = config("close", values, 3);
+  let trendLine = config("googletrends", values, 2);
+  trendLine.key = "ratio";
+  trendLine.id = "right";
+
+  series.push(priceLine); //real price
+  series.push(trendLine); //google trends
+
   //loop for indicators
   toggled.forEach(name => {
     let patch = indicators[name] || {};
     patch = patch[selected] || [];
 
-    //double-lined indicators (as BOB)
+    //double-lined indicators
     if (patch.length === 2) {
-      console.log(patch);
-      series.push(config(name, patch[0], "up"));
-      series.push(config(name, patch[1], "down"));
+      let firstLine = config(name, patch[0], 2, "up");
+      let secondLine = config(name, patch[1], 2, "down");
+      series.push(firstLine);
+      series.push(secondLine);
     }
     //single-lined indicators
     else {
-      series.push(config(name, patch));
+      let line = config(name, patch, 2);
+      series.push(line);
     }
   });
   return series;
