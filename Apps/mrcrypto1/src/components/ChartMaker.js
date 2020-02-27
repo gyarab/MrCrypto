@@ -91,6 +91,7 @@ function mapStateToProps(state) {
   let trends = state.googletrends;
   return {
     selected: prices.selected,
+    isGoogle: trends.toggled,
     intervals: prices.intervals,
     currency: prices.currency,
     toggled: indicators.toggled,

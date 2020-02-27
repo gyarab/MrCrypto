@@ -51,6 +51,7 @@ export function getSeries(props) {
   let selected = props.selected;
   let toggled = props.toggled;
   let indicators = props.indicators;
+  let isGoogle = props.isGoogle;
 
   let values = merge(props);
   //template for lines
@@ -73,7 +74,7 @@ export function getSeries(props) {
   trendLine.id = "right";
 
   series.push(priceLine); //real price
-  series.push(trendLine); //google trends
+  if (isGoogle) series.push(trendLine); //google trends
 
   //loop for indicators
   toggled.forEach(name => {

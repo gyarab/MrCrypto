@@ -5,12 +5,17 @@ import { setActive } from "../redux/actions/indicators";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircle } from "@fortawesome/free-solid-svg-icons";
 import { Row, Col, ToggleButton, ToggleButtonGroup } from "react-bootstrap";
+import { toggle } from "../redux/actions/googletrends";
+
 var colors = require("./indicatorsColors.json");
 
 class ToolBar extends Component {
   render() {
     const handleToggle = indicators => {
       this.props.setToggled(indicators);
+    };
+    const handleGoogleToggle = () => {
+      this.props.toggleGoogle();
     };
 
     let icon = name => {
@@ -49,8 +54,13 @@ class ToolBar extends Component {
               {icon("bob")}BOB
             </ToggleButton>
           </ToggleButtonGroup>
-          <ToggleButtonGroup name="google" toggle size="sm" className="mb-2">
-            <ToggleButton variant={variant} type="checkbox" value="1">
+          <ToggleButtonGroup
+            type="checkbox"
+            name="google"
+            size="sm"
+            className="mb-2"
+          >
+            <ToggleButton variant={variant} onChange={handleGoogleToggle}>
               {icon("googletrends")}Google Trends
             </ToggleButton>
           </ToggleButtonGroup>
@@ -114,6 +124,9 @@ function mapDispatchToProps(dispatch) {
     },
     setToggled: indicators => {
       dispatch(setActive(indicators));
+    },
+    toggleGoogle: () => {
+      dispatch(toggle());
     }
   };
 }

@@ -4,7 +4,7 @@ import thunk from "redux-thunk";
 
 import { getHistorical } from "./actions/prices";
 import { getIndicator } from "./actions/indicators";
-import { getGoogleTrends } from "./actions/googletrends";
+import { getGoogleTrends, toggle } from "./actions/googletrends";
 import { getNews } from "./actions/newsFetch";
 import { getTwitter } from "./actions/twitterFetch";
 import { getReddit } from "./actions/redditFetch";
@@ -19,7 +19,6 @@ const store = createStore(
 
 store.dispatch(getHistorical()); //initialize bitcoin prices
 store.dispatch(getGoogleTrends()); //initialize google trends
-
 //sma indicators
 store.dispatch(getIndicator("ema"));
 store.dispatch(getIndicator("sma"));

@@ -1,3 +1,7 @@
+export const toggle = () => {
+  return { type: "TOGGLE_TRENDS" };
+};
+
 export const getGoogleTrends = () => {
   return function(dispatch) {
     dispatch({ type: "FETCHING_TRENDS_STARTED" });
