@@ -4,10 +4,18 @@ import { selectRange } from "../redux/actions/prices";
 import { setActive } from "../redux/actions/indicators";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircle } from "@fortawesome/free-solid-svg-icons";
-import { Row, Col, ToggleButton, ToggleButtonGroup } from "react-bootstrap";
+import {
+  Row,
+  Col,
+  ToggleButton,
+  ToggleButtonGroup,
+  OverlayTrigger,
+  Tooltip
+} from "react-bootstrap";
 import { toggle } from "../redux/actions/googletrends";
 
-var colors = require("./indicatorsColors.json");
+const names = require("./indicatorsNames.json");
+const colors = require("./indicatorsColors.json");
 
 class ToolBar extends Component {
   render() {
@@ -31,17 +39,27 @@ class ToolBar extends Component {
         />
       );
     };
+    // <ToggleButton variant={variant} value={name}>
+    //   {icon(name)}
+    //   {name.toUpperCase()}
+    // </ToggleButton>
     let indicatorButton = name => {
       return (
-        <ToggleButton variant={variant} value={name}>
+        <ToggleButton key={name} variant={variant} value={name}>
           {icon(name)}
-          {name.toUpperCase()}
+          <OverlayTrigger
+            placement="top"
+            overlay={<Tooltip>{names[name]}</Tooltip>}
+          >
+            <span>{name.toUpperCase()}</span>
+          </OverlayTrigger>
         </ToggleButton>
       );
     };
     let intervalButton = (key, i) => {
       return (
         <ToggleButton
+          key={key}
           variant={variant}
           onClick={() => {
             this.props.select(key);
