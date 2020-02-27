@@ -11,6 +11,9 @@ var colors = require("./indicatorsColors.json");
 
 class ToolBar extends Component {
   render() {
+    const indicators = ["sma", "wma", "ema", "tma", "bob"];
+    const intervals = ["hour", "day", "month", "all"];
+
     const handleToggle = indicators => {
       this.props.setToggled(indicators);
     };
@@ -18,6 +21,7 @@ class ToolBar extends Component {
       this.props.toggleGoogle();
     };
 
+    let variant = "light";
     let icon = name => {
       return (
         <FontAwesomeIcon
@@ -27,32 +31,40 @@ class ToolBar extends Component {
         />
       );
     };
-    let variant = "light";
+    let indicatorButton = name => {
+      return (
+        <ToggleButton variant={variant} value={name}>
+          {icon(name)}
+          {name.toUpperCase()}
+        </ToggleButton>
+      );
+    };
+    let intervalButton = (key, i) => {
+      return (
+        <ToggleButton
+          variant={variant}
+          onClick={() => {
+            this.props.select(key);
+          }}
+          value={i}
+        >
+          {key.toUpperCase()}
+        </ToggleButton>
+      );
+    };
 
     return (
-      <Row className="d-flex justify-content-around">
-        <Col md={6} xs={6} lg={6}>
+      <Row className="justify-content-md-center">
+        <Col xs lg="7">
           <ToggleButtonGroup
             size="sm"
             type="checkbox"
             className="mb-2"
             onChange={handleToggle}
           >
-            <ToggleButton variant={variant} value="sma">
-              {icon("sma")}SMA
-            </ToggleButton>
-            <ToggleButton variant={variant} value="ema">
-              {icon("ema")}EMA
-            </ToggleButton>
-            <ToggleButton variant={variant} value="tma">
-              {icon("tma")}TMA
-            </ToggleButton>
-            <ToggleButton variant={variant} value="wma">
-              {icon("wma")}WMA
-            </ToggleButton>
-            <ToggleButton variant={variant} value="bob">
-              {icon("bob")}BOB
-            </ToggleButton>
+            {indicators.map(name => {
+              return indicatorButton(name);
+            })}
           </ToggleButtonGroup>
           <ToggleButtonGroup
             type="checkbox"
@@ -65,45 +77,16 @@ class ToolBar extends Component {
             </ToggleButton>
           </ToggleButtonGroup>
         </Col>
-        <Col md={3} xs={3} lg={3}>
+        <Col xs lg="3">
           <ToggleButtonGroup
             size="sm"
             type="radio"
             name="intervals"
             defaultValue={2}
           >
-            <ToggleButton
-              onClick={() => {
-                this.props.select("hour");
-              }}
-              value={1}
-            >
-              Hour
-            </ToggleButton>
-            <ToggleButton
-              onClick={() => {
-                this.props.select("day");
-              }}
-              value={2}
-            >
-              Day
-            </ToggleButton>
-            <ToggleButton
-              onClick={() => {
-                this.props.select("month");
-              }}
-              value={3}
-            >
-              Month
-            </ToggleButton>
-            <ToggleButton
-              onClick={() => {
-                this.props.select("all");
-              }}
-              value={4}
-            >
-              All
-            </ToggleButton>
+            {intervals.map((key, i) => {
+              return intervalButton(key, i);
+            })}
           </ToggleButtonGroup>
         </Col>
       </Row>

@@ -60,7 +60,7 @@ class ChartMaker extends Component {
               labelFormatter={label => formatTime(label, this.props)}
               formatter={value => formatPrice(value, this.props.currency)}
             />
-            <Legend />
+
             {series.map(s => (
               <Line
                 connectNulls
