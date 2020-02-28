@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Col } from "react-bootstrap";
+import { Col, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { connect } from "react-redux";
 import {
   Radar,

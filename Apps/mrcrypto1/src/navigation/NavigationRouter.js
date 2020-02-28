@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Home from "../screens/Home.js";
 import Indicators from "../screens/Indicators.js";
-import Statistics from "../screens/Statistics.js";
 import NeuralNetwork from "../screens/NeuralNetwork.js";
 import { Navbar, Nav } from "react-bootstrap";
 
@@ -19,7 +18,6 @@ export default class NavigationRouter extends Component {
               <Nav className="mr-auto">
                 <Nav.Link href="/neuralnetwork">Neural Network</Nav.Link>
                 <Nav.Link href="/indicators">Indicators</Nav.Link>
-                <Nav.Link href="/statistics">Statistics</Nav.Link>
               </Nav>
               <Nav>
                 <Nav.Link href="/about">About</Nav.Link>
@@ -33,9 +31,6 @@ export default class NavigationRouter extends Component {
             </Route>
             <Route path="/indicators">
               <Indicators />
-            </Route>
-            <Route path="/statistics">
-              <Statistics />
             </Route>
             <Route path="/neuralnetwork">
               <NeuralNetwork />

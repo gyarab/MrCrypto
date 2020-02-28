@@ -15,9 +15,9 @@ import {
 } from "react-bootstrap";
 import { toggle } from "../redux/actions/googletrends";
 
-const names = require("./indicatorsNames.json");
-const colors = require("./indicatorsColors.json");
-const lists = require("./lists.json");
+const names = require("../json/indicatorsNames.json");
+const colors = require("../json/indicatorsColors.json");
+const lists = require("../json/lists.json");
 
 class ToolBar extends Component {
   render() {

@@ -63,6 +63,19 @@ span {
   margin-left: 5px;
 }
 
+/**Indicators Accordion**/
+/* .indicator {
+  font-size: 150%;
+  font-weight: 350;
+  margin-left: 5px;
+}
+.accuracy {
+  font-size: 150%;
+  font-weight: 350;
+  margin-left: 200px;
+  color: "#05B169";
+} */
+
 /**Generally Used**/
 .spaceLeft {
   padding-left: 2%;

@@ -1,17 +1,13 @@
 import React, { Component } from "react";
-import { Container, Row, Accordion, Card } from "react-bootstrap";
-import { connect } from "react-redux";
-//fontawesome imports
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChartLine } from "@fortawesome/free-solid-svg-icons";
+import { Container, Row, Col } from "react-bootstrap";
+import RadarMaker from "../components/RadarMaker";
+import IndicatorsAccordion from "../components/IndicatorsAccordion";
 
-const names = require("../components/indicatorsNames.json");
-const definitions = require("../components/indicatorsDefinitions.json");
-const lists = require("../components/lists.json");
+export default class Indicators extends Component {
+  static jsfiddleUrl = "https://jsfiddle.net/alidingling/6ebcxbx4/";
 
-class Indicators extends Component {
   render() {
-    const writing = {
+    const info = {
       color: "#5d5d5d",
       fontSize: "18px"
     };
@@ -19,35 +15,32 @@ class Indicators extends Component {
       color: "#444444",
       fontSize: "36px"
     };
-    let indicators = lists.indicators;
-
-    let card = (name, i) => {
-      return (
-        <Card>
-          <Accordion.Toggle as={Card.Header} eventKey={i}>
-            {names[name]}
-          </Accordion.Toggle>
-          <Accordion.Collapse eventKey={i}>
-            <Card.Body>{definitions[name]}</Card.Body>
-          </Accordion.Collapse>
-        </Card>
-      );
-    };
-
     return (
       <Container>
-        <Row>
-          <h2 style={headline}>
-            <FontAwesomeIcon icon={faChartLine} /> Indikátory Technických
-            analýz:
-          </h2>
+        <Row className="justify-content-md-center centered">
+          <Col>
+            <h2 style={headline}>Success Rate</h2>
+            <p style={info}>
+              Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nunc
+              tincidunt ante vitae massa. Maecenas libero. Aliquam ornare wisi
+              eu metus. Morbi leo mi, nonummy eget tristique non, rhoncus non
+              leo. Mauris suscipit, ligula sit amet pharetra semper, nibh ante
+              cursus purus, vel sagittis velit mauris vel metus. Nullam sapien
+              sem, ornare ac, nonummy non, lobortis a enim. Phasellus faucibus
+              molestie nisl. Itaque earum rerum hic tenetur a sapiente delectus,
+              ut aut reiciendis voluptatibus maiores alias consequatur aut
+              perferendis doloribus asperiores repellat. Mauris dictum facilisis
+              augue.
+            </p>
+          </Col>
+          <Col>
+            <RadarMaker />
+          </Col>
         </Row>
-        <Accordion defaultActiveKey={0}>
-          {indicators.map((name, i) => card(name, i))}
-        </Accordion>
+        <Row>
+          <IndicatorsAccordion />
+        </Row>
       </Container>
     );
   }
 }
-
-export default connect()(Indicators);

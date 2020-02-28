@@ -1,5 +1,5 @@
 import moment from "moment";
-var colors = require("./indicatorsColors.json");
+var colors = require("../json/indicatorsColors.json");
 
 export function formatPrice(value, currency) {
   let dec;
