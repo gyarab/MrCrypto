@@ -51,6 +51,18 @@ span {
   margin-left: 10px;
 }
 
+/**Actual Price**/
+.price {
+  font-size: 250%;
+  font-weight: 500;
+  margin-left: 20px;
+}
+.difference {
+  font-size: 150%;
+  font-weight: 350;
+  margin-left: 5px;
+}
+
 /**Generally Used**/
 .spaceLeft {
   padding-left: 2%;

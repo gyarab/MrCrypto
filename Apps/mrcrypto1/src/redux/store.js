@@ -4,7 +4,7 @@ import thunk from "redux-thunk";
 
 import { getHistorical } from "./actions/prices";
 import { getIndicator } from "./actions/indicators";
-import { getGoogleTrends, toggle } from "./actions/googletrends";
+import { getGoogleTrends } from "./actions/googletrends";
 import { getNews } from "./actions/newsFetch";
 import { getTwitter } from "./actions/twitterFetch";
 import { getReddit } from "./actions/redditFetch";

@@ -83,8 +83,8 @@ export function getSeries(props) {
 
     //double-lined indicators
     if (patch.length === 2) {
-      let firstLine = config(name, patch[0], 2, "up");
-      let secondLine = config(name, patch[1], 2, "down");
+      let firstLine = config(name, patch[0], 2, "_top");
+      let secondLine = config(name, patch[1], 2, "_bottom");
       series.push(firstLine);
       series.push(secondLine);
     }
@@ -115,6 +115,7 @@ function merge(props) {
       newItem.date += dif;
       return newItem;
     }
+    return undefined;
   });
 
   //remove gaps(nulls) at start and at the end of the chart
