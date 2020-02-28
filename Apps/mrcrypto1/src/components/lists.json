@@ -1,0 +1,4 @@
+{
+  "indicators": ["sma", "wma", "ema", "tma", "bob"],
+  "periods": ["hour", "day", "month", "all"]
+}

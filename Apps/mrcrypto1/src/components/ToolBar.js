@@ -17,11 +17,12 @@ import { toggle } from "../redux/actions/googletrends";
 
 const names = require("./indicatorsNames.json");
 const colors = require("./indicatorsColors.json");
+const lists = require("./lists.json");
 
 class ToolBar extends Component {
   render() {
-    const indicators = ["sma", "wma", "ema", "tma", "bob"];
-    const periods = ["hour", "day", "month", "all"];
+    const indicators = lists.indicators;
+    const periods = lists.periods;
 
     const handleToggle = indicators => {
       this.props.setToggled(indicators);

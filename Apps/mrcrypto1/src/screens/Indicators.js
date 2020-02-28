@@ -1,9 +1,14 @@
 import React, { Component } from "react";
-import { Container, Row } from "react-bootstrap";
+import { Container, Row, Accordion, Card } from "react-bootstrap";
 import { connect } from "react-redux";
 //fontawesome imports
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChartLine } from "@fortawesome/free-solid-svg-icons";
+
+const names = require("../components/indicatorsNames.json");
+const definitions = require("../components/indicatorsDefinitions.json");
+const lists = require("../components/lists.json");
+
 class Indicators extends Component {
   render() {
     const writing = {
@@ -14,6 +19,21 @@ class Indicators extends Component {
       color: "#444444",
       fontSize: "36px"
     };
+    let indicators = lists.indicators;
+
+    let card = (name, i) => {
+      return (
+        <Card>
+          <Accordion.Toggle as={Card.Header} eventKey={i}>
+            {names[name]}
+          </Accordion.Toggle>
+          <Accordion.Collapse eventKey={i}>
+            <Card.Body>{definitions[name]}</Card.Body>
+          </Accordion.Collapse>
+        </Card>
+      );
+    };
+
     return (
       <Container>
         <Row>
@@ -22,76 +42,9 @@ class Indicators extends Component {
             analýz:
           </h2>
         </Row>
-        <Row>
-          <h2 style={headline}>SMA</h2>
-          <p style={writing}>
-            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nunc
-            tincidunt ante vitae massa. Maecenas libero. Aliquam ornare wisi eu
-            metus. Morbi leo mi, nonummy eget tristique non, rhoncus non leo.
-            Mauris suscipit, ligula sit amet pharetra semper, nibh ante cursus
-            purus, vel sagittis velit mauris vel metus. Nullam sapien sem,
-            ornare ac, nonummy non, lobortis a enim. Phasellus faucibus molestie
-            nisl. Itaque earum rerum hic tenetur a sapiente delectus, ut aut
-            reiciendis voluptatibus maiores alias consequatur aut perferendis
-            doloribus asperiores repellat. Mauris dictum facilisis augue.
-          </p>
-        </Row>
-        <Row>
-          <h2 style={headline}>EMA</h2>
-          <p style={writing}>
-            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nunc
-            tincidunt ante vitae massa. Maecenas libero. Aliquam ornare wisi eu
-            metus. Morbi leo mi, nonummy eget tristique non, rhoncus non leo.
-            Mauris suscipit, ligula sit amet pharetra semper, nibh ante cursus
-            purus, vel sagittis velit mauris vel metus. Nullam sapien sem,
-            ornare ac, nonummy non, lobortis a enim. Phasellus faucibus molestie
-            nisl. Itaque earum rerum hic tenetur a sapiente delectus, ut aut
-            reiciendis voluptatibus maiores alias consequatur aut perferendis
-            doloribus asperiores repellat. Mauris dictum facilisis augue.
-          </p>
-        </Row>
-        <Row>
-          <h2 style={headline}>TMA</h2>
-          <p style={writing}>
-            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nunc
-            tincidunt ante vitae massa. Maecenas libero. Aliquam ornare wisi eu
-            metus. Morbi leo mi, nonummy eget tristique non, rhoncus non leo.
-            Mauris suscipit, ligula sit amet pharetra semper, nibh ante cursus
-            purus, vel sagittis velit mauris vel metus. Nullam sapien sem,
-            ornare ac, nonummy non, lobortis a enim. Phasellus faucibus molestie
-            nisl. Itaque earum rerum hic tenetur a sapiente delectus, ut aut
-            reiciendis voluptatibus maiores alias consequatur aut perferendis
-            doloribus asperiores repellat. Mauris dictum facilisis augue.
-          </p>
-        </Row>
-        <Row>
-          <h2 style={headline}>WMA</h2>
-          <p style={writing}>
-            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nunc
-            tincidunt ante vitae massa. Maecenas libero. Aliquam ornare wisi eu
-            metus. Morbi leo mi, nonummy eget tristique non, rhoncus non leo.
-            Mauris suscipit, ligula sit amet pharetra semper, nibh ante cursus
-            purus, vel sagittis velit mauris vel metus. Nullam sapien sem,
-            ornare ac, nonummy non, lobortis a enim. Phasellus faucibus molestie
-            nisl. Itaque earum rerum hic tenetur a sapiente delectus, ut aut
-            reiciendis voluptatibus maiores alias consequatur aut perferendis
-            doloribus asperiores repellat. Mauris dictum facilisis augue.
-          </p>
-        </Row>
-        <Row>
-          <h2 style={headline}>BOB</h2>
-          <p style={writing}>
-            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nunc
-            tincidunt ante vitae massa. Maecenas libero. Aliquam ornare wisi eu
-            metus. Morbi leo mi, nonummy eget tristique non, rhoncus non leo.
-            Mauris suscipit, ligula sit amet pharetra semper, nibh ante cursus
-            purus, vel sagittis velit mauris vel metus. Nullam sapien sem,
-            ornare ac, nonummy non, lobortis a enim. Phasellus faucibus molestie
-            nisl. Itaque earum rerum hic tenetur a sapiente delectus, ut aut
-            reiciendis voluptatibus maiores alias consequatur aut perferendis
-            doloribus asperiores repellat. Mauris dictum facilisis augue.
-          </p>
-        </Row>
+        <Accordion defaultActiveKey={0}>
+          {indicators.map((name, i) => card(name, i))}
+        </Accordion>
       </Container>
     );
   }
