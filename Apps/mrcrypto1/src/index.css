@@ -19,7 +19,16 @@ span {
   font-weight: 400;
   color: #343a40;
 }
-
+/**NavBar**/
+.logoName {
+  font-weight: 700;
+}
+.bitcoinTool {
+  font-weight: 600;
+  color: #777777;
+  display: inline-block;
+  vertical-align: middle;
+}
 /**MediaBoard**/
 
 /**MediaTop**/

@@ -1,9 +1,6 @@
 import React, { Component } from "react";
 import { Container, Row, Accordion, Card } from "react-bootstrap";
 import { connect } from "react-redux";
-//fontawesome imports
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChartLine } from "@fortawesome/free-solid-svg-icons";
 
 const names = require("../json/indicatorsNames.json");
 const definitions = require("../json/indicatorsDefinitions.json");
@@ -27,7 +24,7 @@ class IndicatorsAccordion extends Component {
       let indicator = names[name] + ",";
       let accuracy = ` ${this.round(statistics[name])}% deviation`;
       return (
-        <Card>
+        <Card key={i}>
           <Accordion.Toggle as={Card.Header} eventKey={i}>
             <span className="indicator">{indicator}</span>
             <span style={green}>{accuracy}</span>

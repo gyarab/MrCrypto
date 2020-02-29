@@ -15,8 +15,11 @@ export default class Indicators extends Component {
       color: "#444444",
       fontSize: "36px"
     };
+    const margin = {
+      marginBottom: "100px"
+    };
     return (
-      <Container>
+      <Container style={margin}>
         <Row className="justify-content-md-center centered">
           <Col>
             <h2 style={headline}>Success Rate</h2>

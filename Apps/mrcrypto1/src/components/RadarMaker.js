@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Col, OverlayTrigger, Tooltip } from "react-bootstrap";
+import { Col } from "react-bootstrap";
 import { connect } from "react-redux";
 import {
   Radar,
@@ -16,10 +16,10 @@ class RadarMaker extends Component {
     let statistics = this.props.statistics;
     const data = [
       { type: "SMA", value: 100 - statistics.sma },
-      { type: "BOB", value: 100 - statistics.bob },
+      { type: "WMA", value: 100 - statistics.wma },
       { type: "EMA", value: 100 - statistics.ema },
       { type: "TMA", value: 100 - statistics.tma },
-      { type: "WMA", value: 100 - statistics.wma }
+      { type: "BOB", value: 100 - statistics.bob }
     ];
     return (
       <Col>
@@ -37,8 +37,8 @@ class RadarMaker extends Component {
           <Radar
             name="radar"
             dataKey="value"
-            stroke="#8884d8"
-            fill="#8884d8"
+            stroke="#1e7ab4"
+            fill="#1C9BEA"
             fillOpacity={0.6}
           />
         </RadarChart>
