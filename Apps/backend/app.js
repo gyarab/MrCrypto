@@ -10,8 +10,8 @@ const t_procurer = require("./src/trends/procurer");
 const n_procurer = require("./src/neural/procurer");
 
 m_procurer.start(); //with updating
-t_procurer.start();
-c_procurer.start(() => s_procurer.start(), () => n_procurer.start()); //as callback
+t_procurer.start(); //with updating
+c_procurer.start(() => s_procurer.start(), () => n_procurer.start()); //as callbacks
 
 //endpoints
 const index = require("./routes/index");

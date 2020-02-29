@@ -25,23 +25,23 @@ function start() {
             const c = db.collection(dbCollection);
 
             let prices = data.find(obj => obj._id == "prices");
-            console.log("lets run neural network");
             nn.calculate(prices.all);
-
-            //data to calculate
-            //let hour = await nn.calculate(prices.hour);
-            // let day = await nn.calculate(prices.day);
-            // let month = await nn.calculate(prices.month);
-            //let all = await nn.calculate(prices.all);
-
+            let something = "newData";
             //calculated object to save
-            let obj = [{ something: "ahao" }];
-
-            c.insertMany(obj, (err, result) => {
-              assert.equal(err, null);
-              console.info("_NEURAL SAVED");
-              client.close();
-            });
+            let obj = [{ _id: "neural", data: "ahao" }];
+            try {
+              c.insertMany(obj, (err, result) => {
+                assert.equal(err, null);
+                client.close();
+              });
+            } catch {
+              c.updateOne(
+                { _id: "neural" },
+                {
+                  $set: { data: something }
+                }
+              );
+            }
           });
       }
     );

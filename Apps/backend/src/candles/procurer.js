@@ -1,7 +1,6 @@
 const moment = require("moment");
 const getter = require("./getter");
 const historicalGetter = require("./historicalGetter");
-const updater = require("./updater");
 const MongoClient = require("mongodb").MongoClient;
 const assert = require("assert");
 
@@ -10,6 +9,55 @@ const url = "mongodb://localhost:27017",
   dbCollection = "candles";
 
 async function start(callback, callback2) {
+  init(callback, callback2);
+
+  setInterval(async () => {
+    let hour = await getter.get(moment().subtract(1, "hours"), 60);
+    update("hour", hour);
+    callback();
+  }, 60 * 1000);
+  setInterval(async () => {
+    let day = await getter.get(moment().subtract(1, "days"), 900);
+    update("day", day);
+    callback();
+  }, 15 * 60 * 1000);
+  setInterval(async () => {
+    let month = await getter.get(moment().subtract(30, "days"), 21600);
+    update("month", month);
+    callback();
+  }, 60 * 60 * 1000 * 6);
+  setInterval(async () => {
+    let all = await historicalGetter.get();
+    update("all", all);
+    callback();
+    callback2();
+  }, 60 * 60 * 1000 * 24);
+}
+function update(period, data) {
+  try {
+    MongoClient.connect(
+      url,
+      { useUnifiedTopology: true, poolSize: 10 },
+      (err, client) => {
+        assert.equal(null, err);
+
+        const db = client.db(dbName);
+        const c = db.collection(dbCollection);
+
+        c.updateOne(
+          { _id: "prices" },
+          {
+            $set: { [period]: data }
+          }
+        );
+      }
+    );
+  } catch {
+    console.log("update error");
+  }
+}
+
+async function init(callback, callback2) {
   try {
     //get..
     let all = await historicalGetter.get(), //ALL, daily
@@ -32,7 +80,6 @@ async function start(callback, callback2) {
         try {
           c.drop((err, ok) => {
             if (err) console.log("_SKIPPING CANDLES DROPPING");
-            if (ok) console.log("_OLDER CANDLES DROPPED");
           });
         } catch {}
 
@@ -41,13 +88,6 @@ async function start(callback, callback2) {
           console.info("_NEW CANDLES SAVED");
           callback(); //lets calculate
           callback2();
-
-          /**after saving run updating services
-        updater.start("hour", 60, 60);
-        updater.start("day", 15 * 60, 900);
-        updater.start("month", 6 * 3600, 21600);
-        updater.start("all", 24 * 3600, 86400);
-        **/
 
           client.close();
         });
