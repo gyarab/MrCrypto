@@ -11,6 +11,10 @@ const url = "mongodb://localhost:27017",
 async function start(callback, callback2) {
   init(callback, callback2);
 
+  setInterval(function() {
+    callback2(Math.random());
+  }, 10000);
+
   setInterval(async () => {
     let hour = await getter.get(moment().subtract(1, "hours"), 60);
     update("hour", hour);
@@ -30,7 +34,7 @@ async function start(callback, callback2) {
     let all = await historicalGetter.get();
     update("all", all);
     callback();
-    callback2();
+    callback2(Math.random());
   }, 60 * 60 * 1000 * 24);
 }
 function update(period, data) {
@@ -87,9 +91,7 @@ async function init(callback, callback2) {
           assert.equal(err, null);
           console.info("_NEW CANDLES SAVED");
           callback(); //lets calculate
-          callback2();
-
-          client.close();
+          callback2("nice");
         });
       }
     );

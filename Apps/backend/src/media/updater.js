@@ -371,8 +371,6 @@ async function update() {
           (err, result) => {
             assert.equal(err, null);
             console.info("_NEW MEDIA SAVED");
-
-            client.close();
           }
         );
       }

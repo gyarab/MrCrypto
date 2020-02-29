@@ -5,8 +5,8 @@ const url = "mongodb://localhost:27017",
   dbName = "mrcrypto",
   dbCollection = "candles";
 var nn = require("./neuralNetwork.js");
-
-function start() {
+var firstTime = true;
+function start(data) {
   try {
     MongoClient.connect(
       url,
@@ -14,35 +14,26 @@ function start() {
       (err, client) => {
         if (err) throw err;
 
-        client
-          .db(dbName)
-          .collection(dbCollection)
-          .find({})
-          .toArray(async (err, data) => {
-            if (err) throw err;
+        const db = client.db(dbName);
+        const c = db.collection(dbCollection);
 
-            const db = client.db(dbName);
-            const c = db.collection(dbCollection);
+        result = nn.calculate(data);
 
-            let prices = data.find(obj => obj._id == "prices");
-            nn.calculate(prices.all);
-            let something = "newData";
-            //calculated object to save
-            let obj = [{ _id: "neural", data: "ahao" }];
-            try {
-              c.insertMany(obj, (err, result) => {
-                assert.equal(err, null);
-                client.close();
-              });
-            } catch {
-              c.updateOne(
-                { _id: "neural" },
-                {
-                  $set: { data: something }
-                }
-              );
+        //calculated object to save
+        let obj = [{ _id: "neural", data: result }];
+        if (firstTime) {
+          c.insertMany(obj, (err, result) => {});
+          firstTime = false;
+          console.info("_NEURAL_SAVED");
+        } else {
+          c.updateOne(
+            { _id: "neural" },
+            {
+              $set: { data: data }
             }
-          });
+          );
+          console.info("_NEURAL_UPDATED");
+        }
       }
     );
   } catch (err) {

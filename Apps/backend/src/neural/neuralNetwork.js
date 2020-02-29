@@ -1,6 +1,7 @@
 const tf = require("@tensorflow/tfjs-node");
 
 function calculate(data) {
+  return data;
   let updata = [];
   for (let i = 1; i < data.length; i++) {
     let up = data[i][4] > data[i - 1][4] ? 1 : 0;
