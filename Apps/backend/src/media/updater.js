@@ -359,7 +359,6 @@ async function update() {
         try {
           c.drop((err, ok) => {
             if (err) console.log("_SKIPPING MEDIA DROPPING");
-            if (ok) console.log("_OLDER MEDIA DROPPED");
           });
         } catch {}
 
