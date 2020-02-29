@@ -39,51 +39,63 @@ function start() {
 
             let sma_s = {
               _id: "sma",
-              all: sma.calculate(all,true),
-              month: sma.calculate(month,false),
-              day: sma.calculate(day,false),
-              hour: sma.calculate(hour,false)
+              all: sma.calculate(all, true),
+              month: sma.calculate(month, false),
+              day: sma.calculate(day, false),
+              hour: sma.calculate(hour, false)
             };
 
             let bob_s = {
               _id: "bob",
-              all: bob.calculate(all,true),
-              month: bob.calculate(month,false),
-              day: bob.calculate(day,false),
-              hour: bob.calculate(hour,false)
+              all: bob.calculate(all, true),
+              month: bob.calculate(month, false),
+              day: bob.calculate(day, false),
+              hour: bob.calculate(hour, false)
             };
 
             let ema_s = {
               _id: "ema",
-              all: ema.calculate(all,true),
-              month: ema.calculate(month,false),
-              day: ema.calculate(day,false),
-              hour: ema.calculate(hour,false)
+              all: ema.calculate(all, true),
+              month: ema.calculate(month, false),
+              day: ema.calculate(day, false),
+              hour: ema.calculate(hour, false)
             };
 
             let tma_s = {
               _id: "tma",
-              all: tma.calculate(all,true),
-              month: tma.calculate(month,false),
-              day: tma.calculate(day,false),
-              hour: tma.calculate(hour,false)
+              all: tma.calculate(all, true),
+              month: tma.calculate(month, false),
+              day: tma.calculate(day, false),
+              hour: tma.calculate(hour, false)
             };
 
             let wma_s = {
               _id: "wma",
-              all: wma.calculate(all,true),
-              month: wma.calculate(month,false),
-              day: wma.calculate(day,false),
-              hour: wma.calculate(hour,false)
+              all: wma.calculate(all, true),
+              month: wma.calculate(month, false),
+              day: wma.calculate(day, false),
+              hour: wma.calculate(hour, false)
             };
             //calculated object to save
             let obj = [sma_s, bob_s, ema_s, tma_s, wma_s];
+            let list = ["sma", "wma", "ema", "tma", "bob"];
 
-            c.insertMany(obj, (err, result) => {
-              assert.equal(err, null);
-              console.info("_STRATEGIES SAVED");
-              client.close();
-            });
+            if (data.find(obj => obj._id == "sma")) {
+              list.forEach(name => {
+                let updated = obj.find(obj => obj._id === name);
+                c.updateOne(
+                  { _id: name },
+                  {
+                    $set: { ...updated }
+                  }
+                );
+              });
+            } else {
+              c.insertMany(obj, (err, result) => {
+                if (err) throw err;
+                console.info("_STRATEGIES SAVED");
+              });
+            }
           });
       }
     );

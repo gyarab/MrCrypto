@@ -378,7 +378,7 @@ async function update() {
       }
     );
   } catch (err) {
-    console.error("_PROCURING MEDIA ERROR : " + err);
+    console.error("_PROCURING MEDIA ERROR");
   }
 }
 
