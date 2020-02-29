@@ -16,19 +16,24 @@ const store = createStore(
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   )
 );
+function updateCandles() {
+  store.dispatch(getHistorical());
+  store.dispatch(getGoogleTrends());
 
-store.dispatch(getHistorical()); //initialize bitcoin prices
-store.dispatch(getGoogleTrends()); //initialize google trends
-//sma indicators
-store.dispatch(getIndicator("ema"));
-store.dispatch(getIndicator("sma"));
-store.dispatch(getIndicator("tma"));
-store.dispatch(getIndicator("wma"));
-store.dispatch(getIndicator("bob"));
-
-//initialize media
-store.dispatch(getNews());
-store.dispatch(getTwitter());
-store.dispatch(getReddit());
+  store.dispatch(getIndicator("ema"));
+  store.dispatch(getIndicator("sma"));
+  store.dispatch(getIndicator("tma"));
+  store.dispatch(getIndicator("wma"));
+  store.dispatch(getIndicator("bob"));
+}
+function updateMedia() {
+  store.dispatch(getNews());
+  store.dispatch(getTwitter());
+  store.dispatch(getReddit());
+}
+updateCandles();
+updateMedia();
+setInterval(() => updateCandles(), 60 * 1000);
+setInterval(() => updateMedia(), 30 * 60000);
 
 export default store;
