@@ -18,7 +18,7 @@ export default function prices(state = initialState, action) {
         fetching: false,
         fetched: true,
         error: null,
-        data: action.data
+        data: action.data,
         percentage: action.percentage
       };
     default:

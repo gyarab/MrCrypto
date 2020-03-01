@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Home from "../screens/Home.js";
 import Indicators from "../screens/Indicators.js";
-import NeuralNetwork from "../screens/NeuralNetwork.js";
 import { Navbar, Nav } from "react-bootstrap";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 const logo = require("../assets/images/logo.png");
@@ -31,7 +30,6 @@ export default class NavigationRouter extends Component {
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
               <Nav className="mr-auto">
-                <Nav.Link href="/neuralnetwork">Neural Network</Nav.Link>
                 <Nav.Link href="/indicators">Indicators</Nav.Link>
               </Nav>
               <span class="navbar-text">
@@ -44,9 +42,6 @@ export default class NavigationRouter extends Component {
           <Switch>
             <Route path="/indicators">
               <Indicators />
-            </Route>
-            <Route path="/neuralnetwork">
-              <NeuralNetwork />
             </Route>
             <Route path="/">
               <Home />

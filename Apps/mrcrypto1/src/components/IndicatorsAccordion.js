@@ -37,7 +37,7 @@ class IndicatorsAccordion extends Component {
     };
 
     return (
-      <Container>
+      <Container style={{ marginBottom: "100px" }}>
         <Row className="centered">
           <h2 style={headline}>Stats and Informations</h2>
         </Row>
