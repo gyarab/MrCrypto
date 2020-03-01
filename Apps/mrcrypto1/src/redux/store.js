@@ -4,6 +4,7 @@ import thunk from "redux-thunk";
 
 import { getHistorical } from "./actions/prices";
 import { getIndicator } from "./actions/indicators";
+import { getNeural } from "./actions/neuralFetch";
 import { getGoogleTrends } from "./actions/googletrends";
 import { getNews } from "./actions/newsFetch";
 import { getTwitter } from "./actions/twitterFetch";
@@ -18,6 +19,7 @@ const store = createStore(
 );
 function updateCandles() {
   store.dispatch(getHistorical());
+  store.dispatch(getNeural());
   store.dispatch(getGoogleTrends());
 
   store.dispatch(getIndicator("ema"));
