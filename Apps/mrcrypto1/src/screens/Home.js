@@ -11,8 +11,11 @@ import { connect } from "react-redux";
 
 class Home extends Component {
   render() {
+    const margin = {
+      marginTop: "20px"
+    };
     return (
-      <Container>
+      <Container style={margin}>
         <Row as={ChartMaker} />
         <Row>
           <Col xs={12} sm={6} lg={4}>

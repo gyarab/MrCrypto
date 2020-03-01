@@ -359,7 +359,6 @@ async function update() {
         try {
           c.drop((err, ok) => {
             if (err) console.log("_SKIPPING MEDIA DROPPING");
-            if (ok) console.log("_OLDER MEDIA DROPPED");
           });
         } catch {}
 
@@ -372,14 +371,12 @@ async function update() {
           (err, result) => {
             assert.equal(err, null);
             console.info("_NEW MEDIA SAVED");
-
-            client.close();
           }
         );
       }
     );
   } catch (err) {
-    console.error("_PROCURING MEDIA ERROR : " + err);
+    console.error("_PROCURING MEDIA ERROR");
   }
 }
 

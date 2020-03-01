@@ -2,7 +2,8 @@ const initialState = {
   fetching: false,
   fetched: false,
   error: null,
-  intervals: { all: [0], month: [0], day: [0], hour: [0] }
+  intervals: { all: [0], month: [0], day: [0], hour: [0] },
+  toggled: false
 };
 
 export default function googletrends(state = initialState, action) {
@@ -18,6 +19,12 @@ export default function googletrends(state = initialState, action) {
         fetched: true,
         error: null,
         intervals: action.payload
+      };
+    case "TOGGLE_TRENDS":
+      let bool = !state.toggled;
+      return {
+        ...state,
+        toggled: bool
       };
     default:
       return state;

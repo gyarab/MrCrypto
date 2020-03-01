@@ -5,44 +5,38 @@ const url = "mongodb://localhost:27017",
   dbName = "mrcrypto",
   dbCollection = "candles";
 var nn = require("./neuralNetwork.js");
-
-function start() {
+var firstTime = true;
+function start(data, hotData) {
   try {
     MongoClient.connect(
       url,
       { useNewUrlParser: true, useUnifiedTopology: true, poolSize: 10 },
-      (err, client) => {
+      async (err, client) => {
         if (err) throw err;
 
-        client
-          .db(dbName)
-          .collection(dbCollection)
-          .find({})
-          .toArray(async (err, data) => {
-            if (err) throw err;
+        const db = client.db(dbName);
+        const c = db.collection(dbCollection);
 
-            const db = client.db(dbName);
-            const c = db.collection(dbCollection);
+        results = await nn.calculate(data, hotData);
 
-            let prices = data.find(obj => obj._id == "prices");
-            console.log("lets run neural network");
-            nn.calculate(prices.all);
+        //calculated object to save
+        let obj = [
+          { _id: "neural", data: results.data, percentage: results.percentage }
+        ];
 
-            //data to calculate
-            //let hour = await nn.calculate(prices.hour);
-            // let day = await nn.calculate(prices.day);
-            // let month = await nn.calculate(prices.month);
-            //let all = await nn.calculate(prices.all);
-
-            //calculated object to save
-            let obj = [{ something: "ahao" }];
-
-            c.insertMany(obj, (err, result) => {
-              assert.equal(err, null);
-              console.info("_NEURAL SAVED");
-              client.close();
-            });
-          });
+        if (firstTime) {
+          c.insertMany(obj, (err, result) => {});
+          firstTime = false;
+          console.info("_NEURAL_SAVED");
+        } else {
+          c.updateOne(
+            { _id: "neural" },
+            {
+              $set: { data: results.data, percentage: results.percentage }
+            }
+          );
+          console.info("_NEURAL_UPDATED");
+        }
       }
     );
   } catch (err) {

@@ -19,7 +19,16 @@ span {
   font-weight: 400;
   color: #343a40;
 }
-
+/**NavBar**/
+.logoName {
+  font-weight: 700;
+}
+.bitcoinTool {
+  font-weight: 600;
+  color: #777777;
+  display: inline-block;
+  vertical-align: middle;
+}
 /**MediaBoard**/
 
 /**MediaTop**/
@@ -50,6 +59,31 @@ span {
   margin-top: -10px;
   margin-left: 10px;
 }
+
+/**Actual Price**/
+.price {
+  font-size: 250%;
+  font-weight: 500;
+  margin-left: 20px;
+}
+.difference {
+  font-size: 150%;
+  font-weight: 350;
+  margin-left: 5px;
+}
+
+/**Indicators Accordion**/
+/* .indicator {
+  font-size: 150%;
+  font-weight: 350;
+  margin-left: 5px;
+}
+.accuracy {
+  font-size: 150%;
+  font-weight: 350;
+  margin-left: 200px;
+  color: "#05B169";
+} */
 
 /**Generally Used**/
 .spaceLeft {

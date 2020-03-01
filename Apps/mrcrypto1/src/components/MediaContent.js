@@ -40,7 +40,7 @@ export default class MediaContent extends Component {
                       src={
                         item.imgUrl
                           ? item.imgUrl
-                          : require("../assets/images/bitcoinlogo.png")
+                          : require("../assets/images/bitcoin.png")
                       }
                       fluid
                       roundedCircle={this.props.iconCircled}

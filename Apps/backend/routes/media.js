@@ -21,7 +21,7 @@ function response(_id, res) {
 
       let data = await c.findOne({ _id });
 
-      res.json(data);
+      res.send(JSON.stringify(data));
     }
   );
 }

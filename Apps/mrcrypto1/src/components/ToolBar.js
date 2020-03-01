@@ -2,74 +2,152 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { selectRange } from "../redux/actions/prices";
 import { setActive } from "../redux/actions/indicators";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircle } from "@fortawesome/free-solid-svg-icons";
+import {
+  Container,
+  Row,
+  Col,
+  ToggleButton,
+  ToggleButtonGroup,
+  OverlayTrigger,
+  Tooltip
+} from "react-bootstrap";
+import { toggle } from "../redux/actions/googletrends";
 
-import { Row, Col, ToggleButton, ToggleButtonGroup } from "react-bootstrap";
+const names = require("../json/indicatorsNames.json");
+const colors = require("../json/indicatorsColors.json");
+const lists = require("../json/lists.json");
 
 class ToolBar extends Component {
   render() {
+    const indicators = lists.indicators;
+    const periods = lists.periods;
+
     const handleToggle = indicators => {
-      console.log(indicators);
       this.props.setToggled(indicators);
+    };
+    const handleGoogleToggle = () => {
+      this.props.toggleGoogle();
+    };
+
+    let variant = "light";
+    let icon = name => {
+      return (
+        <FontAwesomeIcon
+          icon={faCircle}
+          color={colors[name]}
+          style={{ paddingRight: 3 }}
+        />
+      );
+    };
+    let round = value => {
+      return Math.round(value * 100) / 100;
+    };
+    let intervals = this.props.intervals;
+    let selected = this.props.selected;
+    let currency = this.props.currency;
+
+    //actual price now
+    let actualPrice = 0;
+    let hourPeriod = intervals.hour;
+
+    actualPrice = hourPeriod[hourPeriod.length - 1].close;
+    actualPrice = Math.round(actualPrice * 100) / 100;
+
+    //price at the start of the selected period
+    let selectedPeriod = intervals[selected];
+    let lastPrice = selectedPeriod[0].close;
+
+    //percentage (fall/rise)
+    let percentage = Math.abs(actualPrice / lastPrice - 1) * 100;
+    percentage = round(percentage);
+
+    //difference and spliting sign before dollar sign
+    let difference = actualPrice - lastPrice;
+    difference = round(difference);
+
+    let sign = difference < 0 ? "-" : "+";
+    let color = difference < 0 ? "#DE5F67" : "#05B169";
+    difference = Math.abs(difference);
+    //result
+    let message = `${sign + currency + difference} (${percentage}%)`;
+
+    let indicatorButton = name => {
+      return (
+        <ToggleButton key={name} variant={variant} value={name}>
+          {icon(name)}
+          <OverlayTrigger
+            placement="top"
+            overlay={<Tooltip>{names[name]}</Tooltip>}
+          >
+            <span>{name.toUpperCase()}</span>
+          </OverlayTrigger>
+        </ToggleButton>
+      );
+    };
+    let intervalButton = (key, i) => {
+      return (
+        <ToggleButton
+          key={key}
+          variant={variant}
+          onClick={() => {
+            this.props.select(key);
+          }}
+          value={i}
+        >
+          <span>{key.toUpperCase()}</span>
+        </ToggleButton>
+      );
     };
 
     return (
-      <Row className="d-flex justify-content-around">
-        <Col md={3} xs={3} lg={3}>
-          <ToggleButtonGroup
-            size="sm"
-            type="checkbox"
-            className="mb-2"
-            onChange={handleToggle}
-          >
-            <ToggleButton value="sma">SMA</ToggleButton>
-            <ToggleButton value="ema">EMA</ToggleButton>
-            <ToggleButton value="tma">TMA</ToggleButton>
-            <ToggleButton value="wma">WMA</ToggleButton>
-            <ToggleButton value="bob">BOB</ToggleButton>
-          </ToggleButtonGroup>
-        </Col>
-        <Col md={3} xs={3} lg={3}>
-          <ToggleButtonGroup
-            size="sm"
-            type="radio"
-            name="intervals"
-            defaultValue={2}
-          >
-            <ToggleButton
-              onClick={() => {
-                this.props.select("hour");
-              }}
-              value={1}
+      <Container>
+        <Row className="centered">
+          <span className="price">${actualPrice}</span>
+          <span style={{ color }} className="difference">
+            {message}
+          </span>
+        </Row>
+
+        <Row className="justify-content-md-center">
+          <Col xs={7}>
+            <ToggleButtonGroup
+              size="sm"
+              type="checkbox"
+              className="mb-2"
+              onChange={handleToggle}
             >
-              Hour
-            </ToggleButton>
-            <ToggleButton
-              onClick={() => {
-                this.props.select("day");
-              }}
-              value={2}
+              {indicators.map(name => {
+                return indicatorButton(name);
+              })}
+            </ToggleButtonGroup>
+            <ToggleButtonGroup
+              type="checkbox"
+              name="google"
+              size="sm"
+              className="mb-2"
             >
-              Day
-            </ToggleButton>
-            <ToggleButton
-              onClick={() => {
-                this.props.select("month");
-              }}
-              value={3}
+              <ToggleButton variant={variant} onChange={handleGoogleToggle}>
+                {icon("googletrends")}
+                <span>Google Trends</span>
+              </ToggleButton>
+            </ToggleButtonGroup>
+          </Col>
+          <Col xs={2}>
+            <ToggleButtonGroup
+              size="sm"
+              type="radio"
+              name="intervals"
+              defaultValue={1}
             >
-              Month
-            </ToggleButton>
-            <ToggleButton
-              onClick={() => {
-                this.props.select("all");
-              }}
-              value={4}
-            >
-              All
-            </ToggleButton>
-          </ToggleButtonGroup>
-        </Col>
-      </Row>
+              {periods.map((key, i) => {
+                return intervalButton(key, i);
+              })}
+            </ToggleButtonGroup>
+          </Col>
+        </Row>
+      </Container>
     );
   }
 }
@@ -77,7 +155,9 @@ class ToolBar extends Component {
 function mapStateToProps(state) {
   let prices = state.prices;
   return {
-    selected: prices.selected
+    selected: prices.selected,
+    intervals: prices.intervals,
+    currency: prices.currency
   };
 }
 function mapDispatchToProps(dispatch) {
@@ -87,6 +167,9 @@ function mapDispatchToProps(dispatch) {
     },
     setToggled: indicators => {
       dispatch(setActive(indicators));
+    },
+    toggleGoogle: () => {
+      dispatch(toggle());
     }
   };
 }

@@ -1,0 +1,7 @@
+{
+  "sma": "Simple Moving Average",
+  "ema": "Exponential Moving Average",
+  "tma": "Triangular Moving Average",
+  "wma": "Weighted Moving Average",
+  "bob": "Bollinger Bands"
+}

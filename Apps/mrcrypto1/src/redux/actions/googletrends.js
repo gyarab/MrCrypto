@@ -1,25 +1,23 @@
+export const toggle = () => {
+  return { type: "TOGGLE_TRENDS" };
+};
+
 export const getGoogleTrends = () => {
   return function(dispatch) {
     dispatch({ type: "FETCHING_TRENDS_STARTED" });
-
     fetch("/googletrends")
-      .then(res => {
-        res
-          .json()
-          .then(json => {
-            dispatch({
-              type: "FETCHING_TRENDS_DONE",
-              payload: prepareData(json)
-            });
-          })
-          //error after recieving
-          .catch(err => {
-            dispatch({ type: "FETCHING_TRENDS_ERROR", payload: err });
+      .then(response => response.text())
+      .then(text => {
+        try {
+          const data = JSON.parse(text);
+          dispatch({
+            type: "FETCHING_TRENDS_DONE",
+            payload: prepareData(data)
           });
-      })
-      //not recieved
-      .catch(err => {
-        dispatch({ type: "FETCHING_TRENDS_ERROR", payload: err });
+        } catch (err) {
+          //not recieved
+          dispatch({ type: "FETCHING_TRENDS_ERROR", payload: err });
+        }
       });
   };
 };

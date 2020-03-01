@@ -1,5 +1,17 @@
 import moment from "moment";
+var colors = require("../json/indicatorsColors.json");
 
+export function formatPrice(value, currency) {
+  let dec;
+  if (value < 1) {
+    dec = 1000;
+  } else if (value < 200) {
+    dec = 100;
+  } else {
+    dec = 10;
+  }
+  return currency + Math.round(value * dec) / dec;
+}
 //custom formatter
 export function formatTime(label, props) {
   label *= 1000;
@@ -37,15 +49,64 @@ export function getAdjustValues(props) {
 //creates current multiline set
 export function getSeries(props) {
   let selected = props.selected;
-  let interval = props.intervals[selected];
-  let trendsInterval = props.trendsIntervals[selected];
   let toggled = props.toggled;
   let indicators = props.indicators;
+  let isGoogle = props.isGoogle;
 
+  let values = merge(props);
+  //template for lines
+  let config = (name, patch, width, postfix = "") => {
+    return {
+      name: name + postfix,
+      color: colors[name],
+      width,
+      data: patch,
+      id: "left",
+      key: "close"
+    };
+  };
+
+  let series = [];
+
+  let priceLine = config("close", values, 3);
+  let trendLine = config("googletrends", values, 2);
+  trendLine.key = "ratio";
+  trendLine.id = "right";
+
+  series.push(priceLine); //real price
+  if (isGoogle) series.push(trendLine); //google trends
+
+  //loop for indicators
+  toggled.forEach(name => {
+    let patch = indicators[name] || {};
+    patch = patch[selected] || [];
+
+    //double-lined indicators
+    if (patch.length === 2) {
+      let firstLine = config(name, patch[0], 2, "_top");
+      let secondLine = config(name, patch[1], 2, "_bottom");
+      series.push(firstLine);
+      series.push(secondLine);
+    }
+    //single-lined indicators
+    else {
+      let line = config(name, patch, 2);
+      series.push(line);
+    }
+  });
+  return series;
+}
+
+function merge(props) {
+  let selected = props.selected;
+  let interval = props.intervals[selected];
+  let trendsInterval = props.trendsIntervals[selected];
+
+  //tuning the data to match in graph
   let dif = 0;
   if (selected === "all") {
     let day = 3600 * 24 * 1000; //day in unix
-    dif = (interval[0].date % day) - (trendsInterval[0].date % day);
+    dif = (interval[2].date % day) - (trendsInterval[2].date % day);
   }
 
   let cleared = trendsInterval.filter(item => {
@@ -54,67 +115,34 @@ export function getSeries(props) {
       newItem.date += dif;
       return newItem;
     }
+    return undefined;
   });
+
+  //remove gaps(nulls) at start and at the end of the chart
+  let i = interval;
+  let t = trendsInterval;
+  //main data
+  let first = i.slice(0, 1).pop();
+  let last = i.slice(-1).pop();
+  //these data will be changed
+  let newFirst = t.shift();
+  let newLast = t.pop();
+
+  if (first && last && newFirst && newLast) {
+    newFirst.date = first.date;
+    newLast.date = last.date;
+
+    t.unshift(newFirst);
+    t.push(newLast);
+    //show results
+    interval = i;
+    trendsInterval = t;
+  }
 
   //merging and sorting not aligned dataKey
   let values = interval.concat(cleared);
   values.sort((a, b) => {
     return a.date > b.date;
   });
-
-  var colors = {
-    sma: "#FF6633",
-    wta: "#FFB399",
-    ema: "#FF33FF",
-    tma: "#FFFF99",
-    bob: "#00B3E6"
-  };
-
-  let config = (name, patch, postfix = "") => {
-    return {
-      name: name + postfix,
-      color: "#FF6633",
-      width: 2,
-      data: patch,
-      id: "left",
-      key: "close"
-    };
-  };
-
-  let series = [];
-  //real price
-  series.push({
-    name: "close",
-    color: "#8884d8",
-    width: 3,
-    data: values,
-    id: "left",
-    key: "close"
-  });
-  //google trends
-  series.push({
-    name: "googletrends",
-    color: colors[Math.floor(Math.random() * colors.length)],
-    width: 2,
-    data: values,
-    id: "right",
-    key: "ratio"
-  });
-  //loop for indicators
-  toggled.forEach(name => {
-    let patch = indicators[name] || {};
-    patch = patch[selected] || [];
-
-    //double-lined indicators (as BOB)
-    if (patch.length === 2) {
-      console.log(patch);
-      series.push(config(name, patch[0], "up"));
-      series.push(config(name, patch[1], "down"));
-    }
-    //single-lined indicators
-    else {
-      series.push(config(name, patch));
-    }
-  });
-  return series;
+  return values;
 }

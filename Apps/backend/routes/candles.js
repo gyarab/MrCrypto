@@ -8,7 +8,7 @@ const url = "mongodb://localhost:27017";
 const dbName = "mrcrypto";
 const dbCollection = "candles";
 
-//prices, sma, ema, bob
+//prices, sma, ema, bob, neural
 function response(_id, res) {
   MongoClient.connect(
     url,
@@ -21,7 +21,7 @@ function response(_id, res) {
 
       let data = await c.findOne({ _id });
 
-      res.json(data);
+      res.send(JSON.stringify(data));
     }
   );
 }

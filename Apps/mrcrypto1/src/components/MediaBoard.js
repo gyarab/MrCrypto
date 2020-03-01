@@ -16,7 +16,6 @@ export default class MediaBoard extends Component {
           category={this.props.category}
         />
 
-        {/*header*/}
         {this.props.fetched ? null : <Indicator />}
 
         {/*uncollapsable part (first 5)*/}
