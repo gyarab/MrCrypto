@@ -13,7 +13,7 @@ export default class Indicators extends Component {
     };
     const headline = {
       color: "#444444",
-      fontSize: "26px"
+      fontSize: "36px"
     };
     const margin = {
       marginBottom: "100px"
@@ -42,54 +42,77 @@ export default class Indicators extends Component {
         </Row>
         <Row>
 <<<<<<< HEAD
+<<<<<<< HEAD
           <h2 style={headline}>MA - moving avarage</h2>
+=======
+          <h2 style={headline}>SMA</h2>
+>>>>>>> parent of 6ae674d... merging
           <p style={writing}>
-Klouzavý průměr je jednoduchý způsob pro výpočet budoucího vývoje na základě minulých dat.
-Používá se více typů klouzavých průměru: jednoduchý klouzavý průměr, exponenciální klouzavý průměr,
- triangulární klouzavý průměr, vážený klouzavý průměr.
- -----
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nunc
+            tincidunt ante vitae massa. Maecenas libero. Aliquam ornare wisi eu
+            metus. Morbi leo mi, nonummy eget tristique non, rhoncus non leo.
+            Mauris suscipit, ligula sit amet pharetra semper, nibh ante cursus
+            purus, vel sagittis velit mauris vel metus. Nullam sapien sem,
+            ornare ac, nonummy non, lobortis a enim. Phasellus faucibus molestie
+            nisl. Itaque earum rerum hic tenetur a sapiente delectus, ut aut
+            reiciendis voluptatibus maiores alias consequatur aut perferendis
+            doloribus asperiores repellat. Mauris dictum facilisis augue.
           </p>
         </Row>
         <Row>
-          <h2 style={headline}>SMA - simple moving avarage</h2>
+          <h2 style={headline}>EMA</h2>
           <p style={writing}>
-          Jednoduchý klouzavý průměr je specifický tím, že přikládá všem hodnotám stejnou důležitost, což se dá vnímat jako nevýhoda.
-           Pokud je poslední hodnota extrémní, může se po přídání další hodnoty průměr rapidně změnit opačným směrem, což nemusí
-           znamenat, že nastal prudký vzrůst či spád v ceně.
-          Počítá me jej tedy (cena n + cena n-1 + cena n-2)/n
-          -----
-          Simple moving avarage is specific by giving every counted value same weight, which can cause in inaccurate prediction,
-          if there is big differnce in the final values
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nunc
+            tincidunt ante vitae massa. Maecenas libero. Aliquam ornare wisi eu
+            metus. Morbi leo mi, nonummy eget tristique non, rhoncus non leo.
+            Mauris suscipit, ligula sit amet pharetra semper, nibh ante cursus
+            purus, vel sagittis velit mauris vel metus. Nullam sapien sem,
+            ornare ac, nonummy non, lobortis a enim. Phasellus faucibus molestie
+            nisl. Itaque earum rerum hic tenetur a sapiente delectus, ut aut
+            reiciendis voluptatibus maiores alias consequatur aut perferendis
+            doloribus asperiores repellat. Mauris dictum facilisis augue.
           </p>
         </Row>
         <Row>
-          <h2 style={headline}>EMA - exponential moving avarage</h2>
+          <h2 style={headline}>TMA</h2>
           <p style={writing}>
-          Exponenciální klouzavý průměr dává vyšší váhu posledním hodnotám.
-          Počítáme jej tedy: (EMA n-1) + [x*(cena n-EMA n-1)], kdy x=2/(n+1)
-          -------
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nunc
+            tincidunt ante vitae massa. Maecenas libero. Aliquam ornare wisi eu
+            metus. Morbi leo mi, nonummy eget tristique non, rhoncus non leo.
+            Mauris suscipit, ligula sit amet pharetra semper, nibh ante cursus
+            purus, vel sagittis velit mauris vel metus. Nullam sapien sem,
+            ornare ac, nonummy non, lobortis a enim. Phasellus faucibus molestie
+            nisl. Itaque earum rerum hic tenetur a sapiente delectus, ut aut
+            reiciendis voluptatibus maiores alias consequatur aut perferendis
+            doloribus asperiores repellat. Mauris dictum facilisis augue.
           </p>
         </Row>
         <Row>
-          <h2 style={headline}>TMA - triangular moving avarage</h2>
+          <h2 style={headline}>WMA</h2>
           <p style={writing}>
-          Triangulární klouzavý průměr dává nejvyšší váhu prostřední/prostředním hodnotě/hodnotám a směrem ke krajům váha klesá.
-          Počítáme jej tedy: (2*cena n-3 + cena n-2 + cena n-1 + 2*cena n)/n
-          ---------
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nunc
+            tincidunt ante vitae massa. Maecenas libero. Aliquam ornare wisi eu
+            metus. Morbi leo mi, nonummy eget tristique non, rhoncus non leo.
+            Mauris suscipit, ligula sit amet pharetra semper, nibh ante cursus
+            purus, vel sagittis velit mauris vel metus. Nullam sapien sem,
+            ornare ac, nonummy non, lobortis a enim. Phasellus faucibus molestie
+            nisl. Itaque earum rerum hic tenetur a sapiente delectus, ut aut
+            reiciendis voluptatibus maiores alias consequatur aut perferendis
+            doloribus asperiores repellat. Mauris dictum facilisis augue.
           </p>
         </Row>
         <Row>
-          <h2 style={headline}>WMA - weighted moving avarage</h2>
+          <h2 style={headline}>BOB</h2>
           <p style={writing}>
-U váženého klouzavého průměru přiřazujeme každé hodnotě jinou váhu sestupně od hodnoty bližší momentalní hodnotě.
-  ------------
-          </p>
-        </Row>
-        <Row>
-          <h2 style={headline}>BOB - bollingers band</h2>
-          <p style={writing}>
-Bollingerova pásma používají klouzavé průměry tak, že vykreslují čáry v určité vzdálenost nad a pod klouzavý průměr. Bollingerova pásma tvoří tři křivky. Středová zelená křivka zobrazuje klouzavý průměr, Kolem středu je vytvořena obálka proměnlivé šířky (modrá). Obálku tvoří násobek r  směrodatných odchylek n posledních zavíracích kurzů.
----------------
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nunc
+            tincidunt ante vitae massa. Maecenas libero. Aliquam ornare wisi eu
+            metus. Morbi leo mi, nonummy eget tristique non, rhoncus non leo.
+            Mauris suscipit, ligula sit amet pharetra semper, nibh ante cursus
+            purus, vel sagittis velit mauris vel metus. Nullam sapien sem,
+            ornare ac, nonummy non, lobortis a enim. Phasellus faucibus molestie
+            nisl. Itaque earum rerum hic tenetur a sapiente delectus, ut aut
+            reiciendis voluptatibus maiores alias consequatur aut perferendis
+            doloribus asperiores repellat. Mauris dictum facilisis augue.
           </p>
 =======
           <IndicatorsAccordion />

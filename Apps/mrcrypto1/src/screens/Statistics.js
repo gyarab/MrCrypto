@@ -22,7 +22,16 @@ export default class Statistics extends Component {
           <Col>
             <h2 style={headline}>Indicators success rate</h2>
             <p style={indi}>
-Here you can see overall succession of each indicator. By sucession is meant averaged procentual differnces between price of each historical price of bitcoin and predicted price by the indicator.
+              Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nunc
+              tincidunt ante vitae massa. Maecenas libero. Aliquam ornare wisi
+              eu metus. Morbi leo mi, nonummy eget tristique non, rhoncus non
+              leo. Mauris suscipit, ligula sit amet pharetra semper, nibh ante
+              cursus purus, vel sagittis velit mauris vel metus. Nullam sapien
+              sem, ornare ac, nonummy non, lobortis a enim. Phasellus faucibus
+              molestie nisl. Itaque earum rerum hic tenetur a sapiente delectus,
+              ut aut reiciendis voluptatibus maiores alias consequatur aut
+              perferendis doloribus asperiores repellat. Mauris dictum facilisis
+              augue.
             </p>
           </Col>
           <Col>
