@@ -41,7 +41,122 @@ export default class Indicators extends Component {
           </Col>
         </Row>
         <Row>
+          <h2 style={headline}>SMA</h2>
+
+    };
+    return (
+      <Container>
+        <Row>
+          <h2 style={headline}>
+            <FontAwesomeIcon icon={faChartLine} /> Indikátory Technických
+            analýz:
+          </h2>
+        </Row>
+        <Row>
+          <h2 style={headline}>SMA</h2>
+          <p style={writing}>
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nunc
+            tincidunt ante vitae massa. Maecenas libero. Aliquam ornare wisi eu
+            metus. Morbi leo mi, nonummy eget tristique non, rhoncus non leo.
+            Mauris suscipit, ligula sit amet pharetra semper, nibh ante cursus
+            purus, vel sagittis velit mauris vel metus. Nullam sapien sem,
+            ornare ac, nonummy non, lobortis a enim. Phasellus faucibus molestie
+            nisl. Itaque earum rerum hic tenetur a sapiente delectus, ut aut
+            reiciendis voluptatibus maiores alias consequatur aut perferendis
+            doloribus asperiores repellat. Mauris dictum facilisis augue.
+          </p>
+        </Row>
+        <Row>
+          <h2 style={headline}>EMA</h2>
+<<<<<<< HEAD
+>>>>>>> parent of 6ae674d... merging
+=======
+>>>>>>> parent of 6ae674d... merging
+          <p style={writing}>
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nunc
+            tincidunt ante vitae massa. Maecenas libero. Aliquam ornare wisi eu
+            metus. Morbi leo mi, nonummy eget tristique non, rhoncus non leo.
+            Mauris suscipit, ligula sit amet pharetra semper, nibh ante cursus
+            purus, vel sagittis velit mauris vel metus. Nullam sapien sem,
+            ornare ac, nonummy non, lobortis a enim. Phasellus faucibus molestie
+            nisl. Itaque earum rerum hic tenetur a sapiente delectus, ut aut
+            reiciendis voluptatibus maiores alias consequatur aut perferendis
+            doloribus asperiores repellat. Mauris dictum facilisis augue.
+          </p>
+        </Row>
+        <Row>
+<<<<<<< HEAD
+          <h2 style={headline}>EMA</h2>
+=======
+          <h2 style={headline}>TMA</h2>
+>>>>>>> parent of 6ae674d... merging
+          <p style={writing}>
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nunc
+            tincidunt ante vitae massa. Maecenas libero. Aliquam ornare wisi eu
+            metus. Morbi leo mi, nonummy eget tristique non, rhoncus non leo.
+            Mauris suscipit, ligula sit amet pharetra semper, nibh ante cursus
+            purus, vel sagittis velit mauris vel metus. Nullam sapien sem,
+            ornare ac, nonummy non, lobortis a enim. Phasellus faucibus molestie
+            nisl. Itaque earum rerum hic tenetur a sapiente delectus, ut aut
+            reiciendis voluptatibus maiores alias consequatur aut perferendis
+            doloribus asperiores repellat. Mauris dictum facilisis augue.
+          </p>
+        </Row>
+        <Row>
+<<<<<<< HEAD
+          <h2 style={headline}>TMA</h2>
+=======
+          <h2 style={headline}>WMA</h2>
+>>>>>>> parent of 6ae674d... merging
+          <p style={writing}>
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nunc
+            tincidunt ante vitae massa. Maecenas libero. Aliquam ornare wisi eu
+            metus. Morbi leo mi, nonummy eget tristique non, rhoncus non leo.
+            Mauris suscipit, ligula sit amet pharetra semper, nibh ante cursus
+            purus, vel sagittis velit mauris vel metus. Nullam sapien sem,
+            ornare ac, nonummy non, lobortis a enim. Phasellus faucibus molestie
+            nisl. Itaque earum rerum hic tenetur a sapiente delectus, ut aut
+            reiciendis voluptatibus maiores alias consequatur aut perferendis
+            doloribus asperiores repellat. Mauris dictum facilisis augue.
+          </p>
+        </Row>
+        <Row>
+<<<<<<< HEAD
+          <h2 style={headline}>WMA</h2>
+=======
+          <h2 style={headline}>BOB</h2>
+>>>>>>> parent of 6ae674d... merging
+          <p style={writing}>
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nunc
+            tincidunt ante vitae massa. Maecenas libero. Aliquam ornare wisi eu
+            metus. Morbi leo mi, nonummy eget tristique non, rhoncus non leo.
+            Mauris suscipit, ligula sit amet pharetra semper, nibh ante cursus
+            purus, vel sagittis velit mauris vel metus. Nullam sapien sem,
+            ornare ac, nonummy non, lobortis a enim. Phasellus faucibus molestie
+            nisl. Itaque earum rerum hic tenetur a sapiente delectus, ut aut
+            reiciendis voluptatibus maiores alias consequatur aut perferendis
+            doloribus asperiores repellat. Mauris dictum facilisis augue.
+<<<<<<< HEAD
+          </p>
+        </Row>
+        <Row>
+          <h2 style={headline}>BOB</h2>
+          <p style={writing}>
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nunc
+            tincidunt ante vitae massa. Maecenas libero. Aliquam ornare wisi eu
+            metus. Morbi leo mi, nonummy eget tristique non, rhoncus non leo.
+            Mauris suscipit, ligula sit amet pharetra semper, nibh ante cursus
+            purus, vel sagittis velit mauris vel metus. Nullam sapien sem,
+            ornare ac, nonummy non, lobortis a enim. Phasellus faucibus molestie
+            nisl. Itaque earum rerum hic tenetur a sapiente delectus, ut aut
+            reiciendis voluptatibus maiores alias consequatur aut perferendis
+            doloribus asperiores repellat. Mauris dictum facilisis augue.
+=======
+>>>>>>> parent of 6ae674d... merging
+          </p>
+          =======
           <IndicatorsAccordion />
+          >>>>>>> a5afce67425fab3313a277e6c1087f44e4e4a8dd
         </Row>
       </Container>
     );
