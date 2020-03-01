@@ -14,12 +14,9 @@ export default class Indicators extends Component {
     const headline = {
       color: "#444444",
       fontSize: "36px"
-<<<<<<< HEAD
     };
     const margin = {
       marginBottom: "100px"
-=======
->>>>>>> parent of 6ae674d... merging
     };
     return (
       <Container style={margin}>
