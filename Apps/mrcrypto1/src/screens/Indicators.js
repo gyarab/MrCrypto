@@ -14,7 +14,6 @@ export default class Indicators extends Component {
     const headline = {
       color: "#444444",
       fontSize: "36px"
-<<<<<<< HEAD
     };
     const margin = {
       marginBottom: "100px"
@@ -44,7 +43,6 @@ export default class Indicators extends Component {
         <Row>
           <h2 style={headline}>SMA</h2>
 
-=======
     };
     return (
       <Container>
