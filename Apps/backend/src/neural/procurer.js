@@ -6,21 +6,24 @@ const url = "mongodb://localhost:27017",
   dbCollection = "candles";
 var nn = require("./neuralNetwork.js");
 var firstTime = true;
-function start(data) {
+function start(data, hotData) {
   try {
     MongoClient.connect(
       url,
       { useNewUrlParser: true, useUnifiedTopology: true, poolSize: 10 },
-      (err, client) => {
+      async (err, client) => {
         if (err) throw err;
 
         const db = client.db(dbName);
         const c = db.collection(dbCollection);
 
-        result = nn.calculate(data);
+        results = await nn.calculate(data, hotData);
 
         //calculated object to save
-        let obj = [{ _id: "neural", data: result }];
+        let obj = [
+          { _id: "neural", data: results.data, percentage: results.percentage }
+        ];
+
         if (firstTime) {
           c.insertMany(obj, (err, result) => {});
           firstTime = false;
@@ -29,7 +32,7 @@ function start(data) {
           c.updateOne(
             { _id: "neural" },
             {
-              $set: { data: data }
+              $set: { data: results.data, percentage: results.percentage }
             }
           );
           console.info("_NEURAL_UPDATED");

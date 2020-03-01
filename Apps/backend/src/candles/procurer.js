@@ -11,10 +11,6 @@ const url = "mongodb://localhost:27017",
 async function start(callback, callback2) {
   init(callback, callback2);
 
-  setInterval(function() {
-    callback2(Math.random());
-  }, 10000);
-
   setInterval(async () => {
     let hour = await getter.get(moment().subtract(1, "hours"), 60);
     update("hour", hour);
@@ -32,9 +28,10 @@ async function start(callback, callback2) {
   }, 60 * 60 * 1000 * 6);
   setInterval(async () => {
     let all = await historicalGetter.get();
+    let month = await getter.get(moment().subtract(30, "days"), 21600);
     update("all", all);
     callback();
-    callback2(Math.random());
+    callback2(all, month);
   }, 60 * 60 * 1000 * 24);
 }
 function update(period, data) {
@@ -68,6 +65,7 @@ async function init(callback, callback2) {
       month = await getter.get(moment().subtract(30, "days"), 21600), //MONTH, every 6 hours
       day = await getter.get(moment().subtract(1, "days"), 900), //DAY, every 15 minutes
       hour = await getter.get(moment().subtract(1, "hours"), 60); //HOUR, every minute
+
     //save..
     let obj = [{ _id: "prices", all, month, day, hour }];
 
@@ -90,8 +88,9 @@ async function init(callback, callback2) {
         c.insertMany(obj, (err, result) => {
           assert.equal(err, null);
           console.info("_NEW CANDLES SAVED");
-          callback(); //lets calculate
-          callback2("nice");
+          //lets calculate
+          callback();
+          callback2(all, month);
         });
       }
     );
