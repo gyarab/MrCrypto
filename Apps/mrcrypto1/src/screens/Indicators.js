@@ -68,9 +68,6 @@ export default class Indicators extends Component {
         </Row>
         <Row>
           <h2 style={headline}>EMA</h2>
-<<<<<<< HEAD
->>>>>>> parent of 6ae674d... merging
-=======
 >>>>>>> parent of 6ae674d... merging
           <p style={writing}>
             Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nunc
@@ -85,11 +82,7 @@ export default class Indicators extends Component {
           </p>
         </Row>
         <Row>
-<<<<<<< HEAD
           <h2 style={headline}>EMA</h2>
-=======
-          <h2 style={headline}>TMA</h2>
->>>>>>> parent of 6ae674d... merging
           <p style={writing}>
             Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nunc
             tincidunt ante vitae massa. Maecenas libero. Aliquam ornare wisi eu
@@ -103,11 +96,7 @@ export default class Indicators extends Component {
           </p>
         </Row>
         <Row>
-<<<<<<< HEAD
           <h2 style={headline}>TMA</h2>
-=======
-          <h2 style={headline}>WMA</h2>
->>>>>>> parent of 6ae674d... merging
           <p style={writing}>
             Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nunc
             tincidunt ante vitae massa. Maecenas libero. Aliquam ornare wisi eu
@@ -121,11 +110,7 @@ export default class Indicators extends Component {
           </p>
         </Row>
         <Row>
-<<<<<<< HEAD
           <h2 style={headline}>WMA</h2>
-=======
-          <h2 style={headline}>BOB</h2>
->>>>>>> parent of 6ae674d... merging
           <p style={writing}>
             Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nunc
             tincidunt ante vitae massa. Maecenas libero. Aliquam ornare wisi eu
@@ -136,7 +121,6 @@ export default class Indicators extends Component {
             nisl. Itaque earum rerum hic tenetur a sapiente delectus, ut aut
             reiciendis voluptatibus maiores alias consequatur aut perferendis
             doloribus asperiores repellat. Mauris dictum facilisis augue.
-<<<<<<< HEAD
           </p>
         </Row>
         <Row>
@@ -151,8 +135,6 @@ export default class Indicators extends Component {
             nisl. Itaque earum rerum hic tenetur a sapiente delectus, ut aut
             reiciendis voluptatibus maiores alias consequatur aut perferendis
             doloribus asperiores repellat. Mauris dictum facilisis augue.
-=======
->>>>>>> parent of 6ae674d... merging
           </p>
           =======
           <IndicatorsAccordion />
