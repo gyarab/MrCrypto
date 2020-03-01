@@ -41,16 +41,8 @@ export default class Indicators extends Component {
           </Col>
         </Row>
         <Row>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-          <h2 style={headline}>MA - moving avarage</h2>
-=======
           <h2 style={headline}>SMA</h2>
->>>>>>> parent of 6ae674d... merging
-=======
-          <h2 style={headline}>SMA</h2>
->>>>>>> parent of 6ae674d... merging
+
           <p style={writing}>
             Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nunc
             tincidunt ante vitae massa. Maecenas libero. Aliquam ornare wisi eu
@@ -118,9 +110,9 @@ export default class Indicators extends Component {
             reiciendis voluptatibus maiores alias consequatur aut perferendis
             doloribus asperiores repellat. Mauris dictum facilisis augue.
           </p>
-=======
+          =======
           <IndicatorsAccordion />
->>>>>>> a5afce67425fab3313a277e6c1087f44e4e4a8dd
+          >>>>>>> a5afce67425fab3313a277e6c1087f44e4e4a8dd
         </Row>
       </Container>
     );
