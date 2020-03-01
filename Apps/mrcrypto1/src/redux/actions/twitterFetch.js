@@ -3,23 +3,18 @@ export const getTwitter = () => {
     dispatch({ type: "FETCHING_TWITTER_STARTED" });
 
     fetch("/media?key=twitter")
-      .then(res => {
-        res
-          .json()
-          .then(json => {
-            dispatch({
-              type: "FETCHING_TWITTER_DONE",
-              payload: json.data
-            });
-          })
-          //error after recieving
-          .catch(err => {
-            dispatch({ type: "FETCHING_TWITTER_ERROR", payload: err });
+      .then(response => response.text())
+      .then(text => {
+        try {
+          const data = JSON.parse(text);
+          dispatch({
+            type: "FETCHING_TWITTER_DONE",
+            payload: data.data
           });
-      })
-      //not recieved
-      .catch(err => {
-        dispatch({ type: "FETCHING_TWITTER_ERROR", payload: err });
+        } catch (err) {
+          //not recieved
+          dispatch({ type: "FETCHING_TWITTER_ERROR", payload: err });
+        }
       });
   };
 };

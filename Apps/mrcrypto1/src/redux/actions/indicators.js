@@ -6,25 +6,20 @@ export const getIndicator = name => {
     dispatch({ type: "FETCHING_INDICATOR_STARTED" });
 
     fetch("/candles?key=" + name)
-      .then(res => {
-        res
-          .json()
-          .then(json => {
-            dispatch({
-              type: "FETCHING_INDICATOR_DONE",
-              payload: prepareData(json),
-              percentage: getPercentage(json.all),
-              name
-            });
-          })
-          //error after recieving
-          .catch(err => {
-            dispatch({ type: "FETCHING_INDICATOR_ERROR", payload: err });
+      .then(response => response.text())
+      .then(text => {
+        try {
+          const data = JSON.parse(text);
+          dispatch({
+            type: "FETCHING_INDICATOR_DONE",
+            payload: prepareData(data),
+            percentage: getPercentage(data.all),
+            name
           });
-      })
-      //not recieved
-      .catch(err => {
-        dispatch({ type: "FETCHING_INDICATOR_ERROR", payload: err });
+        } catch (err) {
+          //not recieved
+          dispatch({ type: "FETCHING_INDICATOR_ERROR", payload: err });
+        }
       });
   };
 };

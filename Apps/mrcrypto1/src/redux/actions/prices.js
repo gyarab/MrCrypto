@@ -6,24 +6,18 @@ export const getHistorical = () => {
     dispatch({ type: "FETCHING_PRICES_STARTED" });
 
     fetch("/candles?key=prices")
-      .then(res => {
-        res
-          .json()
-          .then(json => {
-            dispatch({
-              type: "FETCHING_PRICES_DONE",
-              payload: prepareData(json)
-            });
-          })
-          //error after recieving
-          .catch(err => {
-            console.log("error: " + err);
-            dispatch({ type: "FETCHING_PRICES_ERROR", payload: err });
+      .then(response => response.text())
+      .then(text => {
+        try {
+          const data = JSON.parse(text);
+          dispatch({
+            type: "FETCHING_PRICES_DONE",
+            payload: prepareData(data)
           });
-      })
-      //not recieved
-      .catch(err => {
-        dispatch({ type: "FETCHING_PRICES_ERROR", payload: err });
+        } catch (err) {
+          //not recieved
+          dispatch({ type: "FETCHING_PRICES_ERROR", payload: err });
+        }
       });
   };
 };

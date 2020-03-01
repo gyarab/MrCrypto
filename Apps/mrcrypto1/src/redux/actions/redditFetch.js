@@ -3,23 +3,18 @@ export const getReddit = () => {
     dispatch({ type: "FETCHING_REDDIT_STARTED" });
 
     fetch("/media?key=reddit")
-      .then(res => {
-        res
-          .json()
-          .then(json => {
-            dispatch({
-              type: "FETCHING_REDDIT_DONE",
-              payload: json.data
-            });
-          })
-          //error after recieving
-          .catch(err => {
-            dispatch({ type: "FETCHING_REDDIT_ERROR", payload: err });
+      .then(response => response.text())
+      .then(text => {
+        try {
+          const data = JSON.parse(text);
+          dispatch({
+            type: "FETCHING_REDDIT_DONE",
+            payload: data.data
           });
-      })
-      //not recieved
-      .catch(err => {
-        dispatch({ type: "FETCHING_REDDIT_ERROR", payload: err });
+        } catch (err) {
+          //not recieved
+          dispatch({ type: "FETCHING_REDDIT_ERROR", payload: err });
+        }
       });
   };
 };
