@@ -1,7 +1,7 @@
 {
-  "sma": "Jednoduchý klouzavý průměr je specifický tím, že přikládá všem hodnotám stejnou důležitost, což se dá vnímat jako nevýhoda. Pokud je poslední hodnota extrémní, může se po přidání další hodnoty průměr rapidně změnit opačným směrem, což nemusí znamenat, že nastal prudký vzrůst či spád v ceně. Počítáme jej tedy (cena n + cena n-1 + cena n-2)/n.",
-  "ema": "Exponenciální klouzavý průměr dává vyšší váhu posledním hodnotám. Počítáme jej tedy: (EMA n-1) + [x*(cena n-EMA n-1)], kdy x=2/(n+1).",
-  "tma": "Triangulární klouzavý průměr dává nejvyšší váhu prostřední/prostředním hodnotě/hodnotám a směrem ke krajům váha klesá. Počítáme jej tedy: (2*cena n-3 + cena n-2 + cena n-1 + 2*cena n)/n.",
-  "wma": "U váženého klouzavého průměru přiřazujeme každé hodnotě jinou váhu sestupně od hodnoty bližší momentální hodnotě.",
-  "bob": "Bollingerova pásma používají klouzavé průměry tak, že vykreslují čáry v určité vzdálenost nad a pod klouzavý průměr. Bollingerova pásma tvoří tři křivky. Středová zelená křivka zobrazuje klouzavý průměr, Kolem středu je vytvořena obálka proměnlivé šířky (modrá). Obálku tvoří násobek r  směrodatných odchylek n posledních zavíracích kurzů."
+  "sma": "Simple moving average is the unweighted mean of the previous n data. Usualy used for steadily moving charts. FORMULA: SMA = (P1 + P2 + P3 + P4 + ... + PN) / N || PX = price of index X",
+  "ema": "Exponential moving average applies weighting factors for previous values and current which decrease exponentially. Usualy used for unstable moving charts.",
+  "tma": "Triangualr moving average is a simple moving average of a simple moving average, so basically mean of n previous means of previous x data. FORMULA: TMA = (SMA1 + SMA2 + SMA3 + SMA4 + ... SMAN) / N || SMAX = Simple moving average of index X",
+  "wma": "Weighted moving average works as weighted mean of the previous n data. The data are weighted descending from the current value.",
+  "bob": "Bollinger Bands charaterize volatility and the prices of each data in chart. Bollinger bands shows relative high and low prices of a market fo each data. By definition, prices are high at the upper band and low at the lower band. "
 }
