@@ -1,7 +1,7 @@
 {
-  "sma": "Jednoduchý klouzavý průměr je specifický tím, že přikládá všem hodnotám stejnou důležitost, což se dá vnímat jako nevýhoda. Pokud je poslední hodnota extrémní, může se po přídání další hodnoty průměr rapidně změnit opačným směrem, což nemusí znamenat, že nastal prudký vzrůst či spád v ceně. Počítá me jej tedy (cena n + cena n-1 + cena n-2)/n.",
+  "sma": "Jednoduchý klouzavý průměr je specifický tím, že přikládá všem hodnotám stejnou důležitost, což se dá vnímat jako nevýhoda. Pokud je poslední hodnota extrémní, může se po přidání další hodnoty průměr rapidně změnit opačným směrem, což nemusí znamenat, že nastal prudký vzrůst či spád v ceně. Počítáme jej tedy (cena n + cena n-1 + cena n-2)/n.",
   "ema": "Exponenciální klouzavý průměr dává vyšší váhu posledním hodnotám. Počítáme jej tedy: (EMA n-1) + [x*(cena n-EMA n-1)], kdy x=2/(n+1).",
   "tma": "Triangulární klouzavý průměr dává nejvyšší váhu prostřední/prostředním hodnotě/hodnotám a směrem ke krajům váha klesá. Počítáme jej tedy: (2*cena n-3 + cena n-2 + cena n-1 + 2*cena n)/n.",
-  "wma": "U váženého klouzavého průměru přiřazujeme každé hodnotě jinou váhu sestupně od hodnoty bližší momentalní hodnotě.",
+  "wma": "U váženého klouzavého průměru přiřazujeme každé hodnotě jinou váhu sestupně od hodnoty bližší momentální hodnotě.",
   "bob": "Bollingerova pásma používají klouzavé průměry tak, že vykreslují čáry v určité vzdálenost nad a pod klouzavý průměr. Bollingerova pásma tvoří tři křivky. Středová zelená křivka zobrazuje klouzavý průměr, Kolem středu je vytvořena obálka proměnlivé šířky (modrá). Obálku tvoří násobek r  směrodatných odchylek n posledních zavíracích kurzů."
 }
