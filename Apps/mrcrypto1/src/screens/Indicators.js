@@ -21,7 +21,7 @@ export default class Indicators extends Component {
             <h2 style={headline}>Success Rate</h2>
             <p style={info}>
               Here you can see overall succession of each indicator. By
-              sucession is meant averaged percentage differences between
+              success it is meant the averaged percentage differences between
               each historical price of bitcoin and predicted price by the
               indicator. In result this can show which indicator best fits
                a particular chart, such as a historical bitcoin price chart.
