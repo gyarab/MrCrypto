@@ -110,8 +110,9 @@ class ToolBar extends Component {
           </span>
         </Row>
 
-        <Row className="justify-content-md-center">
+        <Row className="justify-content-md-center centered">
           <Col xs={7}>
+            <span className="toolText">Indicators </span>
             <ToggleButtonGroup
               size="sm"
               type="checkbox"
@@ -123,22 +124,35 @@ class ToolBar extends Component {
               })}
             </ToggleButtonGroup>
             <ToggleButtonGroup
+              size="sm"
               type="checkbox"
               name="google"
-              size="sm"
               className="mb-2"
             >
               <ToggleButton variant={variant} onChange={handleGoogleToggle}>
                 {icon("googletrends")}
-                <span>Google Trends</span>
+                <OverlayTrigger
+                  placement="top"
+                  overlay={
+                    <Tooltip>
+                      Google trends analyzes the popularity of searching word
+                      "Bitcoin" and it compares the search volume of different
+                      queries over time on scale from 0-100.
+                    </Tooltip>
+                  }
+                >
+                  <span>Google Trends</span>
+                </OverlayTrigger>
               </ToggleButton>
             </ToggleButtonGroup>
           </Col>
-          <Col xs={2}>
+          <Col xs={2.6}>
+            <span className="toolText">Periods </span>
             <ToggleButtonGroup
               size="sm"
               type="radio"
               name="intervals"
+              className="mb-2"
               defaultValue={1}
             >
               {periods.map((key, i) => {

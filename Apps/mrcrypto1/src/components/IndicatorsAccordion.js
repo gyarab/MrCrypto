@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Container, Row, Accordion, Card } from "react-bootstrap";
 import { connect } from "react-redux";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 
 const names = require("../json/indicatorsNames.json");
 const definitions = require("../json/indicatorsDefinitions.json");
@@ -28,6 +30,12 @@ class IndicatorsAccordion extends Component {
           <Accordion.Toggle as={Card.Header} eventKey={i}>
             <span className="indicator">{indicator}</span>
             <span style={green}>{accuracy}</span>
+            <FontAwesomeIcon
+              className="info"
+              pull="right"
+              icon={faInfoCircle}
+              style={{ marginTop: "5px" }}
+            />
           </Accordion.Toggle>
           <Accordion.Collapse eventKey={i}>
             <Card.Body>{definitions[name]}</Card.Body>
@@ -41,7 +49,9 @@ class IndicatorsAccordion extends Component {
         <Row className="centered">
           <h2 style={headline}>Stats and Informations</h2>
         </Row>
-        <Accordion>{indicators.map((name, i) => card(name, i))}</Accordion>
+        <Accordion defaultActiveKey={0}>
+          {indicators.map((name, i) => card(name, i))}
+        </Accordion>
       </Container>
     );
   }

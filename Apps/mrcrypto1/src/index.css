@@ -19,6 +19,7 @@ span {
   font-weight: 400;
   color: #343a40;
 }
+
 /**NavBar**/
 .logoName {
   font-weight: 700;
@@ -71,20 +72,16 @@ span {
   font-weight: 350;
   margin-left: 5px;
 }
-
-/**Indicators Accordion**/
-/* .indicator {
-  font-size: 150%;
-  font-weight: 350;
-  margin-left: 5px;
+/**Toolbar**/
+.toolText {
+  text-align: center;
+  font-size: 1em;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: grey;
+  text-shadow: 0 1px 2px rgba(black, 0.15);
 }
-.accuracy {
-  font-size: 150%;
-  font-weight: 350;
-  margin-left: 200px;
-  color: "#05B169";
-} */
-
 /**Generally Used**/
 .spaceLeft {
   padding-left: 2%;

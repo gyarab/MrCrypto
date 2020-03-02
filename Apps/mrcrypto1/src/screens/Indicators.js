@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import RadarMaker from "../components/RadarMaker";
 import IndicatorsAccordion from "../components/IndicatorsAccordion";
+import NeuralBar from "../components/NeuralBar.js";
 import { Container, Col, Row } from "react-bootstrap";
 
 export default class Indicators extends Component {
@@ -20,11 +21,11 @@ export default class Indicators extends Component {
           <Col>
             <h2 style={headline}>Success Rate</h2>
             <p style={info}>
-              Here you can see overall succession of each indicator. By
-              success it is meant the averaged percentage differences between
-              each historical price of bitcoin and predicted price by the
-              indicator. In result this can show which indicator best fits
-               a particular chart, such as a historical bitcoin price chart.
+              Here you can see overall succession of each indicator. By success
+              it is meant the averaged percentage differences between each
+              historical price of bitcoin and predicted price by the indicator.
+              In result this can show which indicator best fits a particular
+              chart, such as a historical bitcoin price chart.
             </p>
           </Col>
           <Col>
@@ -33,6 +34,9 @@ export default class Indicators extends Component {
         </Row>
         <Row>
           <IndicatorsAccordion />
+        </Row>
+        <Row style={{ marginBottom: "100px" }} className="centered">
+          <NeuralBar />
         </Row>
       </Container>
     );

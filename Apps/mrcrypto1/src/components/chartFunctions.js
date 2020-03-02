@@ -83,8 +83,8 @@ export function getSeries(props) {
 
     //double-lined indicators
     if (patch.length === 2) {
-      let firstLine = config(name, patch[0], 2, "_top");
-      let secondLine = config(name, patch[1], 2, "_bottom");
+      let firstLine = config(name, patch[0], 2, "_upperBand");
+      let secondLine = config(name, patch[1], 2, "_lowerBand");
       series.push(firstLine);
       series.push(secondLine);
     }

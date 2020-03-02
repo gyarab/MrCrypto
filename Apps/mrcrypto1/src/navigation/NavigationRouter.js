@@ -32,7 +32,7 @@ export default class NavigationRouter extends Component {
               <Nav className="mr-auto">
                 <Nav.Link href="/indicators">Indicators</Nav.Link>
               </Nav>
-              <span class="navbar-text">
+              <span>
                 <img alt="bitcoin" src={bitcoin} width="30" height="30" />{" "}
                 <span className="bitcoinTool">Bitcoin Tool</span>
               </span>
