@@ -24,17 +24,22 @@ function calculate(data, ev) {
         sma += cislo[p];
       }
       sma = sma / size;
-      dev = (cislo[i]-cislo[z])/size-1;
-      if (dev > 0) {
-        top = sma + (dev*vol);
-        bot = sma - (dev*vol);
+      dev = ((cislo[i]-cislo[z])*(cislo[i]-cislo[z]))/size-1;
+      console.log("dev "+dev);
+      if (dev >= 0) {
+        dev = Math.sqrt(dev);
       }
       else {
-        top = sma - (dev*vol);
-        bot = sma + (dev*vol);
+        dev = Math.sqrt(-dev);
       }
+      top = sma + (dev*vol);
+      bot = sma - (dev*vol);
+      console.log("top "+top);
+      console.log("bot "+bot);
       per =  Math.abs(top/(cislo[i]/100)-100);
+      console.log("per "+per);
       per2 =  Math.abs(bot/(cislo[i]/100)-100);
+      console.log("per2 "+per2);
       curr.push([time[i],top]);
       curr2.push([time[i],bot]);
 if (per<per2) {
