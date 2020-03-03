@@ -5,7 +5,7 @@ const url1 = "https://news.bitcoin.com/";
 const url2 = "https://www.wired.com/search/?q=bitcoin&page=1&sort=score";
 const url3 = "https://cryptonews.com/news/bitcoin-news/";
 const url4 = "https://www.aljazeera.com/topics/subjects/bitcoin.html";
-const url5 = "https://bitcoinmagazine.com/search?text=bitcoin&page=1";
+//const url5 = "https://bitcoinmagazine.com/search?text=bitcoin&page=1";
 const url6 = "https://www.newsbtc.com/?s=bitcoin&lang=en";
 const $ = require("cheerio");
 const moment = require("moment");
@@ -93,10 +93,12 @@ async function update() {
         .find("a")
         .find("img")
         .attr("alt");
+        console.log(v[0]);
       v[1] = $(".story.story--huge", html)
         .find("a")
         .find("img")
         .attr("src");
+        console.log(v[1]);
       v[2] = $(".story.story--huge", html)
         .find("a")
         .attr("href");
@@ -226,7 +228,7 @@ async function update() {
       articles.push(article8);
     });
     //NOVINKY 5
-    await rp(url5).then(html => {
+  /*  await rp(url5).then(html => {
       v[24] = $("._3P0fPUYULfBPF2lcLaKVBV", html)
         .eq(0)
         .find("a")
@@ -260,6 +262,7 @@ async function update() {
       articles.push(article9);
       articles.push(article10);
     });
+    */
     //NOVINKY 6
     await rp(url6).then(html => {
       v[30] = $("li:nth-child(1)", html)
@@ -376,7 +379,7 @@ async function update() {
       }
     );
   } catch (err) {
-    console.error("_PROCURING MEDIA ERROR");
+    console.error("_PROCURING MEDIA ERROR"+err);
   }
 }
 

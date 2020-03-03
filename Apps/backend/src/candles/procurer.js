@@ -90,7 +90,7 @@ async function init(callback, callback2) {
           console.info("_NEW CANDLES SAVED");
           //lets calculate
           callback();
-          callback2(all, month);
+          //callback2(all, month);
         });
       }
     );
