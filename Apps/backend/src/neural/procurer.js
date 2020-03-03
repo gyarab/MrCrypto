@@ -21,7 +21,11 @@ function start(data, hotData) {
 
         //calculated object to save
         let obj = [
-          { _id: "neural", data: results.data, percentage: results.percentage }
+          {
+            _id: "neural",
+            data: results.data,
+            percentage: results.percentage
+          }
         ];
 
         if (firstTime) {
