@@ -34,7 +34,7 @@ export default class NavigationRouter extends Component {
               </Nav>
               <span>
                 <img alt="bitcoin" src={bitcoin} width="30" height="30" />{" "}
-                <span className="bitcoinTool">Bitcoin Tool</span>
+                <span className="bitcoinTool">Bitcoin statistics and prediction Tool</span>
               </span>
             </Navbar.Collapse>
           </Navbar>
