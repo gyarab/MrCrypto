@@ -134,7 +134,7 @@ function getPercentage(a, b) {
   for (var i = 0; i < a.length; i++) {
     if (Math.round(a[i][0]) === b[i][0]) count++;
   }
-  return count / a.length;
+  return (count / a.length) * 100;
 }
 function shuffle(a, b) {
   for (let i = a.length - 1; i > 0; i--) {
