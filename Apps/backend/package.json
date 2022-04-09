@@ -18,7 +18,7 @@
     "google-trends-api": "^4.9.0",
     "http-errors": "~1.6.3",
     "jade": "~1.11.0",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "mongodb": "^3.4.1",
     "morgan": "~1.9.1",
     "node-fetch": "^2.6.0",
