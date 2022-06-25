@@ -21,7 +21,7 @@
     "moment": "^2.24.0",
     "mongodb": "^3.4.1",
     "morgan": "~1.9.1",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^2.6.7",
     "request": "^2.88.0",
     "request-promise": "^4.2.5",
     "supervisor": "^0.12.0"
